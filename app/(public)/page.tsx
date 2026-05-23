@@ -33,6 +33,28 @@ function useCountUp(target: number, duration: number = 2000) {
   return { count, ref };
 }
 
+/* ── Single Stat Item ─────────────────────────────────────── */
+function StatItem({ label, value, suffix, index }: { label: string; value: number; suffix: string; index: number }) {
+  const { count, ref } = useCountUp(value);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.15 }}
+      className="text-center"
+    >
+      <p className="font-heading text-4xl md:text-5xl text-zen-gold font-light">
+        {count}
+        {suffix}
+      </p>
+      <p className="text-zen-light/60 text-sm mt-2 tracking-wide">{label}</p>
+    </motion.div>
+  );
+}
+
 /* ── Stats Section ────────────────────────────────────────── */
 function StatsSection() {
   const stats = [
@@ -45,26 +67,9 @@ function StatsSection() {
   return (
     <section className="relative bg-zen-deep border-y border-zen-sage/10 py-16">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
-        {stats.map((stat, i) => {
-          const { count, ref } = useCountUp(stat.value);
-          return (
-            <motion.div
-              key={stat.label}
-              ref={ref}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15 }}
-              className="text-center"
-            >
-              <p className="font-heading text-4xl md:text-5xl text-zen-gold font-light">
-                {count}
-                {stat.suffix}
-              </p>
-              <p className="text-zen-light/60 text-sm mt-2 tracking-wide">{stat.label}</p>
-            </motion.div>
-          );
-        })}
+        {stats.map((stat, i) => (
+          <StatItem key={stat.label} label={stat.label} value={stat.value} suffix={stat.suffix} index={i} />
+        ))}
       </div>
     </section>
   );
