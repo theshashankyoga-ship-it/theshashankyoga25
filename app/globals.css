@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@layer base {
+  :root {
+    --bg-dark: #0D1F0F;
+    --bg-medium: #1A3320;
+    --cream: #F5F0E8;
+    --gold: #C9A84C;
+    --sage: #7A9E7E;
+    --text-light: #E8E0D0;
+  }
+
+  * {
+    cursor: none !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--cream);
+    background-color: var(--bg-dark);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  ::selection {
+    background-color: rgba(201, 168, 76, 0.3);
+    color: var(--cream);
+  }
+}
+
+@layer components {
+  .grain-overlay {
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    right: -50%;
+    bottom: -50%;
+    width: 200%;
+    height: 200%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    animation: grain 8s steps(10) infinite;
+  }
+
+  .glass-card {
+    background: rgba(26, 51, 32, 0.6);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(122, 158, 126, 0.15);
+    border-radius: 1rem;
+  }
+
+  .glass-card-hover:hover {
+    border-color: rgba(122, 158, 126, 0.4);
+    box-shadow: 0 0 30px rgba(122, 158, 126, 0.1);
+  }
+
+  .gold-button {
+    background: linear-gradient(135deg, #C9A84C 0%, #B8943F 100%);
+    color: #0D1F0F;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .gold-button:hover {
+    background: linear-gradient(135deg, #D4B55A 0%, #C9A84C 100%);
+    box-shadow: 0 0 25px rgba(201, 168, 76, 0.3);
+    transform: translateY(-1px);
+  }
+
+  .outline-button {
+    border: 1.5px solid var(--cream);
+    color: var(--cream);
+    font-weight: 500;
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+  }
+
+  .outline-button:hover {
+    background: rgba(245, 240, 232, 0.1);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .section-padding {
+    padding: 6rem 1.5rem;
+  }
+
+  .floating-label-input {
+    position: relative;
+  }
+
+  .floating-label-input input,
+  .floating-label-input textarea,
+  .floating-label-input select {
+    width: 100%;
+    padding: 1rem 1rem 0.5rem;
+    background: rgba(26, 51, 32, 0.4);
+    border: 1px solid rgba(122, 158, 126, 0.2);
+    border-radius: 0.75rem;
+    color: var(--cream);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .floating-label-input input:focus,
+  .floating-label-input textarea:focus,
+  .floating-label-input select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.15);
+  }
+
+  .floating-label-input label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(232, 224, 208, 0.5);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+  }
+
+  .floating-label-input textarea ~ label {
+    top: 1.25rem;
+    transform: none;
+  }
+
+  .floating-label-input input:focus ~ label,
+  .floating-label-input input:not(:placeholder-shown) ~ label,
+  .floating-label-input textarea:focus ~ label,
+  .floating-label-input textarea:not(:placeholder-shown) ~ label,
+  .floating-label-input select:focus ~ label,
+  .floating-label-input select:valid ~ label {
+    top: 0.35rem;
+    transform: none;
+    font-size: 0.75rem;
+    color: var(--gold);
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--sage);
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
+  }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #C9A84C 0%, #D4B55A 50%, #C9A84C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
