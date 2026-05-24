@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail, Sparkles } from 'lucide-react';
+
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@/lib/supabase';
@@ -40,7 +40,7 @@ function LotusBackground() {
 }
 
 export default function RegisterPage() {
-  const router = useRouter();
+
   const { showToast } = useToast();
 
   const [step, setStep] = useState(1);
@@ -48,8 +48,8 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
-  const [emailConfirmationRequired, setEmailConfirmationRequired] = useState(false);
-  const [registeredEmail, setRegisteredEmail] = useState('');
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [successEmail, setSuccessEmail] = useState('');
 
   // Student fields
   const [studentForm, setStudentForm] = useState({
@@ -139,19 +139,9 @@ export default function RegisterPage() {
           });
         }
 
-        // Check if a session was created (email confirmation is OFF)
-        // When email confirmation is ON, data.session will be null
-        if (data.session) {
-          // Email confirmation is OFF — session is active, redirect immediately
-          showToast('success', 'Registration successful! Welcome to ZenFlow 🙏');
-          // Full page navigation so middleware picks up the new auth cookies
-          window.location.href = role === 'studio' ? '/studio' : '/student';
-        } else {
-          // Email confirmation is ON — no active session yet
-          setRegisteredEmail(email);
-          setEmailConfirmationRequired(true);
-          showToast('success', 'Account created! Please check your email to verify.');
-        }
+        // Show success state — user needs to verify email before logging in
+        setSuccessEmail(email);
+        setIsSuccess(true);
       }
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
@@ -189,30 +179,99 @@ export default function RegisterPage() {
             </span>
           </div>
 
-          {emailConfirmationRequired ? (
+          {isSuccess ? (
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.4 }}
-              className="text-center py-8"
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.5, ease: 'easeOut' }}
+              className="text-center py-6"
             >
-              <div className="w-16 h-16 rounded-full bg-zen-gold/10 border border-zen-gold/20 flex items-center justify-center mx-auto mb-6">
-                <Mail className="w-8 h-8 text-zen-gold" />
+              {/* Success icon with animated rings */}
+              <div className="relative w-24 h-24 mx-auto mb-8">
+                <motion.div
+                  className="absolute inset-0 rounded-full bg-zen-gold/5 border border-zen-gold/10"
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+                />
+                <motion.div
+                  className="absolute inset-2 rounded-full bg-zen-gold/10 border border-zen-gold/15"
+                  animate={{ scale: [1, 1.1, 1], opacity: [0.7, 0.2, 0.7] }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
+                />
+                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-zen-gold/20 to-zen-sage/20 border border-zen-gold/25 flex items-center justify-center">
+                  <motion.div
+                    initial={{ scale: 0, rotate: -180 }}
+                    animate={{ scale: 1, rotate: 0 }}
+                    transition={{ delay: 0.3, type: 'spring', stiffness: 200, damping: 15 }}
+                  >
+                    <Mail className="w-8 h-8 text-zen-gold" />
+                  </motion.div>
+                </div>
               </div>
-              <h1 className="font-heading text-3xl text-zen-cream mb-3">Check Your Email</h1>
-              <p className="text-zen-light/60 mb-2">
-                We&apos;ve sent a verification link to
-              </p>
-              <p className="text-zen-gold font-medium mb-6">{registeredEmail}</p>
-              <p className="text-zen-light/40 text-sm mb-8">
-                Click the link in the email to verify your account, then sign in to access your dashboard.
-              </p>
-              <Link
-                href="/login"
-                className="gold-button w-full justify-center text-base inline-flex"
+
+              {/* Heading */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
               >
-                Go to Sign In
-              </Link>
+                <div className="flex items-center justify-center gap-2 mb-3">
+                  <Sparkles className="w-5 h-5 text-zen-gold" />
+                  <h1 className="font-heading text-3xl text-zen-cream">Check Your Email!</h1>
+                  <Sparkles className="w-5 h-5 text-zen-gold" />
+                </div>
+              </motion.div>
+
+              {/* Message card */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="bg-zen-medium/30 border border-zen-sage/15 rounded-2xl p-6 mb-6 backdrop-blur-sm"
+              >
+                <p className="text-zen-light/70 mb-3 leading-relaxed">
+                  We&apos;ve sent a verification link to
+                </p>
+                <p className="text-zen-gold font-semibold text-lg mb-4 break-all">{successEmail}</p>
+                <p className="text-zen-light/50 text-sm leading-relaxed">
+                  Please check your inbox and click the link to verify your account.
+                </p>
+              </motion.div>
+
+              {/* Sub message */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="text-zen-light/40 text-sm mb-8 flex items-center justify-center gap-2"
+              >
+                <CheckCircle className="w-4 h-4 text-zen-sage" />
+                After verifying, come back and login.
+              </motion.p>
+
+              {/* Go to Login button */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6 }}
+              >
+                <Link
+                  href="/login"
+                  className="gold-button w-full justify-center text-base inline-flex"
+                >
+                  Go to Login
+                </Link>
+              </motion.div>
+
+              {/* Spam note */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.75 }}
+                className="text-zen-light/30 text-xs mt-6"
+              >
+                Didn&apos;t receive the email? Check your spam folder.
+              </motion.p>
             </motion.div>
           ) : (
             <>
