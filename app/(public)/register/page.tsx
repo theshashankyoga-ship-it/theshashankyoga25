@@ -144,9 +144,8 @@ export default function RegisterPage() {
         if (data.session) {
           // Email confirmation is OFF — session is active, redirect immediately
           showToast('success', 'Registration successful! Welcome to ZenFlow 🙏');
-          // Refresh server components so middleware picks up the new auth cookies
-          router.refresh();
-          router.push(role === 'studio' ? '/studio' : '/student');
+          // Full page navigation so middleware picks up the new auth cookies
+          window.location.href = role === 'studio' ? '/studio' : '/student';
         } else {
           // Email confirmation is ON — no active session yet
           setRegisteredEmail(email);
