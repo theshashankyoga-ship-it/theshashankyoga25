@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
+import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { useToast } from '@/components/ToastProvider';
 
@@ -48,6 +48,8 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
+  const [emailConfirmationRequired, setEmailConfirmationRequired] = useState(false);
+  const [registeredEmail, setRegisteredEmail] = useState('');
 
   // Student fields
   const [studentForm, setStudentForm] = useState({
@@ -137,8 +139,20 @@ export default function RegisterPage() {
           });
         }
 
-        showToast('success', 'Registration successful! Welcome to ZenFlow 🙏');
-        router.push(role === 'studio' ? '/studio' : '/student');
+        // Check if a session was created (email confirmation is OFF)
+        // When email confirmation is ON, data.session will be null
+        if (data.session) {
+          // Email confirmation is OFF — session is active, redirect immediately
+          showToast('success', 'Registration successful! Welcome to ZenFlow 🙏');
+          // Refresh server components so middleware picks up the new auth cookies
+          router.refresh();
+          router.push(role === 'studio' ? '/studio' : '/student');
+        } else {
+          // Email confirmation is ON — no active session yet
+          setRegisteredEmail(email);
+          setEmailConfirmationRequired(true);
+          showToast('success', 'Account created! Please check your email to verify.');
+        }
       }
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
@@ -176,263 +190,292 @@ export default function RegisterPage() {
             </span>
           </div>
 
-          <h1 className="font-heading text-3xl text-zen-cream mb-2">Create Account</h1>
-          <p className="text-zen-light/50 mb-6">Join ZenFlow and start your practice today.</p>
-
-          {/* Progress bar */}
-          <div className="flex gap-2 mb-8">
-            {[1, 2].map((s) => (
-              <motion.div
-                key={s}
-                className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-zen-gold' : 'bg-zen-sage/20'}`}
-                initial={false}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.4 }}
-              />
-            ))}
-          </div>
-
-          <AnimatePresence mode="wait">
-            {step === 1 && (
-              <motion.div
-                key="step1"
-                initial={{ opacity: 0, x: -30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 30 }}
-                transition={{ duration: 0.3 }}
+          {emailConfirmationRequired ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="text-center py-8"
+            >
+              <div className="w-16 h-16 rounded-full bg-zen-gold/10 border border-zen-gold/20 flex items-center justify-center mx-auto mb-6">
+                <Mail className="w-8 h-8 text-zen-gold" />
+              </div>
+              <h1 className="font-heading text-3xl text-zen-cream mb-3">Check Your Email</h1>
+              <p className="text-zen-light/60 mb-2">
+                We&apos;ve sent a verification link to
+              </p>
+              <p className="text-zen-gold font-medium mb-6">{registeredEmail}</p>
+              <p className="text-zen-light/40 text-sm mb-8">
+                Click the link in the email to verify your account, then sign in to access your dashboard.
+              </p>
+              <Link
+                href="/login"
+                className="gold-button w-full justify-center text-base inline-flex"
               >
-                <h3 className="text-zen-cream font-medium mb-6">Step 1: Choose Your Role</h3>
+                Go to Sign In
+              </Link>
+            </motion.div>
+          ) : (
+            <>
+              <h1 className="font-heading text-3xl text-zen-cream mb-2">Create Account</h1>
+              <p className="text-zen-light/50 mb-6">Join ZenFlow and start your practice today.</p>
 
-                <div className="grid grid-cols-2 gap-4 mb-8">
-                  <button
-                    onClick={() => handleRoleSelect('student')}
-                    className={`p-6 rounded-xl border text-center transition-all duration-300 ${
-                      role === 'student'
-                        ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
-                        : 'border-zen-sage/20 hover:border-zen-sage/40'
-                    }`}
+              {/* Progress bar */}
+              <div className="flex gap-2 mb-8">
+                {[1, 2].map((s) => (
+                  <motion.div
+                    key={s}
+                    className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-zen-gold' : 'bg-zen-sage/20'}`}
+                    initial={false}
+                    animate={{ scaleX: 1 }}
+                    transition={{ duration: 0.4 }}
+                  />
+                ))}
+              </div>
+
+              <AnimatePresence mode="wait">
+                {step === 1 && (
+                  <motion.div
+                    key="step1"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 30 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
-                    <p className="font-medium text-zen-cream text-sm">I&apos;m a Student</p>
-                    <p className="text-zen-light/40 text-xs mt-1">Find & book classes</p>
-                  </button>
-                  <button
-                    onClick={() => handleRoleSelect('studio')}
-                    className={`p-6 rounded-xl border text-center transition-all duration-300 ${
-                      role === 'studio'
-                        ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
-                        : 'border-zen-sage/20 hover:border-zen-sage/40'
-                    }`}
+                    <h3 className="text-zen-cream font-medium mb-6">Step 1: Choose Your Role</h3>
+
+                    <div className="grid grid-cols-2 gap-4 mb-8">
+                      <button
+                        onClick={() => handleRoleSelect('student')}
+                        className={`p-6 rounded-xl border text-center transition-all duration-300 ${
+                          role === 'student'
+                            ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
+                            : 'border-zen-sage/20 hover:border-zen-sage/40'
+                        }`}
+                      >
+                        <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
+                        <p className="font-medium text-zen-cream text-sm">I&apos;m a Student</p>
+                        <p className="text-zen-light/40 text-xs mt-1">Find & book classes</p>
+                      </button>
+                      <button
+                        onClick={() => handleRoleSelect('studio')}
+                        className={`p-6 rounded-xl border text-center transition-all duration-300 ${
+                          role === 'studio'
+                            ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
+                            : 'border-zen-sage/20 hover:border-zen-sage/40'
+                        }`}
+                      >
+                        <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
+                        <p className="font-medium text-zen-cream text-sm">I&apos;m a Studio</p>
+                        <p className="text-zen-light/40 text-xs mt-1">List your classes</p>
+                      </button>
+                    </div>
+
+                    <button onClick={goToStep2} className="gold-button w-full justify-center text-base">
+                      Continue <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </motion.div>
+                )}
+
+                {step === 2 && (
+                  <motion.div
+                    key="step2"
+                    initial={{ opacity: 0, x: 30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -30 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
-                    <p className="font-medium text-zen-cream text-sm">I&apos;m a Studio</p>
-                    <p className="text-zen-light/40 text-xs mt-1">List your classes</p>
-                  </button>
-                </div>
+                    <button
+                      onClick={() => setStep(1)}
+                      className="flex items-center gap-1 text-zen-light/50 hover:text-zen-gold text-sm mb-6 transition-colors"
+                    >
+                      <ArrowLeft className="w-4 h-4" /> Back
+                    </button>
 
-                <button onClick={goToStep2} className="gold-button w-full justify-center text-base">
-                  Continue <ArrowRight className="w-4 h-4" />
-                </button>
-              </motion.div>
-            )}
+                    <h3 className="text-zen-cream font-medium mb-6">
+                      Step 2: {role === 'student' ? 'Student' : 'Studio'} Details
+                    </h3>
 
-            {step === 2 && (
-              <motion.div
-                key="step2"
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -30 }}
-                transition={{ duration: 0.3 }}
-              >
-                <button
-                  onClick={() => setStep(1)}
-                  className="flex items-center gap-1 text-zen-light/50 hover:text-zen-gold text-sm mb-6 transition-colors"
-                >
-                  <ArrowLeft className="w-4 h-4" /> Back
-                </button>
+                    <form onSubmit={handleRegister} className="space-y-4">
+                      {role === 'student' ? (
+                        <>
+                          <div className="floating-label-input">
+                            <input
+                              type="text"
+                              placeholder=" "
+                              value={studentForm.name}
+                              onChange={(e) => setStudentForm({ ...studentForm, name: e.target.value })}
+                              required
+                              id="reg-name"
+                            />
+                            <label htmlFor="reg-name">Full Name</label>
+                          </div>
+                          <div className="floating-label-input">
+                            <input
+                              type="email"
+                              placeholder=" "
+                              value={studentForm.email}
+                              onChange={(e) => setStudentForm({ ...studentForm, email: e.target.value })}
+                              required
+                              id="reg-email"
+                            />
+                            <label htmlFor="reg-email">Email Address</label>
+                          </div>
+                          <div className="floating-label-input relative">
+                            <input
+                              type={showPassword ? 'text' : 'password'}
+                              placeholder=" "
+                              value={studentForm.password}
+                              onChange={(e) => setStudentForm({ ...studentForm, password: e.target.value })}
+                              required
+                              minLength={6}
+                              id="reg-password"
+                            />
+                            <label htmlFor="reg-password">Password</label>
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
+                            >
+                              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                            </button>
+                          </div>
+                          <div className="floating-label-input">
+                            <input
+                              type="password"
+                              placeholder=" "
+                              value={studentForm.confirmPassword}
+                              onChange={(e) => setStudentForm({ ...studentForm, confirmPassword: e.target.value })}
+                              required
+                              id="reg-confirm"
+                            />
+                            <label htmlFor="reg-confirm">Confirm Password</label>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="floating-label-input">
+                            <input
+                              type="text"
+                              placeholder=" "
+                              value={studioForm.studioName}
+                              onChange={(e) => setStudioForm({ ...studioForm, studioName: e.target.value })}
+                              required
+                              id="reg-studio-name"
+                            />
+                            <label htmlFor="reg-studio-name">Studio Name</label>
+                          </div>
+                          <div className="floating-label-input">
+                            <input
+                              type="text"
+                              placeholder=" "
+                              value={studioForm.ownerName}
+                              onChange={(e) => setStudioForm({ ...studioForm, ownerName: e.target.value })}
+                              required
+                              id="reg-owner"
+                            />
+                            <label htmlFor="reg-owner">Owner Name</label>
+                          </div>
+                          <div className="floating-label-input">
+                            <input
+                              type="email"
+                              placeholder=" "
+                              value={studioForm.email}
+                              onChange={(e) => setStudioForm({ ...studioForm, email: e.target.value })}
+                              required
+                              id="reg-studio-email"
+                            />
+                            <label htmlFor="reg-studio-email">Email Address</label>
+                          </div>
+                          <div className="floating-label-input relative">
+                            <input
+                              type={showPassword ? 'text' : 'password'}
+                              placeholder=" "
+                              value={studioForm.password}
+                              onChange={(e) => setStudioForm({ ...studioForm, password: e.target.value })}
+                              required
+                              minLength={6}
+                              id="reg-studio-password"
+                            />
+                            <label htmlFor="reg-studio-password">Password</label>
+                            <button
+                              type="button"
+                              onClick={() => setShowPassword(!showPassword)}
+                              className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
+                            >
+                              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                            </button>
+                          </div>
+                          <div className="floating-label-input">
+                            <input
+                              type="tel"
+                              placeholder=" "
+                              value={studioForm.phone}
+                              onChange={(e) => setStudioForm({ ...studioForm, phone: e.target.value })}
+                              required
+                              id="reg-phone"
+                            />
+                            <label htmlFor="reg-phone">Phone Number</label>
+                          </div>
+                          <div className="floating-label-input">
+                            <input
+                              type="text"
+                              placeholder=" "
+                              value={studioForm.city}
+                              onChange={(e) => setStudioForm({ ...studioForm, city: e.target.value })}
+                              required
+                              id="reg-city"
+                            />
+                            <label htmlFor="reg-city">City</label>
+                          </div>
+                        </>
+                      )}
 
-                <h3 className="text-zen-cream font-medium mb-6">
-                  Step 2: {role === 'student' ? 'Student' : 'Studio'} Details
-                </h3>
+                      <label className="flex items-center gap-3 py-2">
+                        <input
+                          type="checkbox"
+                          checked={agreed}
+                          onChange={(e) => setAgreed(e.target.checked)}
+                          className="w-4 h-4 rounded border-zen-sage/30 text-zen-gold focus:ring-zen-gold bg-zen-medium/30"
+                        />
+                        <span className="text-zen-light/50 text-sm">
+                          I agree to the{' '}
+                          <a href="#" className="text-zen-gold hover:underline">Terms & Conditions</a>
+                        </span>
+                      </label>
 
-                <form onSubmit={handleRegister} className="space-y-4">
-                  {role === 'student' ? (
-                    <>
-                      <div className="floating-label-input">
-                        <input
-                          type="text"
-                          placeholder=" "
-                          value={studentForm.name}
-                          onChange={(e) => setStudentForm({ ...studentForm, name: e.target.value })}
-                          required
-                          id="reg-name"
-                        />
-                        <label htmlFor="reg-name">Full Name</label>
-                      </div>
-                      <div className="floating-label-input">
-                        <input
-                          type="email"
-                          placeholder=" "
-                          value={studentForm.email}
-                          onChange={(e) => setStudentForm({ ...studentForm, email: e.target.value })}
-                          required
-                          id="reg-email"
-                        />
-                        <label htmlFor="reg-email">Email Address</label>
-                      </div>
-                      <div className="floating-label-input relative">
-                        <input
-                          type={showPassword ? 'text' : 'password'}
-                          placeholder=" "
-                          value={studentForm.password}
-                          onChange={(e) => setStudentForm({ ...studentForm, password: e.target.value })}
-                          required
-                          minLength={6}
-                          id="reg-password"
-                        />
-                        <label htmlFor="reg-password">Password</label>
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
-                        >
-                          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                        </button>
-                      </div>
-                      <div className="floating-label-input">
-                        <input
-                          type="password"
-                          placeholder=" "
-                          value={studentForm.confirmPassword}
-                          onChange={(e) => setStudentForm({ ...studentForm, confirmPassword: e.target.value })}
-                          required
-                          id="reg-confirm"
-                        />
-                        <label htmlFor="reg-confirm">Confirm Password</label>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="floating-label-input">
-                        <input
-                          type="text"
-                          placeholder=" "
-                          value={studioForm.studioName}
-                          onChange={(e) => setStudioForm({ ...studioForm, studioName: e.target.value })}
-                          required
-                          id="reg-studio-name"
-                        />
-                        <label htmlFor="reg-studio-name">Studio Name</label>
-                      </div>
-                      <div className="floating-label-input">
-                        <input
-                          type="text"
-                          placeholder=" "
-                          value={studioForm.ownerName}
-                          onChange={(e) => setStudioForm({ ...studioForm, ownerName: e.target.value })}
-                          required
-                          id="reg-owner"
-                        />
-                        <label htmlFor="reg-owner">Owner Name</label>
-                      </div>
-                      <div className="floating-label-input">
-                        <input
-                          type="email"
-                          placeholder=" "
-                          value={studioForm.email}
-                          onChange={(e) => setStudioForm({ ...studioForm, email: e.target.value })}
-                          required
-                          id="reg-studio-email"
-                        />
-                        <label htmlFor="reg-studio-email">Email Address</label>
-                      </div>
-                      <div className="floating-label-input relative">
-                        <input
-                          type={showPassword ? 'text' : 'password'}
-                          placeholder=" "
-                          value={studioForm.password}
-                          onChange={(e) => setStudioForm({ ...studioForm, password: e.target.value })}
-                          required
-                          minLength={6}
-                          id="reg-studio-password"
-                        />
-                        <label htmlFor="reg-studio-password">Password</label>
-                        <button
-                          type="button"
-                          onClick={() => setShowPassword(!showPassword)}
-                          className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
-                        >
-                          {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                        </button>
-                      </div>
-                      <div className="floating-label-input">
-                        <input
-                          type="tel"
-                          placeholder=" "
-                          value={studioForm.phone}
-                          onChange={(e) => setStudioForm({ ...studioForm, phone: e.target.value })}
-                          required
-                          id="reg-phone"
-                        />
-                        <label htmlFor="reg-phone">Phone Number</label>
-                      </div>
-                      <div className="floating-label-input">
-                        <input
-                          type="text"
-                          placeholder=" "
-                          value={studioForm.city}
-                          onChange={(e) => setStudioForm({ ...studioForm, city: e.target.value })}
-                          required
-                          id="reg-city"
-                        />
-                        <label htmlFor="reg-city">City</label>
-                      </div>
-                    </>
-                  )}
+                      <button
+                        type="submit"
+                        disabled={loading || !agreed}
+                        className="gold-button w-full justify-center text-base disabled:opacity-60"
+                      >
+                        {loading ? (
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                        ) : (
+                          <>
+                            Create Account <CheckCircle className="w-4 h-4" />
+                          </>
+                        )}
+                      </button>
+                    </form>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
-                  <label className="flex items-center gap-3 py-2">
-                    <input
-                      type="checkbox"
-                      checked={agreed}
-                      onChange={(e) => setAgreed(e.target.checked)}
-                      className="w-4 h-4 rounded border-zen-sage/30 text-zen-gold focus:ring-zen-gold bg-zen-medium/30"
-                    />
-                    <span className="text-zen-light/50 text-sm">
-                      I agree to the{' '}
-                      <a href="#" className="text-zen-gold hover:underline">Terms & Conditions</a>
-                    </span>
-                  </label>
+              <div className="flex items-center gap-4 my-8">
+                <div className="flex-1 h-px bg-zen-sage/20" />
+                <span className="text-zen-light/30 text-sm">or</span>
+                <div className="flex-1 h-px bg-zen-sage/20" />
+              </div>
 
-                  <button
-                    type="submit"
-                    disabled={loading || !agreed}
-                    className="gold-button w-full justify-center text-base disabled:opacity-60"
-                  >
-                    {loading ? (
-                      <Loader2 className="w-5 h-5 animate-spin" />
-                    ) : (
-                      <>
-                        Create Account <CheckCircle className="w-4 h-4" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          <div className="flex items-center gap-4 my-8">
-            <div className="flex-1 h-px bg-zen-sage/20" />
-            <span className="text-zen-light/30 text-sm">or</span>
-            <div className="flex-1 h-px bg-zen-sage/20" />
-          </div>
-
-          <p className="text-center text-zen-light/50 text-sm">
-            Already have an account?{' '}
-            <Link href="/login" className="text-zen-gold hover:underline font-medium">
-              Sign In
-            </Link>
-          </p>
+              <p className="text-center text-zen-light/50 text-sm">
+                Already have an account?{' '}
+                <Link href="/login" className="text-zen-gold hover:underline font-medium">
+                  Sign In
+                </Link>
+              </p>
+            </>
+          )}
         </motion.div>
       </div>
     </div>
