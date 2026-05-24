@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail, Sparkles } from 'lucide-react';
+import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail } from 'lucide-react';
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -48,7 +48,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
   const [successEmail, setSuccessEmail] = useState('');
 
   // Student fields
@@ -139,9 +139,9 @@ export default function RegisterPage() {
           });
         }
 
-        // Show success state — user needs to verify email before logging in
+        // Show success popup — user needs to verify email before logging in
         setSuccessEmail(email);
-        setIsSuccess(true);
+        setShowPopup(true);
       }
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
@@ -179,102 +179,7 @@ export default function RegisterPage() {
             </span>
           </div>
 
-          {isSuccess ? (
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="text-center py-6"
-            >
-              {/* Success icon with animated rings */}
-              <div className="relative w-24 h-24 mx-auto mb-8">
-                <motion.div
-                  className="absolute inset-0 rounded-full bg-zen-gold/5 border border-zen-gold/10"
-                  animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0, 0.5] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-                />
-                <motion.div
-                  className="absolute inset-2 rounded-full bg-zen-gold/10 border border-zen-gold/15"
-                  animate={{ scale: [1, 1.1, 1], opacity: [0.7, 0.2, 0.7] }}
-                  transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 0.3 }}
-                />
-                <div className="absolute inset-4 rounded-full bg-gradient-to-br from-zen-gold/20 to-zen-sage/20 border border-zen-gold/25 flex items-center justify-center">
-                  <motion.div
-                    initial={{ scale: 0, rotate: -180 }}
-                    animate={{ scale: 1, rotate: 0 }}
-                    transition={{ delay: 0.3, type: 'spring', stiffness: 200, damping: 15 }}
-                  >
-                    <Mail className="w-8 h-8 text-zen-gold" />
-                  </motion.div>
-                </div>
-              </div>
-
-              {/* Heading */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                <div className="flex items-center justify-center gap-2 mb-3">
-                  <Sparkles className="w-5 h-5 text-zen-gold" />
-                  <h1 className="font-heading text-3xl text-zen-cream">Check Your Email!</h1>
-                  <Sparkles className="w-5 h-5 text-zen-gold" />
-                </div>
-              </motion.div>
-
-              {/* Message card */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="bg-zen-medium/30 border border-zen-sage/15 rounded-2xl p-6 mb-6 backdrop-blur-sm"
-              >
-                <p className="text-zen-light/70 mb-3 leading-relaxed">
-                  We&apos;ve sent a verification link to
-                </p>
-                <p className="text-zen-gold font-semibold text-lg mb-4 break-all">{successEmail}</p>
-                <p className="text-zen-light/50 text-sm leading-relaxed">
-                  Please check your inbox and click the link to verify your account.
-                </p>
-              </motion.div>
-
-              {/* Sub message */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="text-zen-light/40 text-sm mb-8 flex items-center justify-center gap-2"
-              >
-                <CheckCircle className="w-4 h-4 text-zen-sage" />
-                After verifying, come back and login.
-              </motion.p>
-
-              {/* Go to Login button */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-              >
-                <Link
-                  href="/login"
-                  className="gold-button w-full justify-center text-base inline-flex"
-                >
-                  Go to Login
-                </Link>
-              </motion.div>
-
-              {/* Spam note */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.75 }}
-                className="text-zen-light/30 text-xs mt-6"
-              >
-                Didn&apos;t receive the email? Check your spam folder.
-              </motion.p>
-            </motion.div>
-          ) : (
-            <>
+          <>
               <h1 className="font-heading text-3xl text-zen-cream mb-2">Create Account</h1>
               <p className="text-zen-light/50 mb-6">Join ZenFlow and start your practice today.</p>
 
@@ -532,10 +437,113 @@ export default function RegisterPage() {
                   Sign In
                 </Link>
               </p>
-            </>
-          )}
+          </>
         </motion.div>
       </div>
+
+      {/* ── Verification Email Popup Modal ── */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
+          >
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.35, ease: 'easeOut' }}
+              className="w-full max-w-md text-center"
+              style={{
+                backgroundColor: '#1A3320',
+                border: '1px solid #C9A84C',
+                borderRadius: '16px',
+                padding: '40px 32px',
+                boxShadow: '0 25px 60px rgba(0,0,0,0.5), 0 0 40px rgba(201,168,76,0.1)',
+              }}
+            >
+              {/* Email Icon */}
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ delay: 0.15, type: 'spring', stiffness: 200, damping: 15 }}
+                className="mx-auto mb-6 w-20 h-20 rounded-full flex items-center justify-center"
+                style={{ backgroundColor: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.25)' }}
+              >
+                <Mail className="w-10 h-10" style={{ color: '#C9A84C' }} />
+              </motion.div>
+
+              {/* Heading */}
+              <motion.h2
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="font-heading text-2xl mb-4"
+                style={{ color: '#F5F0E8' }}
+              >
+                Verification Email Sent!
+              </motion.h2>
+
+              {/* Message */}
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.35 }}
+                className="text-sm leading-relaxed mb-2"
+                style={{ color: 'rgba(245,240,232,0.6)' }}
+              >
+                We&apos;ve sent a verification link to your email address.
+                Please check your inbox and click the link to verify
+                your account before logging in.
+              </motion.p>
+
+              {/* User email */}
+              {successEmail && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="font-semibold text-base mb-5 break-all"
+                  style={{ color: '#C9A84C' }}
+                >
+                  {successEmail}
+                </motion.p>
+              )}
+
+              {/* Spam note */}
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.45 }}
+                className="text-xs mb-8"
+                style={{ color: 'rgba(245,240,232,0.4)' }}
+              >
+                📌 Check your spam folder if you don&apos;t see it.
+              </motion.p>
+
+              {/* Go to Login button */}
+              <motion.button
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.55 }}
+                onClick={() => { window.location.href = '/login'; }}
+                className="w-full py-3 rounded-xl font-semibold text-base transition-all duration-300 hover:brightness-110 cursor-pointer"
+                style={{
+                  backgroundColor: '#C9A84C',
+                  color: '#1A3320',
+                  border: 'none',
+                }}
+              >
+                Go to Login Page
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
