@@ -85,16 +85,19 @@ function LoginContent() {
         .single();
 
       if (profile) {
+        showToast('success', 'Welcome back! 🙏');
         if (redirectTo) {
-          router.push(redirectTo);
+          window.location.href = redirectTo;
         } else if (profile.role === 'studio') {
-          router.push('/studio');
+          window.location.href = '/studio';
         } else {
-          router.push('/student');
+          window.location.href = '/student';
         }
+        return;
       }
 
       showToast('success', 'Welcome back! 🙏');
+      window.location.href = '/student';
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
     } finally {
