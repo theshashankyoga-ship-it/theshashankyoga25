@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, FormEvent } from 'react';
-import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
+import { useState, useEffect, FormEvent } from 'react';
+import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail, AlertCircle } from 'lucide-react';
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -49,6 +49,11 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
 
+  // ─── NEW: Inline success/error/countdown state ───
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [countdown, setCountdown] = useState(0);
+  const [registeredEmail, setRegisteredEmail] = useState('');
 
   // Student fields
   const [studentForm, setStudentForm] = useState({
@@ -68,6 +73,24 @@ export default function RegisterPage() {
     city: '',
   });
 
+  // ─── Countdown timer effect ───
+  useEffect(() => {
+    if (countdown <= 0) return;
+
+    const timer = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          window.location.href = '/login';
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [countdown]);
+
   const handleRoleSelect = (selectedRole: 'student' | 'studio') => {
     setRole(selectedRole);
   };
@@ -83,12 +106,18 @@ export default function RegisterPage() {
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
+    // Clear previous messages
+    setErrorMessage('');
+    setSuccessMessage('');
+
     if (!agreed) {
+      setErrorMessage('Please agree to the terms and conditions.');
       showToast('error', 'Please agree to the terms and conditions');
       return;
     }
 
     if (role === 'student' && studentForm.password !== studentForm.confirmPassword) {
+      setErrorMessage('Passwords do not match.');
       showToast('error', 'Passwords do not match');
       return;
     }
@@ -114,6 +143,7 @@ export default function RegisterPage() {
       });
 
       if (error) {
+        setErrorMessage(error.message);
         showToast('error', error.message);
         setLoading(false);
         return;
@@ -139,18 +169,131 @@ export default function RegisterPage() {
           });
         }
 
-        // Show success toast and redirect after 3 seconds
-        showToast('success', 'Verification link sent to your email. Please verify your account.');
-        setTimeout(() => {
-          window.location.href = '/login';
-        }, 3000);
+        // Set success state — this triggers the full success overlay
+        setRegisteredEmail(email);
+        setSuccessMessage(
+          'Verification link sent to your email. Please check your inbox and verify your account.'
+        );
+        setCountdown(5);
+        showToast('success', 'Verification email sent! Check your inbox.');
       }
     } catch (err) {
+      setErrorMessage('An unexpected error occurred. Please try again.');
       showToast('error', 'An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
   };
+
+  // ─── SUCCESS OVERLAY ───
+  // After successful signup, replace the entire form with a beautiful confirmation screen
+  if (successMessage) {
+    return (
+      <div className="min-h-screen flex">
+        {/* Left: Background */}
+        <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
+          <LotusBackground />
+          <div className="relative z-10 text-center px-12">
+            <Flower2 className="w-16 h-16 text-zen-gold mx-auto mb-6" />
+            <h2 className="font-heading text-5xl text-zen-cream mb-4">Almost There!</h2>
+            <p className="text-zen-light/60 text-lg">
+              One last step to begin your yoga journey.
+            </p>
+          </div>
+        </div>
+
+        {/* Right: Success Message */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-zen-cream/[0.03]">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
+            className="w-full max-w-md text-center"
+          >
+            {/* Animated checkmark circle */}
+            <motion.div
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
+              className="w-24 h-24 mx-auto mb-8 rounded-full bg-green-500/10 border-2 border-green-500/50 flex items-center justify-center"
+            >
+              <motion.div
+                initial={{ scale: 0, rotate: -180 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.5 }}
+              >
+                <CheckCircle className="w-12 h-12 text-green-400" />
+              </motion.div>
+            </motion.div>
+
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className="font-heading text-3xl text-zen-cream mb-3"
+            >
+              Account Created!
+            </motion.h2>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+            >
+              {/* Success banner */}
+              <div className="bg-green-500/10 border border-green-500/40 text-green-400 p-5 rounded-xl mb-6 backdrop-blur-sm">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <Mail className="w-5 h-5" />
+                  <span className="font-semibold">Verification Email Sent</span>
+                </div>
+                <p className="text-green-400/80 text-sm">
+                  {successMessage}
+                </p>
+              </div>
+
+              {/* Email display */}
+              {registeredEmail && (
+                <div className="bg-zen-medium/30 border border-zen-sage/20 rounded-xl p-4 mb-6">
+                  <p className="text-zen-light/50 text-sm mb-1">Sent to</p>
+                  <p className="text-zen-gold font-medium">{registeredEmail}</p>
+                </div>
+              )}
+
+              {/* Countdown */}
+              <div className="mb-6">
+                <p className="text-zen-light/50 text-sm">
+                  Redirecting to login in{' '}
+                  <span className="text-zen-gold font-bold text-lg">{countdown}</span>{' '}
+                  second{countdown !== 1 ? 's' : ''}...
+                </p>
+                {/* Progress bar */}
+                <div className="mt-3 w-full h-1.5 bg-zen-sage/20 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-zen-gold to-zen-gold/60 rounded-full"
+                    initial={{ width: '100%' }}
+                    animate={{ width: '0%' }}
+                    transition={{ duration: 5, ease: 'linear' }}
+                  />
+                </div>
+              </div>
+
+              {/* Manual redirect button */}
+              <Link
+                href="/login"
+                className="gold-button w-full justify-center text-base inline-flex"
+              >
+                Go to Login Now <ArrowRight className="w-4 h-4" />
+              </Link>
+
+              <p className="text-zen-light/40 text-xs mt-4">
+                Didn&apos;t receive the email? Check your spam folder.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex">
@@ -197,6 +340,33 @@ export default function RegisterPage() {
                   />
                 ))}
               </div>
+
+              {/* ─── INLINE ERROR MESSAGE ─── */}
+              <AnimatePresence>
+                {errorMessage && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10, height: 0 }}
+                    animate={{ opacity: 1, y: 0, height: 'auto' }}
+                    exit={{ opacity: 0, y: -10, height: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className="mb-4"
+                  >
+                    <div className="bg-red-500/10 border border-red-500/40 text-red-400 p-4 rounded-xl flex items-start gap-3">
+                      <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-medium text-sm">Registration Failed</p>
+                        <p className="text-red-400/80 text-sm mt-0.5">{errorMessage}</p>
+                      </div>
+                      <button
+                        onClick={() => setErrorMessage('')}
+                        className="ml-auto text-red-400/60 hover:text-red-400 transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               <AnimatePresence mode="wait">
                 {step === 1 && (
@@ -251,7 +421,7 @@ export default function RegisterPage() {
                     transition={{ duration: 0.3 }}
                   >
                     <button
-                      onClick={() => setStep(1)}
+                      onClick={() => { setStep(1); setErrorMessage(''); }}
                       className="flex items-center gap-1 text-zen-light/50 hover:text-zen-gold text-sm mb-6 transition-colors"
                     >
                       <ArrowLeft className="w-4 h-4" /> Back
@@ -415,7 +585,10 @@ export default function RegisterPage() {
                         className="gold-button w-full justify-center text-base disabled:opacity-60"
                       >
                         {loading ? (
-                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <>
+                            <Loader2 className="w-5 h-5 animate-spin" />
+                            <span className="ml-2">Creating Account...</span>
+                          </>
                         ) : (
                           <>
                             Create Account <CheckCircle className="w-4 h-4" />
