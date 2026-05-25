@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, FormEvent } from 'react';
-import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail } from 'lucide-react';
+import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle } from 'lucide-react';
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -48,8 +48,7 @@ export default function RegisterPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-  const [successEmail, setSuccessEmail] = useState('');
+
 
   // Student fields
   const [studentForm, setStudentForm] = useState({
@@ -106,6 +105,7 @@ export default function RegisterPage() {
         email,
         password,
         options: {
+          emailRedirectTo: 'https://theshashankyoga25-83kv.vercel.app/login',
           data: {
             full_name: fullName,
             role: role,
@@ -139,9 +139,11 @@ export default function RegisterPage() {
           });
         }
 
-        // Show success popup — user needs to verify email before logging in
-        setSuccessEmail(email);
-        setShowPopup(true);
+        // Show success toast and redirect after 3 seconds
+        showToast('success', 'Verification link sent to your email. Please verify your account.');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 3000);
       }
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
@@ -441,109 +443,7 @@ export default function RegisterPage() {
         </motion.div>
       </div>
 
-      {/* ── Verification Email Popup Modal ── */}
-      <AnimatePresence>
-        {showPopup && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-              className="w-full max-w-md text-center"
-              style={{
-                backgroundColor: '#1A3320',
-                border: '1px solid #C9A84C',
-                borderRadius: '16px',
-                padding: '40px 32px',
-                boxShadow: '0 25px 60px rgba(0,0,0,0.5), 0 0 40px rgba(201,168,76,0.1)',
-              }}
-            >
-              {/* Email Icon */}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.15, type: 'spring', stiffness: 200, damping: 15 }}
-                className="mx-auto mb-6 w-20 h-20 rounded-full flex items-center justify-center"
-                style={{ backgroundColor: 'rgba(201,168,76,0.12)', border: '1px solid rgba(201,168,76,0.25)' }}
-              >
-                <Mail className="w-10 h-10" style={{ color: '#C9A84C' }} />
-              </motion.div>
 
-              {/* Heading */}
-              <motion.h2
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.25 }}
-                className="font-heading text-2xl mb-4"
-                style={{ color: '#F5F0E8' }}
-              >
-                Verification Email Sent!
-              </motion.h2>
-
-              {/* Message */}
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.35 }}
-                className="text-sm leading-relaxed mb-2"
-                style={{ color: 'rgba(245,240,232,0.6)' }}
-              >
-                We&apos;ve sent a verification link to your email address.
-                Please check your inbox and click the link to verify
-                your account before logging in.
-              </motion.p>
-
-              {/* User email */}
-              {successEmail && (
-                <motion.p
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="font-semibold text-base mb-5 break-all"
-                  style={{ color: '#C9A84C' }}
-                >
-                  {successEmail}
-                </motion.p>
-              )}
-
-              {/* Spam note */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.45 }}
-                className="text-xs mb-8"
-                style={{ color: 'rgba(245,240,232,0.4)' }}
-              >
-                📌 Check your spam folder if you don&apos;t see it.
-              </motion.p>
-
-              {/* Go to Login button */}
-              <motion.button
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.55 }}
-                onClick={() => { window.location.href = '/login'; }}
-                className="w-full py-3 rounded-xl font-semibold text-base transition-all duration-300 hover:brightness-110 cursor-pointer"
-                style={{
-                  backgroundColor: '#C9A84C',
-                  color: '#1A3320',
-                  border: 'none',
-                }}
-              >
-                Go to Login Page
-              </motion.button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
