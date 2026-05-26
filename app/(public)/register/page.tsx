@@ -151,7 +151,7 @@ export default function RegisterPage() {
         return;
       }
 
-      if (data.user) {
+      setUserEmail(email); setShowPopup(true); setUserEmail(email); setShowPopup(true); if (data.user) {
         // Insert profile
         await supabase.from('profiles').upsert({
           id: data.user.id,
