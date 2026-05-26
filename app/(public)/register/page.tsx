@@ -45,6 +45,8 @@ export default function RegisterPage() {
 
   const [step, setStep] = useState(1);
   const [role, setRole] = useState<'student' | 'studio' | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
@@ -169,13 +171,10 @@ export default function RegisterPage() {
           });
         }
 
-        // Set success state — this triggers the full success overlay
-        setRegisteredEmail(email);
-        setSuccessMessage(
-          'Verification link sent to your email. Please check your inbox and verify your account.'
-        );
-        setCountdown(5);
+        // Set success state
         showToast('success', 'Verification email sent! Check your inbox.');
+        setUserEmail(email);
+        setShowPopup(true);
       }
     } catch (err) {
       setErrorMessage('An unexpected error occurred. Please try again.');
@@ -325,298 +324,319 @@ export default function RegisterPage() {
           </div>
 
           <>
-              <h1 className="font-heading text-3xl text-zen-cream mb-2">Create Account</h1>
-              <p className="text-zen-light/50 mb-6">Join ZenFlow and start your practice today.</p>
+            <h1 className="font-heading text-3xl text-zen-cream mb-2">Create Account</h1>
+            <p className="text-zen-light/50 mb-6">Join ZenFlow and start your practice today.</p>
 
-              {/* Progress bar */}
-              <div className="flex gap-2 mb-8">
-                {[1, 2].map((s) => (
-                  <motion.div
-                    key={s}
-                    className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-zen-gold' : 'bg-zen-sage/20'}`}
-                    initial={false}
-                    animate={{ scaleX: 1 }}
-                    transition={{ duration: 0.4 }}
-                  />
-                ))}
-              </div>
+            {/* Progress bar */}
+            <div className="flex gap-2 mb-8">
+              {[1, 2].map((s) => (
+                <motion.div
+                  key={s}
+                  className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-zen-gold' : 'bg-zen-sage/20'}`}
+                  initial={false}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.4 }}
+                />
+              ))}
+            </div>
 
-              {/* ─── INLINE ERROR MESSAGE ─── */}
-              <AnimatePresence>
-                {errorMessage && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, height: 0 }}
-                    animate={{ opacity: 1, y: 0, height: 'auto' }}
-                    exit={{ opacity: 0, y: -10, height: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="mb-4"
-                  >
-                    <div className="bg-red-500/10 border border-red-500/40 text-red-400 p-4 rounded-xl flex items-start gap-3">
-                      <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium text-sm">Registration Failed</p>
-                        <p className="text-red-400/80 text-sm mt-0.5">{errorMessage}</p>
-                      </div>
-                      <button
-                        onClick={() => setErrorMessage('')}
-                        className="ml-auto text-red-400/60 hover:text-red-400 transition-colors"
-                      >
-                        ×
-                      </button>
+            {/* ─── INLINE ERROR MESSAGE ─── */}
+            <AnimatePresence>
+              {errorMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10, height: 0 }}
+                  animate={{ opacity: 1, y: 0, height: 'auto' }}
+                  exit={{ opacity: 0, y: -10, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="mb-4"
+                >
+                  <div className="bg-red-500/10 border border-red-500/40 text-red-400 p-4 rounded-xl flex items-start gap-3">
+                    <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium text-sm">Registration Failed</p>
+                      <p className="text-red-400/80 text-sm mt-0.5">{errorMessage}</p>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <AnimatePresence mode="wait">
-                {step === 1 && (
-                  <motion.div
-                    key="step1"
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 30 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <h3 className="text-zen-cream font-medium mb-6">Step 1: Choose Your Role</h3>
-
-                    <div className="grid grid-cols-2 gap-4 mb-8">
-                      <button
-                        onClick={() => handleRoleSelect('student')}
-                        className={`p-6 rounded-xl border text-center transition-all duration-300 ${
-                          role === 'student'
-                            ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
-                            : 'border-zen-sage/20 hover:border-zen-sage/40'
-                        }`}
-                      >
-                        <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
-                        <p className="font-medium text-zen-cream text-sm">I&apos;m a Student</p>
-                        <p className="text-zen-light/40 text-xs mt-1">Find & book classes</p>
-                      </button>
-                      <button
-                        onClick={() => handleRoleSelect('studio')}
-                        className={`p-6 rounded-xl border text-center transition-all duration-300 ${
-                          role === 'studio'
-                            ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
-                            : 'border-zen-sage/20 hover:border-zen-sage/40'
-                        }`}
-                      >
-                        <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
-                        <p className="font-medium text-zen-cream text-sm">I&apos;m a Studio</p>
-                        <p className="text-zen-light/40 text-xs mt-1">List your classes</p>
-                      </button>
-                    </div>
-
-                    <button onClick={goToStep2} className="gold-button w-full justify-center text-base">
-                      Continue <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </motion.div>
-                )}
-
-                {step === 2 && (
-                  <motion.div
-                    key="step2"
-                    initial={{ opacity: 0, x: 30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -30 }}
-                    transition={{ duration: 0.3 }}
-                  >
                     <button
-                      onClick={() => { setStep(1); setErrorMessage(''); }}
-                      className="flex items-center gap-1 text-zen-light/50 hover:text-zen-gold text-sm mb-6 transition-colors"
+                      onClick={() => setErrorMessage('')}
+                      className="ml-auto text-red-400/60 hover:text-red-400 transition-colors"
                     >
-                      <ArrowLeft className="w-4 h-4" /> Back
+                      ×
                     </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-                    <h3 className="text-zen-cream font-medium mb-6">
-                      Step 2: {role === 'student' ? 'Student' : 'Studio'} Details
-                    </h3>
+            <AnimatePresence mode="wait">
+              {step === 1 && (
+                <motion.div
+                  key="step1"
+                  initial={{ opacity: 0, x: -30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 30 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <h3 className="text-zen-cream font-medium mb-6">Step 1: Choose Your Role</h3>
 
-                    <form onSubmit={handleRegister} className="space-y-4">
-                      {role === 'student' ? (
+                  <div className="grid grid-cols-2 gap-4 mb-8">
+                    <button
+                      onClick={() => handleRoleSelect('student')}
+                      className={`p-6 rounded-xl border text-center transition-all duration-300 ${role === 'student'
+                        ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
+                        : 'border-zen-sage/20 hover:border-zen-sage/40'
+                        }`}
+                    >
+                      <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
+                      <p className="font-medium text-zen-cream text-sm">I&apos;m a Student</p>
+                      <p className="text-zen-light/40 text-xs mt-1">Find & book classes</p>
+                    </button>
+                    <button
+                      onClick={() => handleRoleSelect('studio')}
+                      className={`p-6 rounded-xl border text-center transition-all duration-300 ${role === 'studio'
+                        ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
+                        : 'border-zen-sage/20 hover:border-zen-sage/40'
+                        }`}
+                    >
+                      <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
+                      <p className="font-medium text-zen-cream text-sm">I&apos;m a Studio</p>
+                      <p className="text-zen-light/40 text-xs mt-1">List your classes</p>
+                    </button>
+                  </div>
+
+                  <button onClick={goToStep2} className="gold-button w-full justify-center text-base">
+                    Continue <ArrowRight className="w-4 h-4" />
+                  </button>
+                </motion.div>
+              )}
+
+              {step === 2 && (
+                <motion.div
+                  key="step2"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -30 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <button
+                    onClick={() => { setStep(1); setErrorMessage(''); }}
+                    className="flex items-center gap-1 text-zen-light/50 hover:text-zen-gold text-sm mb-6 transition-colors"
+                  >
+                    <ArrowLeft className="w-4 h-4" /> Back
+                  </button>
+
+                  <h3 className="text-zen-cream font-medium mb-6">
+                    Step 2: {role === 'student' ? 'Student' : 'Studio'} Details
+                  </h3>
+
+                  <form onSubmit={handleRegister} className="space-y-4">
+                    {role === 'student' ? (
+                      <>
+                        <div className="floating-label-input">
+                          <input
+                            type="text"
+                            placeholder=" "
+                            value={studentForm.name}
+                            onChange={(e) => setStudentForm({ ...studentForm, name: e.target.value })}
+                            required
+                            id="reg-name"
+                          />
+                          <label htmlFor="reg-name">Full Name</label>
+                        </div>
+                        <div className="floating-label-input">
+                          <input
+                            type="email"
+                            placeholder=" "
+                            value={studentForm.email}
+                            onChange={(e) => setStudentForm({ ...studentForm, email: e.target.value })}
+                            required
+                            id="reg-email"
+                          />
+                          <label htmlFor="reg-email">Email Address</label>
+                        </div>
+                        <div className="floating-label-input relative">
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder=" "
+                            value={studentForm.password}
+                            onChange={(e) => setStudentForm({ ...studentForm, password: e.target.value })}
+                            required
+                            minLength={6}
+                            id="reg-password"
+                          />
+                          <label htmlFor="reg-password">Password</label>
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
+                          >
+                            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          </button>
+                        </div>
+                        <div className="floating-label-input">
+                          <input
+                            type="password"
+                            placeholder=" "
+                            value={studentForm.confirmPassword}
+                            onChange={(e) => setStudentForm({ ...studentForm, confirmPassword: e.target.value })}
+                            required
+                            id="reg-confirm"
+                          />
+                          <label htmlFor="reg-confirm">Confirm Password</label>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="floating-label-input">
+                          <input
+                            type="text"
+                            placeholder=" "
+                            value={studioForm.studioName}
+                            onChange={(e) => setStudioForm({ ...studioForm, studioName: e.target.value })}
+                            required
+                            id="reg-studio-name"
+                          />
+                          <label htmlFor="reg-studio-name">Studio Name</label>
+                        </div>
+                        <div className="floating-label-input">
+                          <input
+                            type="text"
+                            placeholder=" "
+                            value={studioForm.ownerName}
+                            onChange={(e) => setStudioForm({ ...studioForm, ownerName: e.target.value })}
+                            required
+                            id="reg-owner"
+                          />
+                          <label htmlFor="reg-owner">Owner Name</label>
+                        </div>
+                        <div className="floating-label-input">
+                          <input
+                            type="email"
+                            placeholder=" "
+                            value={studioForm.email}
+                            onChange={(e) => setStudioForm({ ...studioForm, email: e.target.value })}
+                            required
+                            id="reg-studio-email"
+                          />
+                          <label htmlFor="reg-studio-email">Email Address</label>
+                        </div>
+                        <div className="floating-label-input relative">
+                          <input
+                            type={showPassword ? 'text' : 'password'}
+                            placeholder=" "
+                            value={studioForm.password}
+                            onChange={(e) => setStudioForm({ ...studioForm, password: e.target.value })}
+                            required
+                            minLength={6}
+                            id="reg-studio-password"
+                          />
+                          <label htmlFor="reg-studio-password">Password</label>
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
+                          >
+                            {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                          </button>
+                        </div>
+                        <div className="floating-label-input">
+                          <input
+                            type="tel"
+                            placeholder=" "
+                            value={studioForm.phone}
+                            onChange={(e) => setStudioForm({ ...studioForm, phone: e.target.value })}
+                            required
+                            id="reg-phone"
+                          />
+                          <label htmlFor="reg-phone">Phone Number</label>
+                        </div>
+                        <div className="floating-label-input">
+                          <input
+                            type="text"
+                            placeholder=" "
+                            value={studioForm.city}
+                            onChange={(e) => setStudioForm({ ...studioForm, city: e.target.value })}
+                            required
+                            id="reg-city"
+                          />
+                          <label htmlFor="reg-city">City</label>
+                        </div>
+                      </>
+                    )}
+
+                    <label className="flex items-center gap-3 py-2">
+                      <input
+                        type="checkbox"
+                        checked={agreed}
+                        onChange={(e) => setAgreed(e.target.checked)}
+                        className="w-4 h-4 rounded border-zen-sage/30 text-zen-gold focus:ring-zen-gold bg-zen-medium/30"
+                      />
+                      <span className="text-zen-light/50 text-sm">
+                        I agree to the{' '}
+                        <a href="#" className="text-zen-gold hover:underline">Terms & Conditions</a>
+                      </span>
+                    </label>
+
+                    <button
+                      type="submit"
+                      disabled={loading || !agreed}
+                      className="gold-button w-full justify-center text-base disabled:opacity-60"
+                    >
+                      {loading ? (
                         <>
-                          <div className="floating-label-input">
-                            <input
-                              type="text"
-                              placeholder=" "
-                              value={studentForm.name}
-                              onChange={(e) => setStudentForm({ ...studentForm, name: e.target.value })}
-                              required
-                              id="reg-name"
-                            />
-                            <label htmlFor="reg-name">Full Name</label>
-                          </div>
-                          <div className="floating-label-input">
-                            <input
-                              type="email"
-                              placeholder=" "
-                              value={studentForm.email}
-                              onChange={(e) => setStudentForm({ ...studentForm, email: e.target.value })}
-                              required
-                              id="reg-email"
-                            />
-                            <label htmlFor="reg-email">Email Address</label>
-                          </div>
-                          <div className="floating-label-input relative">
-                            <input
-                              type={showPassword ? 'text' : 'password'}
-                              placeholder=" "
-                              value={studentForm.password}
-                              onChange={(e) => setStudentForm({ ...studentForm, password: e.target.value })}
-                              required
-                              minLength={6}
-                              id="reg-password"
-                            />
-                            <label htmlFor="reg-password">Password</label>
-                            <button
-                              type="button"
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
-                            >
-                              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                            </button>
-                          </div>
-                          <div className="floating-label-input">
-                            <input
-                              type="password"
-                              placeholder=" "
-                              value={studentForm.confirmPassword}
-                              onChange={(e) => setStudentForm({ ...studentForm, confirmPassword: e.target.value })}
-                              required
-                              id="reg-confirm"
-                            />
-                            <label htmlFor="reg-confirm">Confirm Password</label>
-                          </div>
+                          <Loader2 className="w-5 h-5 animate-spin" />
+                          <span className="ml-2">Creating Account...</span>
                         </>
                       ) : (
                         <>
-                          <div className="floating-label-input">
-                            <input
-                              type="text"
-                              placeholder=" "
-                              value={studioForm.studioName}
-                              onChange={(e) => setStudioForm({ ...studioForm, studioName: e.target.value })}
-                              required
-                              id="reg-studio-name"
-                            />
-                            <label htmlFor="reg-studio-name">Studio Name</label>
-                          </div>
-                          <div className="floating-label-input">
-                            <input
-                              type="text"
-                              placeholder=" "
-                              value={studioForm.ownerName}
-                              onChange={(e) => setStudioForm({ ...studioForm, ownerName: e.target.value })}
-                              required
-                              id="reg-owner"
-                            />
-                            <label htmlFor="reg-owner">Owner Name</label>
-                          </div>
-                          <div className="floating-label-input">
-                            <input
-                              type="email"
-                              placeholder=" "
-                              value={studioForm.email}
-                              onChange={(e) => setStudioForm({ ...studioForm, email: e.target.value })}
-                              required
-                              id="reg-studio-email"
-                            />
-                            <label htmlFor="reg-studio-email">Email Address</label>
-                          </div>
-                          <div className="floating-label-input relative">
-                            <input
-                              type={showPassword ? 'text' : 'password'}
-                              placeholder=" "
-                              value={studioForm.password}
-                              onChange={(e) => setStudioForm({ ...studioForm, password: e.target.value })}
-                              required
-                              minLength={6}
-                              id="reg-studio-password"
-                            />
-                            <label htmlFor="reg-studio-password">Password</label>
-                            <button
-                              type="button"
-                              onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
-                            >
-                              {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                            </button>
-                          </div>
-                          <div className="floating-label-input">
-                            <input
-                              type="tel"
-                              placeholder=" "
-                              value={studioForm.phone}
-                              onChange={(e) => setStudioForm({ ...studioForm, phone: e.target.value })}
-                              required
-                              id="reg-phone"
-                            />
-                            <label htmlFor="reg-phone">Phone Number</label>
-                          </div>
-                          <div className="floating-label-input">
-                            <input
-                              type="text"
-                              placeholder=" "
-                              value={studioForm.city}
-                              onChange={(e) => setStudioForm({ ...studioForm, city: e.target.value })}
-                              required
-                              id="reg-city"
-                            />
-                            <label htmlFor="reg-city">City</label>
-                          </div>
+                          Create Account <CheckCircle className="w-4 h-4" />
                         </>
                       )}
+                    </button>
+                  </form>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-                      <label className="flex items-center gap-3 py-2">
-                        <input
-                          type="checkbox"
-                          checked={agreed}
-                          onChange={(e) => setAgreed(e.target.checked)}
-                          className="w-4 h-4 rounded border-zen-sage/30 text-zen-gold focus:ring-zen-gold bg-zen-medium/30"
-                        />
-                        <span className="text-zen-light/50 text-sm">
-                          I agree to the{' '}
-                          <a href="#" className="text-zen-gold hover:underline">Terms & Conditions</a>
-                        </span>
-                      </label>
+            <div className="flex items-center gap-4 my-8">
+              <div className="flex-1 h-px bg-zen-sage/20" />
+              <span className="text-zen-light/30 text-sm">or</span>
+              <div className="flex-1 h-px bg-zen-sage/20" />
+            </div>
 
-                      <button
-                        type="submit"
-                        disabled={loading || !agreed}
-                        className="gold-button w-full justify-center text-base disabled:opacity-60"
-                      >
-                        {loading ? (
-                          <>
-                            <Loader2 className="w-5 h-5 animate-spin" />
-                            <span className="ml-2">Creating Account...</span>
-                          </>
-                        ) : (
-                          <>
-                            Create Account <CheckCircle className="w-4 h-4" />
-                          </>
-                        )}
-                      </button>
-                    </form>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <div className="flex items-center gap-4 my-8">
-                <div className="flex-1 h-px bg-zen-sage/20" />
-                <span className="text-zen-light/30 text-sm">or</span>
-                <div className="flex-1 h-px bg-zen-sage/20" />
-              </div>
-
-              <p className="text-center text-zen-light/50 text-sm">
-                Already have an account?{' '}
-                <Link href="/login" className="text-zen-gold hover:underline font-medium">
-                  Sign In
-                </Link>
-              </p>
+            <p className="text-center text-zen-light/50 text-sm">
+              Already have an account?{' '}
+              <Link href="/login" className="text-zen-gold hover:underline font-medium">
+                Sign In
+              </Link>
+            </p>
           </>
         </motion.div>
       </div>
 
-
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
+          <div className="bg-[#1A3320] border border-[#C9A84C] rounded-2xl p-10 text-center max-w-sm mx-4">
+            <div className="text-6xl mb-4">✉️</div>
+            <h2 className="text-[#C9A84C] text-2xl font-bold mb-3">
+              Email Bhej Diya!
+            </h2>
+            <p className="text-[#E8E0D0] mb-2">
+              Verification link bheja gaya hai:
+            </p>
+            <p className="text-[#C9A84C] font-semibold mb-4">
+              {userEmail}
+            </p>
+            <p className="text-[#9BB89A] text-sm mb-6">
+              📌 Spam folder bhi check karo
+            </p>
+            <button
+              onClick={() => window.location.href = '/login'}
+              className="w-full bg-[#C9A84C] text-[#0D1F0F] font-bold py-3 rounded-lg cursor-pointer">
+              Login Page Par Jao →
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
