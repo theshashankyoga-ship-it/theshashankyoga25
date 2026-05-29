@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase';
 import { useSearchParams } from 'next/navigation';
@@ -29,6 +29,18 @@ interface Promotion {
 }
 
 export default function AdminDashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+      </div>
+    }>
+      <AdminContent />
+    </Suspense>
+  );
+}
+
+function AdminContent() {
   const searchParams = useSearchParams();
   const section = searchParams.get('section') || 'dashboard';
 
@@ -48,11 +60,7 @@ export default function AdminDashboardPage() {
 
   const supabase = createClient();
 
-  useEffect(() => {
-    fetchAllData();
-  }, []);
-
-  const fetchAllData = async () => {
+  const fetchAllData = useCallback(async () => {
     setLoading(true);
     const [studentsRes, studiosRes, promosRes] = await Promise.all([
       supabase.from('profiles').select('*').eq('role', 'student').order('created_at', { ascending: false }),
@@ -63,7 +71,11 @@ export default function AdminDashboardPage() {
     if (studiosRes.data) setStudios(studiosRes.data);
     if (promosRes.data) setPromotions(promosRes.data);
     setLoading(false);
-  };
+  }, [supabase]);
+
+  useEffect(() => {
+    fetchAllData();
+  }, [fetchAllData]);
 
   const handleDeleteProfile = async (id: string) => {
     if (!confirm('Are you sure you want to delete this user?')) return;
