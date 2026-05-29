@@ -194,11 +194,10 @@ function LoginContent() {
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   id="admin-login-email"
-                  className="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all focus:ring-2"
+                  className="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all focus:ring-2 focus:ring-purple-500/40"
                   style={{
                     backgroundColor: 'rgba(124, 58, 237, 0.08)',
                     border: '1px solid rgba(124, 58, 237, 0.2)',
-                    focusRingColor: 'rgba(124, 58, 237, 0.4)',
                   }}
                 />
               </div>
@@ -292,11 +291,10 @@ function LoginContent() {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`flex-1 py-2.5 rounded-full text-sm font-medium transition-all duration-300 capitalize ${
-                  activeTab === tab
-                    ? 'bg-zen-gold text-zen-dark'
-                    : 'text-zen-light/60 hover:text-zen-cream'
-                }`}
+                className={`flex-1 py-2.5 rounded-full text-sm font-medium transition-all duration-300 capitalize ${activeTab === tab
+                  ? 'bg-zen-gold text-zen-dark'
+                  : 'text-zen-light/60 hover:text-zen-cream'
+                  }`}
               >
                 {tab} Login
               </button>
