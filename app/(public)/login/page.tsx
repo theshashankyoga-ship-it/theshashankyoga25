@@ -119,23 +119,22 @@ function LoginContent() {
       // If profile fetch fails (RLS), fall back to user metadata
       const role = profile?.role || data.user.user_metadata?.role;
 
-      // Redirect based on role
       if (isAdminMode) {
         showToast('success', 'Welcome, Admin 🛡️');
       } else {
         showToast('success', 'Welcome back! 🙏');
       }
 
-      if (redirectTo) {
-        window.location.href = redirectTo;
-      } else if (role === 'admin') {
+      if (role === 'admin') {
         window.location.href = '/admin';
+        return;
       } else if (role === 'studio') {
         window.location.href = '/studio';
+        return;
       } else {
         window.location.href = '/student';
+        return;
       }
-      return;
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
     } finally {
