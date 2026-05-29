@@ -88,6 +88,8 @@ function LoginContent() {
         showToast('success', 'Welcome back! 🙏');
         if (redirectTo) {
           window.location.href = redirectTo;
+        } else if (profile.role === 'admin') {
+          window.location.href = '/admin';
         } else if (profile.role === 'studio') {
           window.location.href = '/studio';
         } else {

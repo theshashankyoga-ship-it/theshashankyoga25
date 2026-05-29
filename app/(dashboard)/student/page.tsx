@@ -8,6 +8,7 @@ import {
   Clock, MapPin, Lightbulb, ArrowRight
 } from 'lucide-react';
 import Link from 'next/link';
+import PromotionsBanner from '@/components/PromotionsBanner';
 
 const yogaTips = [
   'Start your day with 5 minutes of Pranayama — it sets the tone for mindfulness throughout the day.',
@@ -54,6 +55,9 @@ export default function StudentDashboardHome() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+      {/* Promotions */}
+      <PromotionsBanner />
+
       {/* Welcome */}
       <div className="mb-8">
         <h1 className="font-heading text-3xl md:text-4xl text-zen-cream">

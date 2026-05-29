@@ -38,10 +38,11 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   // Protected routes
+  const isAdminRoute = pathname.startsWith('/admin');
   const isStudioRoute = pathname.startsWith('/studio');
   const isStudentRoute = pathname.startsWith('/student');
 
-  if (isStudioRoute || isStudentRoute) {
+  if (isAdminRoute || isStudioRoute || isStudentRoute) {
     if (!user) {
       const loginUrl = new URL('/login', request.url);
       loginUrl.searchParams.set('redirect', pathname);
@@ -56,11 +57,23 @@ export async function middleware(request: NextRequest) {
       .single();
 
     if (profile) {
-      if (isStudioRoute && profile.role !== 'studio') {
-        return NextResponse.redirect(new URL('/student', request.url));
+      const role = profile.role;
+
+      // Admin route protection
+      if (isAdminRoute && role !== 'admin') {
+        return NextResponse.redirect(new URL('/login', request.url));
       }
-      if (isStudentRoute && profile.role !== 'student') {
-        return NextResponse.redirect(new URL('/studio', request.url));
+
+      // Studio route protection
+      if (isStudioRoute && role !== 'studio') {
+        const redirectTo = role === 'admin' ? '/admin' : '/student';
+        return NextResponse.redirect(new URL(redirectTo, request.url));
+      }
+
+      // Student route protection
+      if (isStudentRoute && role !== 'student') {
+        const redirectTo = role === 'admin' ? '/admin' : '/studio';
+        return NextResponse.redirect(new URL(redirectTo, request.url));
       }
     }
   }
@@ -69,5 +82,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/studio/:path*', '/student/:path*'],
+  matcher: ['/studio/:path*', '/student/:path*', '/admin/:path*'],
 };

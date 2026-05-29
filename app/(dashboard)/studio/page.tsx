@@ -7,6 +7,7 @@ import {
   Users, BookOpen, CalendarDays, Star,
   Plus, Calendar, Clock, User
 } from 'lucide-react';
+import PromotionsBanner from '@/components/PromotionsBanner';
 
 export default function StudioDashboardHome() {
   const [studioName, setStudioName] = useState('Studio');
@@ -59,6 +60,9 @@ export default function StudioDashboardHome() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
+      {/* Promotions */}
+      <PromotionsBanner />
+
       {/* Welcome */}
       <div className="mb-8">
         <h1 className="font-heading text-3xl md:text-4xl text-zen-cream">

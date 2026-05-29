@@ -157,3 +157,48 @@ CREATE INDEX idx_classes_is_active ON classes(is_active);
 CREATE INDEX idx_bookings_student_id ON bookings(student_id);
 CREATE INDEX idx_bookings_class_id ON bookings(class_id);
 CREATE INDEX idx_bookings_status ON bookings(status);
+
+-- =====================================================
+-- ADMIN ROLE & PROMOTIONS TABLE
+-- Run this AFTER the initial schema above
+-- =====================================================
+
+-- Allow 'admin' as a profile role
+ALTER TABLE profiles DROP CONSTRAINT profiles_role_check;
+ALTER TABLE profiles ADD CONSTRAINT profiles_role_check CHECK (role IN ('student', 'studio', 'admin'));
+
+-- Promotions table
+CREATE TABLE promotions (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  redirect_url TEXT NOT NULL,
+  is_active BOOLEAN DEFAULT TRUE,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE promotions ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Admins can manage promotions"
+  ON promotions FOR ALL
+  USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
+  );
+
+CREATE POLICY "Anyone can view active promotions"
+  ON promotions FOR SELECT
+  USING (is_active = TRUE);
+
+-- Admin can view all profiles
+CREATE POLICY "Admins can view all profiles"
+  ON profiles FOR SELECT
+  USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
+  );
+
+-- Admin can delete profiles
+CREATE POLICY "Admins can delete profiles"
+  ON profiles FOR DELETE
+  USING (
+    EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
+  );
