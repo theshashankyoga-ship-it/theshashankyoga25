@@ -116,8 +116,7 @@ function LoginContent() {
       console.log('Profile data:', profile);
       console.log('Profile error:', profileError);
 
-      // If profile fetch fails (RLS), fall back to user metadata
-      const role = profile?.role || data.user.user_metadata?.role;
+      const role = profile?.role;
 
       if (isAdminMode) {
         showToast('success', 'Welcome, Admin 🛡️');
@@ -131,8 +130,20 @@ function LoginContent() {
       } else if (role === 'studio') {
         window.location.href = '/studio';
         return;
-      } else {
+      } else if (role === 'student') {
         window.location.href = '/student';
+        return;
+      } else {
+        // role is null — fall back to user_metadata
+        const { data: { user } } = await supabase.auth.getUser();
+        const fallbackRole = user?.user_metadata?.role;
+        if (fallbackRole === 'admin') {
+          window.location.href = '/admin';
+        } else if (fallbackRole === 'studio') {
+          window.location.href = '/studio';
+        } else {
+          window.location.href = '/student';
+        }
         return;
       }
     } catch (err) {
