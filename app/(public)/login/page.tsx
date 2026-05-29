@@ -113,36 +113,33 @@ function LoginContent() {
         .eq('id', data.user.id)
         .single();
 
-      if (profile) {
-        // Admin mode: enforce admin role
-        if (isAdminMode) {
-          if (profile.role !== 'admin') {
-            await supabase.auth.signOut();
-            showToast('error', '🚫 Access Denied. Admin credentials required.');
-            setLoading(false);
-            return;
-          }
-          showToast('success', 'Welcome, Admin 🛡️');
-          window.location.href = '/admin';
+      const role = profile?.role;
+
+      // Admin mode: enforce admin role
+      if (isAdminMode) {
+        if (role !== 'admin') {
+          await supabase.auth.signOut();
+          showToast('error', '🚫 Access Denied — Admin only');
+          setLoading(false);
           return;
         }
-
-        // Normal login flow
-        showToast('success', 'Welcome back! 🙏');
-        if (redirectTo) {
-          window.location.href = redirectTo;
-        } else if (profile.role === 'admin') {
-          window.location.href = '/admin';
-        } else if (profile.role === 'studio') {
-          window.location.href = '/studio';
-        } else {
-          window.location.href = '/student';
-        }
+        showToast('success', 'Welcome, Admin 🛡️');
+        window.location.href = '/admin';
         return;
       }
 
+      // Normal login flow
       showToast('success', 'Welcome back! 🙏');
-      window.location.href = '/student';
+      if (redirectTo) {
+        window.location.href = redirectTo;
+      } else if (role === 'admin') {
+        window.location.href = '/admin';
+      } else if (role === 'studio') {
+        window.location.href = '/studio';
+      } else {
+        window.location.href = '/student';
+      }
+      return;
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
     } finally {
