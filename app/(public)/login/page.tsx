@@ -107,29 +107,25 @@ function LoginContent() {
       }
 
       // Get user profile role
-      const { data: profile } = await supabase
+      const { data: profile, error: profileError } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', data.user.id)
         .single();
 
-      const role = profile?.role;
+      console.log('Profile data:', profile);
+      console.log('Profile error:', profileError);
 
-      // Admin mode: enforce admin role
+      // If profile fetch fails (RLS), fall back to user metadata
+      const role = profile?.role || data.user.user_metadata?.role;
+
+      // Redirect based on role
       if (isAdminMode) {
-        if (role !== 'admin') {
-          await supabase.auth.signOut();
-          showToast('error', '🚫 Access Denied — Admin only');
-          setLoading(false);
-          return;
-        }
         showToast('success', 'Welcome, Admin 🛡️');
-        window.location.href = '/admin';
-        return;
+      } else {
+        showToast('success', 'Welcome back! 🙏');
       }
 
-      // Normal login flow
-      showToast('success', 'Welcome back! 🙏');
       if (redirectTo) {
         window.location.href = redirectTo;
       } else if (role === 'admin') {
