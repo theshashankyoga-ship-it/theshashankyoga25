@@ -4,7 +4,7 @@ import { useState, FormEvent, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Flower2, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Flower2, Loader2, Shield } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { useToast } from '@/components/ToastProvider';
 
@@ -39,6 +39,34 @@ function LotusBackground() {
   );
 }
 
+function AdminBackground() {
+  return (
+    <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0A0F1E 0%, #131B35 50%, #0A0F1E 100%)' }} />
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-1 h-1 rounded-full"
+          style={{
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            backgroundColor: '#7C3AED',
+          }}
+          animate={{
+            scale: [1, 2.5, 1],
+            opacity: [0.1, 0.4, 0.1],
+          }}
+          transition={{
+            duration: 4 + Math.random() * 4,
+            repeat: Infinity,
+            delay: Math.random() * 3,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function LoginPage() {
   return (
     <Suspense fallback={
@@ -55,6 +83,7 @@ function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get('redirect') || '';
+  const isAdminMode = searchParams.get('admin') === 'true';
   const { showToast } = useToast();
 
   const [activeTab, setActiveTab] = useState<'student' | 'studio'>('student');
@@ -85,6 +114,20 @@ function LoginContent() {
         .single();
 
       if (profile) {
+        // Admin mode: enforce admin role
+        if (isAdminMode) {
+          if (profile.role !== 'admin') {
+            await supabase.auth.signOut();
+            showToast('error', '🚫 Access Denied. Admin credentials required.');
+            setLoading(false);
+            return;
+          }
+          showToast('success', 'Welcome, Admin 🛡️');
+          window.location.href = '/admin';
+          return;
+        }
+
+        // Normal login flow
         showToast('success', 'Welcome back! 🙏');
         if (redirectTo) {
           window.location.href = redirectTo;
@@ -107,6 +150,110 @@ function LoginContent() {
     }
   };
 
+  // ===================== ADMIN LOGIN UI =====================
+  if (isAdminMode) {
+    return (
+      <div className="min-h-screen flex" style={{ backgroundColor: '#0A0F1E' }}>
+        {/* Left: Admin Background */}
+        <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
+          <AdminBackground />
+          <div className="relative z-10 text-center px-12">
+            <Shield className="w-16 h-16 mx-auto mb-6" style={{ color: '#7C3AED' }} />
+            <h2 className="font-heading text-5xl text-white mb-4">Admin Portal</h2>
+            <p className="text-gray-400 text-lg">
+              Secure access for system administrators only.
+            </p>
+          </div>
+        </div>
+
+        {/* Right: Admin Form */}
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8" style={{ backgroundColor: 'rgba(124, 58, 237, 0.03)' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-md"
+          >
+            {/* Mobile logo */}
+            <div className="lg:hidden flex items-center gap-2 mb-8">
+              <Shield className="w-7 h-7" style={{ color: '#7C3AED' }} />
+              <span className="font-heading text-2xl text-white">
+                Admin<span style={{ color: '#7C3AED' }}>Panel</span>
+              </span>
+            </div>
+
+            <h1 className="font-heading text-3xl text-white mb-2">Admin Sign In 🛡️</h1>
+            <p className="text-gray-400 mb-8">Enter your admin credentials to continue.</p>
+
+            <form onSubmit={handleLogin} className="space-y-5">
+              <div>
+                <label className="text-gray-400 text-xs mb-1.5 block">Email Address</label>
+                <input
+                  type="email"
+                  placeholder="admin@vedic.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  id="admin-login-email"
+                  className="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all focus:ring-2"
+                  style={{
+                    backgroundColor: 'rgba(124, 58, 237, 0.08)',
+                    border: '1px solid rgba(124, 58, 237, 0.2)',
+                    focusRingColor: 'rgba(124, 58, 237, 0.4)',
+                  }}
+                />
+              </div>
+
+              <div className="relative">
+                <label className="text-gray-400 text-xs mb-1.5 block">Password</label>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                  id="admin-login-password"
+                  className="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all focus:ring-2"
+                  style={{
+                    backgroundColor: 'rgba(124, 58, 237, 0.08)',
+                    border: '1px solid rgba(124, 58, 237, 0.2)',
+                  }}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-4 bottom-3 text-gray-500 hover:text-purple-400 transition-colors"
+                >
+                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full py-3 rounded-full text-white text-base font-semibold transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)' }}
+              >
+                {loading ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  <>
+                    <Shield className="w-4 h-4" />
+                    Admin Login
+                  </>
+                )}
+              </button>
+            </form>
+
+            <p className="text-center text-gray-600 text-xs mt-10 tracking-wide uppercase">
+              Authorized Personnel Only
+            </p>
+          </motion.div>
+        </div>
+      </div>
+    );
+  }
+
+  // ===================== NORMAL LOGIN UI =====================
   return (
     <div className="min-h-screen flex">
       {/* Left: Background */}
@@ -224,4 +371,3 @@ function LoginContent() {
     </div>
   );
 }
-
