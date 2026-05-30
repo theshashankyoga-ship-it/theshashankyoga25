@@ -106,46 +106,22 @@ function LoginContent() {
         return;
       }
 
-      // Get user profile role
-      const { data: profile, error: profileError } = await supabase
+      const { data: profile } = await supabase
         .from('profiles')
         .select('role')
         .eq('id', data.user.id)
-        .single();
+        .single()
 
-      console.log('Profile data:', profile);
-      console.log('Profile error:', profileError);
-
-      const role = profile?.role;
-
-      if (isAdminMode) {
-        showToast('success', 'Welcome, Admin 🛡️');
-      } else {
-        showToast('success', 'Welcome back! 🙏');
-      }
+      const role = profile?.role || 'student'
 
       if (role === 'admin') {
-        window.location.href = '/admin';
-        return;
+        window.location.href = '/admin'
       } else if (role === 'studio') {
-        window.location.href = '/studio';
-        return;
-      } else if (role === 'student') {
-        window.location.href = '/student';
-        return;
+        window.location.href = '/studio'
       } else {
-        // role is null — fall back to user_metadata
-        const { data: { user } } = await supabase.auth.getUser();
-        const fallbackRole = user?.user_metadata?.role;
-        if (fallbackRole === 'admin') {
-          window.location.href = '/admin';
-        } else if (fallbackRole === 'studio') {
-          window.location.href = '/studio';
-        } else {
-          window.location.href = '/student';
-        }
-        return;
+        window.location.href = '/student'
       }
+      return
     } catch (err) {
       showToast('error', 'An unexpected error occurred. Please try again.');
     } finally {
