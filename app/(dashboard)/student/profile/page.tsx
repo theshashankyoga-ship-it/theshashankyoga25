@@ -29,32 +29,31 @@ export default function StudentProfilePage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const load = async () => {
       const supabase = createClient();
       const { data: { user } } = await supabase.auth.getUser();
+      if (!user) { setLoading(false); return; }
 
-      if (user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
+      const { data: p } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', user.id)
+        .single();
 
-        if (profile) {
-          setFullName(profile.full_name || '');
-          setEmail(profile.email || '');
-          setPhone(profile.phone || '');
-          setCity(profile.city || '');
-          setProfilePicUrl(profile.avatar_url || '');
-          setBio(profile.bio || '');
-          setIsPublic(profile.is_public ?? false);
-          setInstagramUrl(profile.instagram_url || '');
-        }
+      if (p) {
+        setFullName(p.full_name || '');
+        setEmail(p.email || '');
+        setPhone(p.phone || '');
+        setCity(p.city || '');
+        setProfilePicUrl(p.avatar_url || '');
+        setBio(p.bio || '');
+        setIsPublic(p.is_public || false);
+        setInstagramUrl(p.instagram_url || '');
       }
       setLoading(false);
     };
 
-    fetchProfile();
+    load();
   }, []);
 
   const handleSave = async () => {
@@ -62,26 +61,31 @@ export default function StudentProfilePage() {
     const supabase = createClient();
     const { data: { user } } = await supabase.auth.getUser();
 
-    if (user) {
-      const { error } = await supabase
-        .from('profiles')
-        .update({
-          full_name: fullName,
-          phone: phone,
-          city: city,
-          avatar_url: profilePicUrl,
-          bio: bio,
-          is_public: isPublic,
-          instagram_url: instagramUrl,
-        })
-        .eq('id', user.id);
+    if (!user) {
+      alert('Not logged in');
+      setSaving(false);
+      return;
+    }
 
-      if (error) {
-        console.error('Profile update error:', error);
-      } else {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 2500);
-      }
+    const { error } = await supabase
+      .from('profiles')
+      .update({
+        full_name: fullName,
+        phone: phone,
+        city: city,
+        avatar_url: profilePicUrl,
+        bio: bio,
+        is_public: isPublic,
+        instagram_url: instagramUrl,
+      })
+      .eq('id', user.id);
+
+    if (error) {
+      alert('Save failed: ' + error.message);
+    } else {
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2500);
+      alert('Profile saved successfully!');
     }
     setSaving(false);
   };
