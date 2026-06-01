@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@/lib/supabase';
 import {
   User, Camera, Save, Globe, Lock, Copy, Check,
-  Share2, Instagram, MessageCircle, ExternalLink, Loader2
+  Share2, Instagram, MessageCircle, ExternalLink, Loader2,
+  Upload, ImagePlus
 } from 'lucide-react';
 
 const SITE_URL = 'https://theshashankyoga25-83kv.vercel.app';
@@ -36,6 +37,8 @@ export default function StudentProfilePage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -43,22 +46,22 @@ export default function StudentProfilePage() {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (user) {
-        const { data } = await supabase
+        const { data: profileData } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', user.id)
           .single();
 
-        if (data) {
+        if (profileData) {
           setProfile({
-            full_name: data.full_name || '',
-            email: data.email || '',
-            phone: data.phone || '',
-            city: data.city || '',
-            avatar_url: data.avatar_url || '',
-            bio: data.bio || '',
-            is_public: data.is_public || false,
-            instagram_url: data.instagram_url || '',
+            full_name: profileData.full_name || '',
+            email: profileData.email || '',
+            phone: profileData.phone || '',
+            city: profileData.city || '',
+            avatar_url: profileData.avatar_url || '',
+            bio: profileData.bio || '',
+            is_public: profileData.is_public ?? false,
+            instagram_url: profileData.instagram_url || '',
           });
         }
       }
@@ -74,7 +77,7 @@ export default function StudentProfilePage() {
     const { data: { user } } = await supabase.auth.getUser();
 
     if (user) {
-      await supabase
+      const { error } = await supabase
         .from('profiles')
         .update({
           full_name: profile.full_name,
@@ -87,10 +90,60 @@ export default function StudentProfilePage() {
         })
         .eq('id', user.id);
 
-      setSaved(true);
-      setTimeout(() => setSaved(false), 2500);
+      if (error) {
+        console.error('Profile update error:', error);
+      } else {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 2500);
+      }
     }
     setSaving(false);
+  };
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploading(true);
+    const supabase = createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
+      setUploading(false);
+      return;
+    }
+
+    const fileExt = file.name.split('.').pop();
+    const filePath = `${user.id}/avatar.${fileExt}`;
+
+    // Upload to Supabase Storage
+    const { error: uploadError } = await supabase.storage
+      .from('avatars')
+      .upload(filePath, file, { upsert: true });
+
+    if (uploadError) {
+      console.error('Upload error:', uploadError);
+      setUploading(false);
+      return;
+    }
+
+    // Get public URL
+    const { data: urlData } = supabase.storage
+      .from('avatars')
+      .getPublicUrl(filePath);
+
+    const publicUrl = urlData.publicUrl;
+
+    // Update local state
+    setProfile(prev => ({ ...prev, avatar_url: publicUrl }));
+
+    // Also update DB immediately so avatar persists
+    await supabase
+      .from('profiles')
+      .update({ avatar_url: publicUrl })
+      .eq('id', user.id);
+
+    setUploading(false);
   };
 
   const profileUrl = `${SITE_URL}/profile/${encodeURIComponent(profile.full_name)}`;
@@ -134,7 +187,7 @@ export default function StudentProfilePage() {
         <p className="text-zen-light/50 mt-2">Manage your profile and sharing preferences</p>
       </div>
 
-      {/* Avatar Section */}
+      {/* Avatar Section with Upload */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -142,6 +195,7 @@ export default function StudentProfilePage() {
         className="glass-card p-6 mb-6"
       >
         <div className="flex items-center gap-6">
+          {/* Avatar with upload overlay */}
           <div className="relative group">
             {profile.avatar_url ? (
               <img
@@ -154,10 +208,31 @@ export default function StudentProfilePage() {
                 <User className="w-10 h-10 text-zen-cream/40" />
               </div>
             )}
-            <div className="absolute inset-0 rounded-full bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-              <Camera className="w-6 h-6 text-white" />
-            </div>
+            {/* Upload overlay on hover/click */}
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="absolute inset-0 rounded-full bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-1 cursor-pointer"
+            >
+              {uploading ? (
+                <Loader2 className="w-5 h-5 text-white animate-spin" />
+              ) : (
+                <>
+                  <Camera className="w-5 h-5 text-white" />
+                  <span className="text-white text-[10px] font-medium">Change</span>
+                </>
+              )}
+            </button>
+            {/* Hidden file input */}
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarUpload}
+              className="hidden"
+            />
           </div>
+
           <div className="flex-1">
             <h3 className="font-heading text-xl text-zen-cream">{profile.full_name || 'Your Name'}</h3>
             <p className="text-zen-light/40 text-sm">{profile.email}</p>
@@ -172,6 +247,25 @@ export default function StudentProfilePage() {
                 </span>
               )}
             </div>
+
+            {/* Upload Photo button below info */}
+            <button
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="mt-3 flex items-center gap-2 text-xs text-zen-gold hover:text-zen-cream bg-zen-gold/10 hover:bg-zen-gold/20 px-3 py-1.5 rounded-lg transition-all"
+            >
+              {uploading ? (
+                <>
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  Uploading...
+                </>
+              ) : (
+                <>
+                  <ImagePlus className="w-3.5 h-3.5" />
+                  Upload Photo
+                </>
+              )}
+            </button>
           </div>
         </div>
       </motion.div>
@@ -216,17 +310,6 @@ export default function StudentProfilePage() {
             onChange={(e) => handleChange('city', e.target.value)}
           />
           <label>City</label>
-        </div>
-
-        {/* Avatar URL */}
-        <div className="floating-label-input">
-          <input
-            type="url"
-            placeholder=" "
-            value={profile.avatar_url}
-            onChange={(e) => handleChange('avatar_url', e.target.value)}
-          />
-          <label>Profile Picture URL</label>
         </div>
 
         {/* Bio */}
