@@ -14,7 +14,7 @@ import {
 interface PublicProfile {
   id: string;
   full_name: string | null;
-  avatar_url: string | null;
+  profile_pic_url: string | null;
   bio: string | null;
   city: string | null;
   is_public: boolean;
@@ -151,9 +151,9 @@ export default function PublicProfilePage() {
               transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
               className="relative"
             >
-              {profile?.avatar_url ? (
+              {profile?.profile_pic_url ? (
                 <img
-                  src={profile.avatar_url}
+                  src={profile.profile_pic_url || '/default-avatar.png'}
                   alt={profile.full_name || 'Profile'}
                   className="w-32 h-32 rounded-full object-cover border-4 border-zen-dark shadow-2xl"
                 />
