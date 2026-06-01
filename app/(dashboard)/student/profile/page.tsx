@@ -45,7 +45,7 @@ export default function StudentProfilePage() {
         setEmail(p.email || '');
         setPhone(p.phone || '');
         setCity(p.city || '');
-        setProfilePicUrl(p.avatar_url || '');
+        setProfilePicUrl(p.profile_pic_url || '');
         setBio(p.bio || '');
         setIsPublic(p.is_public || false);
         setInstagramUrl(p.instagram_url || '');
@@ -73,7 +73,7 @@ export default function StudentProfilePage() {
         full_name: fullName,
         phone: phone,
         city: city,
-        avatar_url: profilePicUrl,
+        profile_pic_url: profilePicUrl,
         bio: bio,
         is_public: isPublic,
         instagram_url: instagramUrl,
