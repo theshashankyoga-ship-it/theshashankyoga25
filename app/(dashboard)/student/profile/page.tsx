@@ -11,28 +11,16 @@ import {
 
 const SITE_URL = 'https://theshashankyoga25-83kv.vercel.app';
 
-interface ProfileData {
-  full_name: string;
-  email: string;
-  phone: string;
-  city: string;
-  avatar_url: string;
-  bio: string;
-  is_public: boolean;
-  instagram_url: string;
-}
-
 export default function StudentProfilePage() {
-  const [profile, setProfile] = useState<ProfileData>({
-    full_name: '',
-    email: '',
-    phone: '',
-    city: '',
-    avatar_url: '',
-    bio: '',
-    is_public: false,
-    instagram_url: '',
-  });
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [city, setCity] = useState('');
+  const [profilePicUrl, setProfilePicUrl] = useState('');
+  const [bio, setBio] = useState('');
+  const [isPublic, setIsPublic] = useState(false);
+  const [instagramUrl, setInstagramUrl] = useState('');
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
@@ -46,23 +34,21 @@ export default function StudentProfilePage() {
       const { data: { user } } = await supabase.auth.getUser();
 
       if (user) {
-        const { data: profileData } = await supabase
+        const { data: profile } = await supabase
           .from('profiles')
           .select('*')
           .eq('id', user.id)
           .single();
 
-        if (profileData) {
-          setProfile({
-            full_name: profileData.full_name || '',
-            email: profileData.email || '',
-            phone: profileData.phone || '',
-            city: profileData.city || '',
-            avatar_url: profileData.avatar_url || '',
-            bio: profileData.bio || '',
-            is_public: profileData.is_public ?? false,
-            instagram_url: profileData.instagram_url || '',
-          });
+        if (profile) {
+          setFullName(profile.full_name || '');
+          setEmail(profile.email || '');
+          setPhone(profile.phone || '');
+          setCity(profile.city || '');
+          setProfilePicUrl(profile.avatar_url || '');
+          setBio(profile.bio || '');
+          setIsPublic(profile.is_public ?? false);
+          setInstagramUrl(profile.instagram_url || '');
         }
       }
       setLoading(false);
@@ -80,13 +66,13 @@ export default function StudentProfilePage() {
       const { error } = await supabase
         .from('profiles')
         .update({
-          full_name: profile.full_name,
-          phone: profile.phone,
-          city: profile.city,
-          avatar_url: profile.avatar_url,
-          bio: profile.bio,
-          is_public: profile.is_public,
-          instagram_url: profile.instagram_url,
+          full_name: fullName,
+          phone: phone,
+          city: city,
+          avatar_url: profilePicUrl,
+          bio: bio,
+          is_public: isPublic,
+          instagram_url: instagramUrl,
         })
         .eq('id', user.id);
 
@@ -135,7 +121,7 @@ export default function StudentProfilePage() {
     const publicUrl = urlData.publicUrl;
 
     // Update local state
-    setProfile(prev => ({ ...prev, avatar_url: publicUrl }));
+    setProfilePicUrl(publicUrl);
 
     // Also update DB immediately so avatar persists
     await supabase
@@ -146,7 +132,7 @@ export default function StudentProfilePage() {
     setUploading(false);
   };
 
-  const profileUrl = `${SITE_URL}/profile/${encodeURIComponent(profile.full_name)}`;
+  const profileUrl = `${SITE_URL}/profile/${encodeURIComponent(fullName)}`;
 
   const copyLink = () => {
     navigator.clipboard.writeText(profileUrl);
@@ -157,10 +143,6 @@ export default function StudentProfilePage() {
   const shareWhatsApp = () => {
     const text = encodeURIComponent(`Check out my yoga profile on ZenFlow! 🧘\n${profileUrl}`);
     window.open(`https://wa.me/?text=${text}`, '_blank');
-  };
-
-  const handleChange = (field: keyof ProfileData, value: string | boolean) => {
-    setProfile(prev => ({ ...prev, [field]: value }));
   };
 
   if (loading) {
@@ -197,9 +179,9 @@ export default function StudentProfilePage() {
         <div className="flex items-center gap-6">
           {/* Avatar with upload overlay */}
           <div className="relative group">
-            {profile.avatar_url ? (
+            {profilePicUrl ? (
               <img
-                src={profile.avatar_url}
+                src={profilePicUrl}
                 alt="Profile"
                 className="w-24 h-24 rounded-full object-cover border-2 border-zen-sage/20"
               />
@@ -234,10 +216,10 @@ export default function StudentProfilePage() {
           </div>
 
           <div className="flex-1">
-            <h3 className="font-heading text-xl text-zen-cream">{profile.full_name || 'Your Name'}</h3>
-            <p className="text-zen-light/40 text-sm">{profile.email}</p>
+            <h3 className="font-heading text-xl text-zen-cream">{fullName || 'Your Name'}</h3>
+            <p className="text-zen-light/40 text-sm">{email}</p>
             <div className="flex items-center gap-2 mt-2">
-              {profile.is_public ? (
+              {isPublic ? (
                 <span className="flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded-full">
                   <Globe className="w-3 h-3" /> Public Profile
                 </span>
@@ -284,8 +266,8 @@ export default function StudentProfilePage() {
           <input
             type="text"
             placeholder=" "
-            value={profile.full_name}
-            onChange={(e) => handleChange('full_name', e.target.value)}
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
           />
           <label>Full Name</label>
         </div>
@@ -295,8 +277,8 @@ export default function StudentProfilePage() {
           <input
             type="text"
             placeholder=" "
-            value={profile.phone}
-            onChange={(e) => handleChange('phone', e.target.value)}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
           <label>Phone</label>
         </div>
@@ -306,8 +288,8 @@ export default function StudentProfilePage() {
           <input
             type="text"
             placeholder=" "
-            value={profile.city}
-            onChange={(e) => handleChange('city', e.target.value)}
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
           />
           <label>City</label>
         </div>
@@ -317,8 +299,8 @@ export default function StudentProfilePage() {
           <textarea
             rows={3}
             placeholder=" "
-            value={profile.bio}
-            onChange={(e) => handleChange('bio', e.target.value)}
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
             className="resize-none"
           />
           <label>Bio</label>
@@ -329,8 +311,8 @@ export default function StudentProfilePage() {
           <input
             type="url"
             placeholder=" "
-            value={profile.instagram_url}
-            onChange={(e) => handleChange('instagram_url', e.target.value)}
+            value={instagramUrl}
+            onChange={(e) => setInstagramUrl(e.target.value)}
           />
           <label>Instagram URL (optional)</label>
         </div>
@@ -338,8 +320,8 @@ export default function StudentProfilePage() {
         {/* Public Toggle */}
         <div className="flex items-center justify-between p-4 rounded-xl bg-zen-dark/40 border border-zen-sage/10">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg ${profile.is_public ? 'bg-emerald-400/10' : 'bg-zen-medium/30'}`}>
-              {profile.is_public ? (
+            <div className={`p-2 rounded-lg ${isPublic ? 'bg-emerald-400/10' : 'bg-zen-medium/30'}`}>
+              {isPublic ? (
                 <Globe className="w-5 h-5 text-emerald-400" />
               ) : (
                 <Lock className="w-5 h-5 text-zen-light/40" />
@@ -351,9 +333,9 @@ export default function StudentProfilePage() {
             </div>
           </div>
           <button
-            onClick={() => handleChange('is_public', !profile.is_public)}
+            onClick={() => setIsPublic(!isPublic)}
             className={`relative w-12 h-7 rounded-full transition-all duration-300 ${
-              profile.is_public
+              isPublic
                 ? 'bg-emerald-500/80 shadow-[0_0_12px_rgba(16,185,129,0.3)]'
                 : 'bg-zen-medium/50'
             }`}
@@ -361,7 +343,7 @@ export default function StudentProfilePage() {
             <motion.div
               layout
               className={`absolute top-1 w-5 h-5 rounded-full bg-white shadow-md transition-all ${
-                profile.is_public ? 'left-6' : 'left-1'
+                isPublic ? 'left-6' : 'left-1'
               }`}
             />
           </button>
@@ -394,7 +376,7 @@ export default function StudentProfilePage() {
 
       {/* Share Profile Section */}
       <AnimatePresence>
-        {profile.is_public && profile.full_name && (
+        {isPublic && fullName && (
           <motion.div
             initial={{ opacity: 0, y: 20, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
@@ -440,9 +422,9 @@ export default function StudentProfilePage() {
                 Share on WhatsApp
               </button>
 
-              {profile.instagram_url && (
+              {instagramUrl && (
                 <a
-                  href={profile.instagram_url}
+                  href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-purple-500/15 to-pink-500/15 border border-purple-500/20 text-purple-300 hover:from-purple-500/25 hover:to-pink-500/25 transition-all text-sm font-medium"
