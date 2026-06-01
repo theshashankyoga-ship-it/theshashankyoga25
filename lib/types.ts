@@ -6,6 +6,9 @@ export interface UserProfile {
   phone: string | null;
   city: string | null;
   avatar_url: string | null;
+  bio: string | null;
+  is_public: boolean;
+  instagram_url: string | null;
   created_at: string;
 }
 

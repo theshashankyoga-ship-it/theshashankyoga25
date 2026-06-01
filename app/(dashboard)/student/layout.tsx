@@ -16,7 +16,7 @@ const studentLinks = [
   { name: 'My Classes', href: '/student/my-classes', icon: BookOpen },
   { name: 'Explore', href: '/student/explore', icon: Compass },
   { name: 'Progress', href: '/student', icon: TrendingUp },
-  { name: 'Profile', href: '/student', icon: UserCircle },
+  { name: 'Profile', href: '/student/profile', icon: UserCircle },
 ];
 
 export default function StudentDashboardLayout({ children }: { children: React.ReactNode }) {

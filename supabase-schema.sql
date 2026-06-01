@@ -202,3 +202,18 @@ CREATE POLICY "Admins can delete profiles"
   USING (
     EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
   );
+
+-- =====================================================
+-- PUBLIC PROFILE SHARING FEATURE
+-- Run this AFTER the schema above
+-- =====================================================
+
+-- Add new columns for public profiles
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS bio TEXT;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS is_public BOOLEAN DEFAULT FALSE;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS instagram_url TEXT;
+
+-- Anyone can view public profiles (no login required)
+CREATE POLICY "Anyone can view public profiles"
+  ON profiles FOR SELECT
+  USING (is_public = TRUE);
