@@ -130,7 +130,7 @@ export default function StudentProfilePage() {
     // Also update DB immediately so avatar persists
     await supabase
       .from('profiles')
-      .update({ avatar_url: publicUrl })
+      update({ profile_pic_url: publicUrl })
       .eq('id', user.id);
 
     setUploading(false);
