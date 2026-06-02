@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
-  Flower2, LayoutDashboard, BookOpen, Compass,
-  TrendingUp, UserCircle, LogOut, Menu, X, ChevronLeft
+  Flower2, LayoutDashboard, BookOpen,
+  UserCircle, LogOut, Menu, X, ChevronLeft
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { useToast } from '@/components/ToastProvider';
@@ -14,8 +14,6 @@ import { useToast } from '@/components/ToastProvider';
 const studentLinks = [
   { name: 'Dashboard', href: '/student', icon: LayoutDashboard },
   { name: 'My Classes', href: '/student/my-classes', icon: BookOpen },
-  { name: 'Explore', href: '/student/explore', icon: Compass },
-  { name: 'Progress', href: '/student', icon: TrendingUp },
   { name: 'Profile', href: '/student/profile', icon: UserCircle },
 ];
 
