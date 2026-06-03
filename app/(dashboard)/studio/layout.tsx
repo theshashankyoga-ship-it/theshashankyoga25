@@ -13,9 +13,6 @@ import { useToast } from '@/components/ToastProvider';
 
 const studioLinks = [
   { name: 'Dashboard', href: '/studio', icon: LayoutDashboard },
-  { name: 'My Classes', href: '/studio/classes', icon: BookOpen },
-  { name: 'Students', href: '/studio/students', icon: Users },
-  { name: 'Schedule', href: '/studio/schedule', icon: Calendar },
   { name: 'Profile', href: '/studio/profile', icon: UserCircle },
 ];
 
