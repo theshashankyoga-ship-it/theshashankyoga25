@@ -422,89 +422,9 @@ export default function PublicStudioProfilePage() {
         </div>
       </section>
 
-      {/* 6. CLASSES SHOWCASE SECTION */}
-      <section className="max-w-6xl mx-auto px-4 py-16 mb-16 relative">
-        <div className="absolute right-0 bottom-1/4 w-80 h-80 bg-[#D4AF37]/5 rounded-full blur-[120px] pointer-events-none" />
-        
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", color: colors.gold }}>
-            Premium Programs
-          </h2>
-          <p className="text-lg font-light opacity-70">Curated practices for every stage of your journey</p>
-        </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
-          {[
-            { title: 'Vinyasa Flow', image: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80', level: 'All Levels', duration: '60 Min' },
-            { title: 'Hatha Balance', image: 'https://images.unsplash.com/photo-1599422314077-f4dfdaa4cd09?auto=format&fit=crop&q=80', level: 'Beginner', duration: '45 Min' },
-            { title: 'Power Core', image: 'https://images.unsplash.com/photo-1518609878373-06d740f60d8b?auto=format&fit=crop&q=80', level: 'Advanced', duration: '75 Min' },
-          ].map((cls, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.15, duration: 0.6 }}
-              className="premium-glass rounded-3xl overflow-hidden group cursor-pointer gold-glow"
-            >
-              <div className="relative h-64 overflow-hidden">
-                <img 
-                  src={cls.image} 
-                  alt={cls.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#071B12] to-transparent opacity-80" />
-                <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
-                  <h4 className="text-2xl font-serif" style={{ fontFamily: "'Cormorant Garamond', serif", color: colors.cream }}>{cls.title}</h4>
-                  <div className="w-8 h-8 rounded-full bg-[#D4AF37]/20 flex items-center justify-center backdrop-blur-md">
-                    <ArrowRight className="w-4 h-4 text-[#D4AF37] -rotate-45 group-hover:rotate-0 transition-transform" />
-                  </div>
-                </div>
-              </div>
-              <div className="p-5 flex justify-between items-center border-t border-[#D4AF37]/10">
-                <span className="text-sm opacity-70">{cls.level}</span>
-                <span className="text-sm font-medium text-[#D4AF37]">{cls.duration}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
-      {/* 7. TESTIMONIALS SECTION */}
-      <section className="max-w-5xl mx-auto px-4 py-16 mb-24">
-        <h2 className="text-3xl md:text-4xl text-center mb-12" style={{ fontFamily: "'Cormorant Garamond', serif", color: colors.gold }}>
-          Voices of Our Community
-        </h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {[
-            { name: "Sarah M.", text: "The most serene and welcoming studio I've ever practiced in. The instructors truly care about your alignment and growth.", rating: 5 },
-            { name: "David L.", text: "A sanctuary in the middle of the city. The Vinyasa classes here have completely transformed my strength and flexibility.", rating: 5 }
-          ].map((review, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2, duration: 0.6 }}
-              className="premium-glass rounded-3xl p-8 relative"
-            >
-              <Heart className="absolute top-6 right-6 w-6 h-6 opacity-10 text-[#D4AF37] fill-[#D4AF37]" />
-              <div className="flex gap-1 mb-4">
-                {[...Array(review.rating)].map((_, j) => (
-                  <Star key={j} className="w-4 h-4 text-[#D4AF37] fill-[#D4AF37]" />
-                ))}
-              </div>
-              <p className="text-lg font-light italic mb-6 opacity-90 leading-relaxed">&ldquo;{review.text}&rdquo;</p>
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#D4AF37]/40 to-[#071B12] border border-[#D4AF37]/30 flex items-center justify-center">
-                  <span className="font-serif text-sm">{review.name.charAt(0)}</span>
-                </div>
-                <span className="font-medium text-sm tracking-wide">{review.name}</span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+
 
       {/* 8. CALL TO ACTION SECTION */}
       <section className="relative py-24 mb-0 overflow-hidden">
