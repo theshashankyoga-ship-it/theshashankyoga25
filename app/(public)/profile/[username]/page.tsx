@@ -23,11 +23,11 @@ interface PublicProfile {
 }
 
 const badges = [
-  { icon: Flame, label: 'Dedicated Yogi', color: 'text-orange-400', bg: 'bg-orange-400/10' },
-  { icon: Star, label: 'Rising Star', color: 'text-yellow-400', bg: 'bg-yellow-400/10' },
-  { icon: Heart, label: 'Community Lover', color: 'text-pink-400', bg: 'bg-pink-400/10' },
-  { icon: Shield, label: 'Consistent', color: 'text-blue-400', bg: 'bg-blue-400/10' },
-  { icon: Sparkles, label: 'Early Bird', color: 'text-purple-400', bg: 'bg-purple-400/10' },
+  { icon: Flame, label: 'Dedicated Yogi', color: 'text-orange-500', bg: 'bg-orange-50' },
+  { icon: Star, label: 'Rising Star', color: 'text-yellow-500', bg: 'bg-yellow-50' },
+  { icon: Heart, label: 'Community Lover', color: 'text-pink-500', bg: 'bg-pink-50' },
+  { icon: Shield, label: 'Consistent', color: 'text-blue-500', bg: 'bg-blue-50' },
+  { icon: Sparkles, label: 'Early Bird', color: 'text-purple-500', bg: 'bg-purple-50' },
 ];
 
 export default function PublicProfilePage() {
@@ -57,7 +57,6 @@ export default function PublicProfilePage() {
 
       setProfile(data);
 
-      // Fetch completed bookings count
       const { count } = await supabase
         .from('bookings')
         .select('*', { count: 'exact', head: true })
@@ -80,11 +79,11 @@ export default function PublicProfilePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24">
+      <div className="min-h-screen flex items-center justify-center pt-24 bg-[#FAFAFA]">
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-          className="w-10 h-10 border-2 border-zen-gold border-t-transparent rounded-full"
+          className="w-10 h-10 border-2 border-[#FF9933] border-t-transparent rounded-full"
         />
       </div>
     );
@@ -92,19 +91,19 @@ export default function PublicProfilePage() {
 
   if (notFound) {
     return (
-      <div className="min-h-screen flex items-center justify-center pt-24 px-4">
+      <div className="min-h-screen flex items-center justify-center pt-24 px-4 bg-[#FAFAFA]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center max-w-md"
         >
-          <div className="w-20 h-20 rounded-full bg-zen-medium/50 flex items-center justify-center mx-auto mb-6">
-            <User className="w-10 h-10 text-zen-light/30" />
+          <div className="w-20 h-20 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center mx-auto mb-6 shadow-sm">
+            <User className="w-10 h-10 text-gray-400" />
           </div>
-          <h1 className="font-heading text-3xl text-zen-cream mb-3">
+          <h1 className="font-heading text-3xl text-gray-900 mb-3 font-semibold">
             Profile Not Available
           </h1>
-          <p className="text-zen-light/50 mb-8">
+          <p className="text-gray-500 mb-8">
             This profile is either private or doesn&apos;t exist. The yogi may have chosen to keep their journey personal.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -114,7 +113,7 @@ export default function PublicProfilePage() {
             </Link>
             <Link href="/register" className="gold-button justify-center">
               <UserPlus className="w-4 h-4" />
-              Join ZenFlow
+              Join Vedic Yoga
             </Link>
           </div>
         </motion.div>
@@ -123,11 +122,11 @@ export default function PublicProfilePage() {
   }
 
   return (
-    <div className="min-h-screen pt-28 pb-16 px-4">
+    <div className="min-h-screen pt-28 pb-16 px-4 bg-[#FAFAFA]">
       {/* Background glow effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-zen-sage/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-zen-gold/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#FFC078]/10 rounded-full blur-[100px]" />
       </div>
 
       <div className="max-w-2xl mx-auto relative z-10">
@@ -136,11 +135,11 @@ export default function PublicProfilePage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="glass-card overflow-hidden"
+          className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-card"
         >
           {/* Cover gradient */}
-          <div className="h-32 bg-gradient-to-br from-zen-sage/30 via-zen-medium to-zen-gold/20 relative">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(201,168,76,0.15),transparent)]" />
+          <div className="h-32 bg-gradient-to-r from-orange-100 via-orange-50 to-[#FFC078]/20 relative">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,153,51,0.15),transparent)]" />
           </div>
 
           {/* Avatar */}
@@ -155,15 +154,15 @@ export default function PublicProfilePage() {
                 <img
                   src={profile.profile_pic_url || '/default-avatar.png'}
                   alt={profile.full_name || 'Profile'}
-                  className="w-32 h-32 rounded-full object-cover border-4 border-zen-dark shadow-2xl"
+                  className="w-32 h-32 rounded-full object-cover border-4 border-white shadow-lg"
                 />
               ) : (
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-zen-sage/40 to-zen-gold/30 border-4 border-zen-dark flex items-center justify-center shadow-2xl">
-                  <User className="w-14 h-14 text-zen-cream/60" />
+                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-orange-100 to-orange-50 border-4 border-white flex items-center justify-center shadow-lg">
+                  <User className="w-14 h-14 text-orange-300" />
                 </div>
               )}
               {/* Online dot */}
-              <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 border-3 border-zen-dark" />
+              <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 border-3 border-white shadow-sm" />
             </motion.div>
           </div>
 
@@ -173,7 +172,7 @@ export default function PublicProfilePage() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="font-heading text-3xl md:text-4xl text-zen-cream"
+              className="font-heading text-3xl md:text-4xl text-gray-900 font-semibold"
             >
               {profile?.full_name}
             </motion.h1>
@@ -183,7 +182,7 @@ export default function PublicProfilePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="text-zen-light/40 text-sm mt-1"
+                className="text-gray-500 text-sm mt-1"
               >
                 📍 {profile.city}
               </motion.p>
@@ -194,7 +193,7 @@ export default function PublicProfilePage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.55 }}
-                className="text-zen-light/70 mt-4 text-sm leading-relaxed max-w-md mx-auto"
+                className="text-gray-600 mt-4 text-sm leading-relaxed max-w-md mx-auto"
               >
                 {profile.bio}
               </motion.p>
@@ -208,7 +207,7 @@ export default function PublicProfilePage() {
                 href={profile.instagram_url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-3 text-zen-sage hover:text-zen-gold transition-colors text-sm"
+                className="inline-flex items-center gap-1.5 mt-3 text-[#FF9933] hover:text-[#E8872E] transition-colors text-sm font-medium"
               >
                 <Instagram className="w-4 h-4" />
                 Instagram
@@ -221,28 +220,28 @@ export default function PublicProfilePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="grid grid-cols-3 gap-4 mx-6 my-6 p-4 rounded-2xl bg-zen-dark/40 border border-zen-sage/10"
+            className="grid grid-cols-3 gap-4 mx-6 my-6 p-4 rounded-2xl bg-gray-50 border border-gray-100"
           >
             <div className="text-center">
               <div className="flex items-center justify-center gap-1.5 mb-1">
-                <BookOpen className="w-4 h-4 text-zen-sage" />
+                <BookOpen className="w-4 h-4 text-emerald-500" />
               </div>
-              <p className="font-heading text-2xl text-zen-cream">{bookingsCount}</p>
-              <p className="text-zen-light/40 text-xs">Classes Done</p>
+              <p className="font-heading text-2xl text-gray-900 font-semibold">{bookingsCount}</p>
+              <p className="text-gray-500 text-xs">Classes Done</p>
             </div>
-            <div className="text-center border-x border-zen-sage/10">
+            <div className="text-center border-x border-gray-200">
               <div className="flex items-center justify-center gap-1.5 mb-1">
-                <Flame className="w-4 h-4 text-orange-400" />
+                <Flame className="w-4 h-4 text-orange-500" />
               </div>
-              <p className="font-heading text-2xl text-zen-cream">7</p>
-              <p className="text-zen-light/40 text-xs">Day Streak</p>
+              <p className="font-heading text-2xl text-gray-900 font-semibold">7</p>
+              <p className="text-gray-500 text-xs">Day Streak</p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center gap-1.5 mb-1">
-                <CalendarDays className="w-4 h-4 text-zen-gold" />
+                <CalendarDays className="w-4 h-4 text-[#FF9933]" />
               </div>
-              <p className="font-heading text-2xl text-zen-cream">{joinDate}</p>
-              <p className="text-zen-light/40 text-xs">Joined</p>
+              <p className="font-heading text-2xl text-gray-900 font-semibold">{joinDate}</p>
+              <p className="text-gray-500 text-xs">Joined</p>
             </div>
           </motion.div>
 
@@ -254,8 +253,8 @@ export default function PublicProfilePage() {
             className="px-6 pb-6"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Award className="w-5 h-5 text-zen-gold" />
-              <h3 className="font-heading text-lg text-zen-cream">Achievements</h3>
+              <Award className="w-5 h-5 text-[#FF9933]" />
+              <h3 className="font-heading text-lg text-gray-900 font-semibold">Achievements</h3>
             </div>
             <div className="flex flex-wrap gap-2">
               {badges.map((badge, i) => (
@@ -264,10 +263,10 @@ export default function PublicProfilePage() {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.8 + i * 0.08 }}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-full ${badge.bg} border border-white/5`}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-full ${badge.bg} border border-gray-100/50`}
                 >
                   <badge.icon className={`w-3.5 h-3.5 ${badge.color}`} />
-                  <span className="text-zen-cream/80 text-xs font-medium">{badge.label}</span>
+                  <span className="text-gray-700 text-xs font-medium">{badge.label}</span>
                 </motion.div>
               ))}
             </div>
@@ -287,7 +286,7 @@ export default function PublicProfilePage() {
           </Link>
           <Link href="/register" className="gold-button justify-center">
             <UserPlus className="w-4 h-4" />
-            Join ZenFlow
+            Join Vedic Yoga
           </Link>
         </motion.div>
 
@@ -296,9 +295,9 @@ export default function PublicProfilePage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="text-center text-zen-light/20 text-xs mt-8"
+          className="text-center text-gray-400 text-xs mt-8"
         >
-          🧘 ZenFlow Yoga — Find Your Inner Peace
+          🕉️ Vedic Yoga Alliance — Preserving Ancient Wisdom
         </motion.p>
       </div>
     </div>

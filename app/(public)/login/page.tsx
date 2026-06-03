@@ -4,36 +4,31 @@ import { useState, FormEvent, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Eye, EyeOff, Flower2, Loader2, Shield } from 'lucide-react';
+import { Eye, EyeOff, Loader2, Shield } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { useToast } from '@/components/ToastProvider';
 
-function LotusBackground() {
+function WarmBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-zen-dark via-zen-medium to-zen-dark" />
-      {[...Array(8)].map((_, i) => (
-        <motion.svg
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FFECD2]" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#FFC078]/10 rounded-full blur-[100px]" />
+      {[...Array(6)].map((_, i) => (
+        <motion.div
           key={i}
-          className="absolute"
-          width={16 + Math.random() * 20}
-          height={16 + Math.random() * 20}
-          viewBox="0 0 40 40"
-          fill="none"
+          className="absolute w-2 h-2 rounded-full bg-[#FF9933]"
           style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
           animate={{
-            y: [0, -30, 0],
-            rotate: [0, 180, 360],
-            opacity: [0.1, 0.25, 0.1],
+            y: [0, -20, 0],
+            opacity: [0.05, 0.15, 0.05],
           }}
           transition={{
             duration: 6 + Math.random() * 6,
             repeat: Infinity,
             delay: Math.random() * 4,
           }}
-        >
-          <path d="M20 2 C24 10, 34 16, 20 38 C6 16, 16 10, 20 2Z" fill="#C9A84C" opacity="0.5" />
-        </motion.svg>
+        />
       ))}
     </div>
   );
@@ -70,8 +65,8 @@ function AdminBackground() {
 export default function LoginPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-zen-dark">
-        <Loader2 className="w-8 h-8 text-zen-gold animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
+        <Loader2 className="w-8 h-8 text-[#FF9933] animate-spin" />
       </div>
     }>
       <LoginContent />
@@ -138,7 +133,7 @@ function LoginContent() {
           <AdminBackground />
           <div className="relative z-10 text-center px-12">
             <Shield className="w-16 h-16 mx-auto mb-6" style={{ color: '#7C3AED' }} />
-            <h2 className="font-heading text-5xl text-white mb-4">Admin Portal</h2>
+            <h2 className="font-heading text-5xl text-white mb-4 font-semibold">Admin Portal</h2>
             <p className="text-gray-400 text-lg">
               Secure access for system administrators only.
             </p>
@@ -155,12 +150,12 @@ function LoginContent() {
             {/* Mobile logo */}
             <div className="lg:hidden flex items-center gap-2 mb-8">
               <Shield className="w-7 h-7" style={{ color: '#7C3AED' }} />
-              <span className="font-heading text-2xl text-white">
+              <span className="font-heading text-2xl text-white font-semibold">
                 Admin<span style={{ color: '#7C3AED' }}>Panel</span>
               </span>
             </div>
 
-            <h1 className="font-heading text-3xl text-white mb-2">Admin Sign In 🛡️</h1>
+            <h1 className="font-heading text-3xl text-white mb-2 font-semibold">Admin Sign In 🛡️</h1>
             <p className="text-gray-400 mb-8">Enter your admin credentials to continue.</p>
 
             <form onSubmit={handleLogin} className="space-y-5">
@@ -236,18 +231,20 @@ function LoginContent() {
     <div className="min-h-screen flex">
       {/* Left: Background */}
       <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
-        <LotusBackground />
+        <WarmBackground />
         <div className="relative z-10 text-center px-12">
-          <Flower2 className="w-16 h-16 text-zen-gold mx-auto mb-6" />
-          <h2 className="font-heading text-5xl text-zen-cream mb-4">Welcome Back</h2>
-          <p className="text-zen-light/60 text-lg">
-            Continue your journey of mindfulness and well-being with ZenFlow.
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <span className="text-white text-3xl">🕉️</span>
+          </div>
+          <h2 className="font-heading text-5xl text-gray-900 mb-4 font-semibold">Welcome Back</h2>
+          <p className="text-gray-500 text-lg">
+            Continue your journey of mindfulness and well-being with Vedic Yoga Alliance.
           </p>
         </div>
       </div>
 
       {/* Right: Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-zen-cream/[0.03]">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -255,24 +252,26 @@ function LoginContent() {
         >
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 mb-8">
-            <Flower2 className="w-7 h-7 text-zen-gold" />
-            <span className="font-heading text-2xl text-zen-cream">
-              Zen<span className="text-zen-gold">Flow</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center">
+              <span className="text-white font-heading font-bold text-xs">V</span>
+            </div>
+            <span className="font-heading text-xl font-semibold text-gray-800">
+              Vedic<span className="text-[#FF9933]"> Yoga</span>
             </span>
           </div>
 
-          <h1 className="font-heading text-3xl text-zen-cream mb-2">Sign In</h1>
-          <p className="text-zen-light/50 mb-8">Enter your credentials to access your dashboard.</p>
+          <h1 className="font-heading text-3xl text-gray-900 mb-2 font-semibold">Sign In</h1>
+          <p className="text-gray-500 mb-8">Enter your credentials to access your dashboard.</p>
 
           {/* Tab Toggle */}
-          <div className="flex bg-zen-medium/30 rounded-full p-1 mb-8">
+          <div className="flex bg-gray-100 rounded-full p-1 mb-8">
             {(['student', 'studio'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 py-2.5 rounded-full text-sm font-medium transition-all duration-300 capitalize ${activeTab === tab
-                  ? 'bg-zen-gold text-zen-dark'
-                  : 'text-zen-light/60 hover:text-zen-cream'
+                  ? 'bg-[#FF9933] text-white shadow-sm'
+                  : 'text-gray-500 hover:text-gray-700'
                   }`}
               >
                 {tab} Login
@@ -306,14 +305,14 @@ function LoginContent() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
 
             <div className="flex justify-end">
-              <button type="button" className="text-zen-gold text-sm hover:underline">
+              <button type="button" className="text-[#FF9933] text-sm hover:underline">
                 Forgot Password?
               </button>
             </div>
@@ -332,14 +331,14 @@ function LoginContent() {
           </form>
 
           <div className="flex items-center gap-4 my-8">
-            <div className="flex-1 h-px bg-zen-sage/20" />
-            <span className="text-zen-light/30 text-sm">or</span>
-            <div className="flex-1 h-px bg-zen-sage/20" />
+            <div className="flex-1 h-px bg-gray-200" />
+            <span className="text-gray-400 text-sm">or</span>
+            <div className="flex-1 h-px bg-gray-200" />
           </div>
 
-          <p className="text-center text-zen-light/50 text-sm">
+          <p className="text-center text-gray-500 text-sm">
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-zen-gold hover:underline font-medium">
+            <Link href="/register" className="text-[#FF9933] hover:underline font-medium">
               Register
             </Link>
           </p>

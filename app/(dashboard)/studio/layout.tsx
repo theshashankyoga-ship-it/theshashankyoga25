@@ -1,12 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
-  Flower2, LayoutDashboard, BookOpen, Users, Calendar,
-  UserCircle, LogOut, Menu, X, ChevronLeft
+  LayoutDashboard, UserCircle, LogOut, Menu, X, ChevronLeft
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { useToast } from '@/components/ToastProvider';
@@ -31,27 +30,29 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#FAFAFA]">
       {/* Sidebar - Desktop */}
       <motion.aside
-        className={`hidden md:flex flex-col bg-zen-dark border-r border-zen-sage/10 transition-all duration-300 ${
+        className={`hidden md:flex flex-col bg-white border-r border-gray-200 transition-all duration-300 ${
           collapsed ? 'w-20' : 'w-64'
         }`}
         initial={false}
       >
         {/* Logo */}
-        <div className="p-6 flex items-center justify-between border-b border-zen-sage/10">
+        <div className="p-6 flex items-center justify-between border-b border-gray-100">
           {!collapsed && (
-            <Link href="/" className="flex items-center gap-2">
-              <Flower2 className="w-6 h-6 text-zen-gold" />
-              <span className="font-heading text-xl text-zen-cream">
-                Zen<span className="text-zen-gold">Flow</span>
+            <Link href="/" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center shadow-sm">
+                <span className="text-white font-heading font-bold text-sm">V</span>
+              </div>
+              <span className="font-heading text-lg font-semibold text-gray-900">
+                Vedic<span className="text-[#FF9933]"> Yoga</span>
               </span>
             </Link>
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="text-zen-light/40 hover:text-zen-gold transition-colors"
+            className="text-gray-400 hover:text-[#FF9933] transition-colors ml-auto"
           >
             <ChevronLeft className={`w-5 h-5 transition-transform ${collapsed ? 'rotate-180' : ''}`} />
           </button>
@@ -67,8 +68,8 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
                 href={link.href}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all duration-300 ${
                   isActive
-                    ? 'bg-zen-gold/15 text-zen-gold font-medium'
-                    : 'text-zen-light/60 hover:bg-zen-medium/30 hover:text-zen-cream'
+                    ? 'bg-orange-50 text-[#FF9933] font-medium'
+                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                 }`}
               >
                 <link.icon className="w-5 h-5 shrink-0" />
@@ -79,10 +80,10 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
         </nav>
 
         {/* Logout */}
-        <div className="p-3 border-t border-zen-sage/10">
+        <div className="p-3 border-t border-gray-100">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-red-400/70 hover:bg-red-900/20 hover:text-red-400 transition-all w-full"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-red-500 hover:bg-red-50 hover:text-red-600 transition-all w-full"
           >
             <LogOut className="w-5 h-5 shrink-0" />
             {!collapsed && <span>Logout</span>}
@@ -91,12 +92,14 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
       </motion.aside>
 
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-zen-dark/95 backdrop-blur-xl border-b border-zen-sage/10 px-4 py-3 flex items-center justify-between">
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl border-b border-gray-200 px-4 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <Flower2 className="w-6 h-6 text-zen-gold" />
-          <span className="font-heading text-lg text-zen-cream">ZenFlow</span>
+          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center">
+            <span className="text-white font-heading font-bold text-xs">V</span>
+          </div>
+          <span className="font-heading text-lg text-gray-900 font-semibold">Vedic Yoga</span>
         </Link>
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-zen-cream p-2">
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-gray-600 p-2">
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
@@ -107,7 +110,7 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
           initial={{ x: '-100%' }}
           animate={{ x: 0 }}
           exit={{ x: '-100%' }}
-          className="md:hidden fixed inset-0 z-40 bg-zen-dark/98 backdrop-blur-xl flex flex-col pt-16"
+          className="md:hidden fixed inset-0 z-40 bg-white/98 backdrop-blur-xl flex flex-col pt-16"
         >
           <nav className="flex-1 py-6 px-4 space-y-1">
             {studioLinks.map((link) => {
@@ -118,7 +121,7 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base ${
-                    isActive ? 'bg-zen-gold/15 text-zen-gold font-medium' : 'text-zen-light/60'
+                    isActive ? 'bg-orange-50 text-[#FF9933] font-medium' : 'text-gray-600'
                   }`}
                 >
                   <link.icon className="w-5 h-5" />
@@ -127,10 +130,10 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
               );
             })}
           </nav>
-          <div className="p-4 border-t border-zen-sage/10">
+          <div className="p-4 border-t border-gray-100">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-base text-red-400/70 w-full"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-base text-red-500 hover:bg-red-50 w-full"
             >
               <LogOut className="w-5 h-5" />
               <span>Logout</span>
@@ -140,7 +143,7 @@ export default function StudioDashboardLayout({ children }: { children: React.Re
       )}
 
       {/* Main Content */}
-      <main className="flex-1 bg-zen-dark/50 min-h-screen md:ml-0 pt-16 md:pt-0">
+      <main className="flex-1 min-h-screen md:ml-0 pt-16 md:pt-0">
         <div className="p-6 md:p-8 max-w-7xl mx-auto">
           {children}
         </div>

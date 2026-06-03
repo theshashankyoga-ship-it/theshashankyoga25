@@ -60,10 +60,10 @@ export default function StudentDashboardHome() {
 
       {/* Welcome */}
       <div className="mb-8">
-        <h1 className="font-heading text-3xl md:text-4xl text-zen-cream">
+        <h1 className="font-heading text-3xl md:text-4xl text-gray-900 font-semibold">
           Namaste, {studentName} 🧘
         </h1>
-        <p className="text-zen-light/50 mt-2">Here&apos;s your wellness overview for today.</p>
+        <p className="text-gray-500 mt-2">Here&apos;s your wellness overview for today.</p>
       </div>
 
       {/* Stats */}
@@ -76,9 +76,11 @@ export default function StudentDashboardHome() {
             transition={{ delay: i * 0.1 }}
             className="glass-card p-5"
           >
-            <stat.icon className="w-5 h-5 text-zen-sage mb-3" />
-            <p className="font-heading text-3xl text-zen-cream">{stat.value}</p>
-            <p className="text-zen-light/50 text-sm mt-1">{stat.label}</p>
+            <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center mb-3">
+              <stat.icon className="w-5 h-5 text-[#FF9933]" />
+            </div>
+            <p className="font-heading text-3xl text-gray-900 font-semibold">{stat.value}</p>
+            <p className="text-gray-500 text-sm mt-1">{stat.label}</p>
           </motion.div>
         ))}
       </div>
@@ -90,38 +92,38 @@ export default function StudentDashboardHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="glass-card p-6 border-l-4 border-l-zen-gold"
+            className="glass-card p-6 border-l-4 border-l-[#FF9933]"
           >
-            <span className="text-zen-gold text-xs tracking-widest uppercase font-medium">Today&apos;s Class</span>
-            <h3 className="font-heading text-2xl text-zen-cream mt-2">Morning Vinyasa Flow</h3>
-            <div className="flex flex-wrap gap-4 mt-3 text-sm text-zen-light/60">
-              <span className="flex items-center gap-1"><Clock className="w-4 h-4" /> 7:00 AM — 8:00 AM</span>
-              <span className="flex items-center gap-1"><MapPin className="w-4 h-4" /> Lotus Studio</span>
+            <span className="text-[#FF9933] text-xs tracking-widest uppercase font-bold">Today&apos;s Class</span>
+            <h3 className="font-heading text-2xl text-gray-900 font-semibold mt-2">Morning Vinyasa Flow</h3>
+            <div className="flex flex-wrap gap-4 mt-3 text-sm text-gray-600 font-medium">
+              <span className="flex items-center gap-1"><Clock className="w-4 h-4 text-[#FF9933]" /> 7:00 AM — 8:00 AM</span>
+              <span className="flex items-center gap-1"><MapPin className="w-4 h-4 text-[#FF9933]" /> Lotus Studio</span>
             </div>
-            <button className="gold-button mt-4 text-sm">
+            <button className="gold-button mt-4 text-sm font-medium">
               Join Class <ArrowRight className="w-4 h-4" />
             </button>
           </motion.div>
 
           {/* Upcoming */}
           <div className="glass-card p-6">
-            <h3 className="font-heading text-xl text-zen-cream mb-4">Upcoming Bookings</h3>
+            <h3 className="font-heading text-xl text-gray-900 font-semibold mb-4">Upcoming Bookings</h3>
             <div className="space-y-3">
               {upcomingBookings.map((booking, i) => (
-                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-zen-medium/15 border border-zen-sage/5">
+                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#FF9933]/30 transition-colors">
                   <div>
-                    <p className="text-zen-cream font-medium text-sm">{booking.name}</p>
-                    <p className="text-zen-light/40 text-xs mt-0.5">{booking.studio}</p>
+                    <p className="text-gray-900 font-medium text-sm">{booking.name}</p>
+                    <p className="text-gray-500 text-xs mt-0.5">{booking.studio}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-zen-gold text-sm font-medium">{booking.date}</p>
-                    <p className="text-zen-light/40 text-xs">{booking.time}</p>
+                    <p className="text-[#FF9933] text-sm font-semibold">{booking.date}</p>
+                    <p className="text-gray-500 text-xs font-medium">{booking.time}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <Link href="/student/my-classes" className="inline-block mt-4 text-zen-gold text-sm hover:underline">
-              View All →
+            <Link href="/student/my-classes" className="inline-block mt-4 text-[#FF9933] text-sm font-medium hover:underline">
+              View All Classes →
             </Link>
           </div>
         </div>
@@ -131,19 +133,21 @@ export default function StudentDashboardHome() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="glass-card p-6 border-t-4 border-t-zen-sage"
+          className="glass-card p-6 border-t-4 border-t-[#FF9933]"
         >
           <div className="flex items-center gap-2 mb-4">
-            <Lightbulb className="w-5 h-5 text-zen-gold" />
-            <span className="text-zen-gold text-sm font-medium">Tip of the Day</span>
+            <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center">
+              <Lightbulb className="w-4 h-4 text-[#FF9933]" />
+            </div>
+            <span className="text-[#FF9933] text-sm font-bold uppercase tracking-wider">Tip of the Day</span>
           </div>
-          <p className="text-zen-cream/80 text-sm leading-relaxed italic">
+          <p className="text-gray-700 text-sm leading-relaxed italic">
             &ldquo;{yogaTips[tipIndex]}&rdquo;
           </p>
 
           <div className="mt-8">
-            <Link href="/student/explore" className="gold-button text-sm w-full justify-center">
-              Explore More Classes
+            <Link href="/student/my-classes" className="outline-button text-sm w-full justify-center">
+              View My Classes
             </Link>
           </div>
         </motion.div>

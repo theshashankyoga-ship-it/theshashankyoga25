@@ -6,25 +6,25 @@ import Link from 'next/link';
 import AnimatedText from './AnimatedText';
 import { ArrowDown, Sparkles } from 'lucide-react';
 
-function LotusParticle({ index }: { index: number }) {
+function FloatingElement({ index }: { index: number }) {
   const randomX = Math.random() * 100;
   const randomDelay = Math.random() * 5;
   const randomDuration = 8 + Math.random() * 7;
-  const randomSize = 12 + Math.random() * 18;
-  const randomOpacity = 0.1 + Math.random() * 0.15;
+  const randomSize = 8 + Math.random() * 12;
+  const randomOpacity = 0.08 + Math.random() * 0.12;
 
   return (
-    <motion.svg
-      className="absolute"
-      width={randomSize}
-      height={randomSize}
-      viewBox="0 0 40 40"
-      fill="none"
-      style={{ left: `${randomX}%` }}
-      initial={{ y: '110vh', rotate: 0, opacity: 0 }}
+    <motion.div
+      className="absolute rounded-full"
+      style={{
+        left: `${randomX}%`,
+        width: randomSize,
+        height: randomSize,
+        background: 'linear-gradient(135deg, #FF9933, #FFC078)',
+      }}
+      initial={{ y: '110vh', opacity: 0 }}
       animate={{
         y: '-10vh',
-        rotate: 360,
         opacity: [0, randomOpacity, randomOpacity, 0],
       }}
       transition={{
@@ -33,56 +33,7 @@ function LotusParticle({ index }: { index: number }) {
         repeat: Infinity,
         ease: 'linear',
       }}
-    >
-      <path
-        d="M20 2 C24 10, 34 16, 20 38 C6 16, 16 10, 20 2Z"
-        fill="#C9A84C"
-        opacity="0.6"
-      />
-      <path
-        d="M20 2 C28 8, 38 12, 30 32 C22 20, 20 10, 20 2Z"
-        fill="#7A9E7E"
-        opacity="0.4"
-      />
-      <path
-        d="M20 2 C12 8, 2 12, 10 32 C18 20, 20 10, 20 2Z"
-        fill="#7A9E7E"
-        opacity="0.4"
-      />
-    </motion.svg>
-  );
-}
-
-function YogaPoseSilhouette() {
-  return (
-    <motion.svg
-      className="w-full h-full"
-      viewBox="0 0 300 500"
-      fill="none"
-      initial={{ opacity: 0, x: 40 }}
-      animate={{ opacity: 0.15, x: 0 }}
-      transition={{ duration: 1.5, delay: 0.8 }}
-    >
-      {/* Tree Pose / Vrksasana silhouette */}
-      <g fill="#7A9E7E" opacity="0.7">
-        {/* Head */}
-        <circle cx="150" cy="70" r="28" />
-        {/* Torso */}
-        <path d="M135 98 L165 98 L162 210 L138 210 Z" />
-        {/* Left arm up */}
-        <path d="M138 110 C110 100, 90 60, 100 20 C105 18, 110 20, 108 25 C108 60, 120 90, 140 108Z" />
-        {/* Right arm up */}
-        <path d="M162 110 C190 100, 210 60, 200 20 C195 18, 190 20, 192 25 C192 60, 180 90, 160 108Z" />
-        {/* Hands meeting above (namaste up) */}
-        <path d="M100 20 C110 5, 140 0, 150 0 C160 0, 190 5, 200 20 C195 15, 160 8, 150 8 C140 8, 105 15, 100 20Z" />
-        {/* Right standing leg */}
-        <path d="M142 210 L138 380 L132 400 L162 400 L156 380 L158 210Z" />
-        {/* Right foot */}
-        <path d="M132 400 L125 420 L170 420 L162 400Z" />
-        {/* Left leg (bent, foot on inner thigh) */}
-        <path d="M140 210 C120 230, 100 260, 110 280 C115 285, 125 282, 128 275 C132 260, 136 240, 140 225Z" />
-      </g>
-    </motion.svg>
+    />
   );
 }
 
@@ -102,14 +53,18 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
       id="hero"
     >
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-zen-dark via-zen-medium/40 to-zen-dark" />
-      <div className="absolute inset-0 bg-gradient-radial from-zen-sage/5 via-transparent to-transparent" />
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FAFAFA]" />
+      <div className="absolute inset-0 bg-gradient-radial from-[#FF9933]/5 via-transparent to-transparent" />
 
-      {/* Lotus particles */}
+      {/* Decorative blobs */}
+      <div className="absolute top-20 right-10 w-72 h-72 bg-[#FF9933]/10 rounded-full blur-[100px]" />
+      <div className="absolute bottom-20 left-10 w-96 h-96 bg-[#FFC078]/10 rounded-full blur-[120px]" />
+
+      {/* Floating particles */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-          <LotusParticle key={i} index={i} />
+        {[...Array(10)].map((_, i) => (
+          <FloatingElement key={i} index={i} />
         ))}
       </div>
 
@@ -126,15 +81,15 @@ export default function HeroSection() {
             transition={{ delay: 0.2 }}
             className="flex items-center gap-2 mb-6"
           >
-            <Sparkles className="w-4 h-4 text-zen-gold" />
-            <span className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium">
-              Premium Yoga Experience
+            <Sparkles className="w-4 h-4 text-[#FF9933]" />
+            <span className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold">
+              Vedic Yoga Alliance
             </span>
           </motion.div>
 
           <AnimatedText
-            text="Find Your Inner Peace"
-            className="font-heading text-5xl sm:text-6xl lg:text-7xl font-light text-zen-cream leading-[1.1] mb-6"
+            text="Yoga for Every Body, Every Mind, Every Journey"
+            className="font-heading text-4xl sm:text-5xl lg:text-6xl font-semibold text-gray-900 leading-[1.15] mb-6"
             delay={0.3}
           />
 
@@ -142,10 +97,10 @@ export default function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.0 }}
-            className="text-zen-light/70 text-lg md:text-xl max-w-lg leading-relaxed mb-10"
+            className="text-gray-500 text-lg md:text-xl max-w-lg leading-relaxed mb-10"
           >
-            Premium yoga classes for mind, body & soul. Join our community of practitioners
-            and discover the transformative power of yoga.
+            Preserving ancient wisdom. Empowering modern yoga. Join our community
+            of practitioners and discover the transformative power of yoga.
           </motion.p>
 
           <motion.div
@@ -154,25 +109,66 @@ export default function HeroSection() {
             transition={{ delay: 1.3 }}
             className="flex flex-wrap gap-4"
           >
-            <Link href="/classes" className="gold-button animate-breathe text-base">
-              Explore Classes
+            <Link href="/register" className="gold-button animate-breathe text-base">
+              Join Community
             </Link>
-            <Link href="/register" className="outline-button animate-breathe text-base">
-              Join as Studio
+            <Link href="/classes" className="outline-button animate-breathe text-base">
+              Explore Yoga
             </Link>
           </motion.div>
         </div>
 
-        {/* Right: Yoga pose silhouette */}
+        {/* Right: decorative image area */}
         <motion.div
-          className="hidden lg:block relative h-[500px] animate-float"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          className="hidden lg:flex items-center justify-center relative"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.5, duration: 1 }}
         >
-          <YogaPoseSilhouette />
-          {/* Glow behind pose */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-zen-sage/10 rounded-full blur-[100px]" />
+          <div className="relative w-[420px] h-[420px]">
+            {/* Circular background */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#FF9933]/15 to-[#FFC078]/10 animate-float" />
+            <div className="absolute inset-4 rounded-full bg-gradient-to-tr from-[#FF9933]/10 to-transparent animate-float-slow" />
+
+            {/* Center mandala/icon */}
+            <div className="absolute inset-0 flex items-center justify-center">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+                className="w-64 h-64 rounded-full border border-[#FF9933]/20"
+              />
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-32 h-32 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center shadow-xl">
+                <span className="text-white text-5xl">🕉️</span>
+              </div>
+            </div>
+
+            {/* Floating badges */}
+            <motion.div
+              className="absolute top-8 right-4 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center gap-2"
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            >
+              <span className="text-2xl">🧘</span>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">500+</p>
+                <p className="text-xs text-gray-500">Students</p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="absolute bottom-8 left-4 bg-white rounded-2xl shadow-lg px-4 py-3 flex items-center gap-2"
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+            >
+              <span className="text-2xl">⭐</span>
+              <div>
+                <p className="text-sm font-semibold text-gray-800">4.9</p>
+                <p className="text-xs text-gray-500">Rating</p>
+              </div>
+            </motion.div>
+          </div>
         </motion.div>
       </motion.div>
 
@@ -183,12 +179,12 @@ export default function HeroSection() {
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
       >
-        <span className="text-zen-light/40 text-xs tracking-widest uppercase">Scroll</span>
+        <span className="text-gray-400 text-xs tracking-widest uppercase">Scroll</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         >
-          <ArrowDown className="w-5 h-5 text-zen-gold" />
+          <ArrowDown className="w-5 h-5 text-[#FF9933]" />
         </motion.div>
       </motion.div>
     </section>

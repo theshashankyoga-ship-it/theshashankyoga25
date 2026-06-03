@@ -53,7 +53,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
             <Link href="/admin" className="flex items-center gap-2">
               <Shield className="w-6 h-6" style={{ color: '#7C3AED' }} />
               <span className="font-heading text-xl text-white">
-                Admin<span style={{ color: '#7C3AED' }}>Panel</span>
+                Vedic<span style={{ color: '#7C3AED' }}>Admin</span>
               </span>
             </Link>
           )}
@@ -107,7 +107,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       >
         <Link href="/admin" className="flex items-center gap-2">
           <Shield className="w-6 h-6" style={{ color: '#7C3AED' }} />
-          <span className="font-heading text-lg text-white">AdminPanel</span>
+          <span className="font-heading text-lg text-white">VedicAdmin</span>
         </Link>
         <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-2">
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}

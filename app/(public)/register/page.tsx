@@ -1,39 +1,34 @@
 'use client';
 
 import { useState, useEffect, FormEvent } from 'react';
-import { User, Building2, Eye, EyeOff, Flower2, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail, AlertCircle } from 'lucide-react';
+import { User, Building2, Eye, EyeOff, Loader2, ArrowLeft, ArrowRight, CheckCircle, Mail, AlertCircle } from 'lucide-react';
 
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { createClient } from '@/lib/supabase';
 import { useToast } from '@/components/ToastProvider';
 
-function LotusBackground() {
+function WarmBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-zen-dark via-zen-medium to-zen-dark" />
-      {[...Array(8)].map((_, i) => (
-        <motion.svg
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FFECD2]" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#FFC078]/10 rounded-full blur-[100px]" />
+      {[...Array(6)].map((_, i) => (
+        <motion.div
           key={i}
-          className="absolute"
-          width={16 + Math.random() * 20}
-          height={16 + Math.random() * 20}
-          viewBox="0 0 40 40"
-          fill="none"
+          className="absolute w-2 h-2 rounded-full bg-[#FF9933]"
           style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
           animate={{
-            y: [0, -30, 0],
-            rotate: [0, 180, 360],
-            opacity: [0.1, 0.25, 0.1],
+            y: [0, -20, 0],
+            opacity: [0.05, 0.15, 0.05],
           }}
           transition={{
             duration: 6 + Math.random() * 6,
             repeat: Infinity,
             delay: Math.random() * 4,
           }}
-        >
-          <path d="M20 2 C24 10, 34 16, 20 38 C6 16, 16 10, 20 2Z" fill="#C9A84C" opacity="0.5" />
-        </motion.svg>
+        />
       ))}
     </div>
   );
@@ -51,13 +46,11 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [agreed, setAgreed] = useState(false);
 
-  // ─── NEW: Inline success/error/countdown state ───
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [countdown, setCountdown] = useState(0);
   const [registeredEmail, setRegisteredEmail] = useState('');
 
-  // Student fields
   const [studentForm, setStudentForm] = useState({
     name: '',
     email: '',
@@ -65,7 +58,6 @@ export default function RegisterPage() {
     confirmPassword: '',
   });
 
-  // Studio fields
   const [studioForm, setStudioForm] = useState({
     studioName: '',
     ownerName: '',
@@ -75,7 +67,6 @@ export default function RegisterPage() {
     city: '',
   });
 
-  // ─── Countdown timer effect ───
   useEffect(() => {
     if (countdown <= 0) return;
 
@@ -108,7 +99,6 @@ export default function RegisterPage() {
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
-    // Clear previous messages
     setErrorMessage('');
     setSuccessMessage('');
 
@@ -151,8 +141,9 @@ export default function RegisterPage() {
         return;
       }
 
-      setUserEmail(email); setShowPopup(true); setUserEmail(email); setShowPopup(true); if (data.user) {
-        // Insert profile
+      setUserEmail(email); setShowPopup(true); 
+
+      if (data.user) {
         await supabase.from('profiles').upsert({
           id: data.user.id,
           role,
@@ -162,7 +153,6 @@ export default function RegisterPage() {
           city: role === 'studio' ? studioForm.city : null,
         });
 
-        // If studio, insert studio record
         if (role === 'studio') {
           await supabase.from('studios').insert({
             user_id: data.user.id,
@@ -171,7 +161,6 @@ export default function RegisterPage() {
           });
         }
 
-        // Set success state
         showToast('success', 'Verification email sent! Check your inbox.');
         setUserEmail(email);
         setShowPopup(true);
@@ -184,44 +173,43 @@ export default function RegisterPage() {
     }
   };
 
-  // ─── SUCCESS OVERLAY ───
-  // After successful signup, replace the entire form with a beautiful confirmation screen
   if (successMessage) {
     return (
-      <div className="min-h-screen flex">
+      <div className="min-h-screen flex bg-[#FAFAFA]">
         {/* Left: Background */}
         <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
-          <LotusBackground />
+          <WarmBackground />
           <div className="relative z-10 text-center px-12">
-            <Flower2 className="w-16 h-16 text-zen-gold mx-auto mb-6" />
-            <h2 className="font-heading text-5xl text-zen-cream mb-4">Almost There!</h2>
-            <p className="text-zen-light/60 text-lg">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center mx-auto mb-6 shadow-lg">
+              <span className="text-white text-3xl">🕉️</span>
+            </div>
+            <h2 className="font-heading text-5xl text-gray-900 mb-4 font-semibold">Almost There!</h2>
+            <p className="text-gray-500 text-lg">
               One last step to begin your yoga journey.
             </p>
           </div>
         </div>
 
         {/* Right: Success Message */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-zen-cream/[0.03]">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, ease: 'easeOut' }}
             className="w-full max-w-md text-center"
           >
-            {/* Animated checkmark circle */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
               transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.2 }}
-              className="w-24 h-24 mx-auto mb-8 rounded-full bg-green-500/10 border-2 border-green-500/50 flex items-center justify-center"
+              className="w-24 h-24 mx-auto mb-8 rounded-full bg-emerald-50 flex items-center justify-center border border-emerald-100"
             >
               <motion.div
                 initial={{ scale: 0, rotate: -180 }}
                 animate={{ scale: 1, rotate: 0 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 12, delay: 0.5 }}
               >
-                <CheckCircle className="w-12 h-12 text-green-400" />
+                <CheckCircle className="w-12 h-12 text-emerald-500" />
               </motion.div>
             </motion.div>
 
@@ -229,7 +217,7 @@ export default function RegisterPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="font-heading text-3xl text-zen-cream mb-3"
+              className="font-heading text-3xl text-gray-900 font-semibold mb-3"
             >
               Account Created!
             </motion.h2>
@@ -239,36 +227,32 @@ export default function RegisterPage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              {/* Success banner */}
-              <div className="bg-green-500/10 border border-green-500/40 text-green-400 p-5 rounded-xl mb-6 backdrop-blur-sm">
+              <div className="bg-emerald-50 border border-emerald-100 text-emerald-600 p-5 rounded-xl mb-6">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Mail className="w-5 h-5" />
                   <span className="font-semibold">Verification Email Sent</span>
                 </div>
-                <p className="text-green-400/80 text-sm">
+                <p className="text-emerald-600 text-sm">
                   {successMessage}
                 </p>
               </div>
 
-              {/* Email display */}
               {registeredEmail && (
-                <div className="bg-zen-medium/30 border border-zen-sage/20 rounded-xl p-4 mb-6">
-                  <p className="text-zen-light/50 text-sm mb-1">Sent to</p>
-                  <p className="text-zen-gold font-medium">{registeredEmail}</p>
+                <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-6">
+                  <p className="text-gray-500 text-sm mb-1">Sent to</p>
+                  <p className="text-[#FF9933] font-medium">{registeredEmail}</p>
                 </div>
               )}
 
-              {/* Countdown */}
               <div className="mb-6">
-                <p className="text-zen-light/50 text-sm">
+                <p className="text-gray-500 text-sm">
                   Redirecting to login in{' '}
-                  <span className="text-zen-gold font-bold text-lg">{countdown}</span>{' '}
+                  <span className="text-[#FF9933] font-bold text-lg">{countdown}</span>{' '}
                   second{countdown !== 1 ? 's' : ''}...
                 </p>
-                {/* Progress bar */}
-                <div className="mt-3 w-full h-1.5 bg-zen-sage/20 rounded-full overflow-hidden">
+                <div className="mt-3 w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-zen-gold to-zen-gold/60 rounded-full"
+                    className="h-full bg-gradient-to-r from-[#FF9933] to-[#E8872E] rounded-full"
                     initial={{ width: '100%' }}
                     animate={{ width: '0%' }}
                     transition={{ duration: 5, ease: 'linear' }}
@@ -276,7 +260,6 @@ export default function RegisterPage() {
                 </div>
               </div>
 
-              {/* Manual redirect button */}
               <Link
                 href="/login"
                 className="gold-button w-full justify-center text-base inline-flex"
@@ -284,7 +267,7 @@ export default function RegisterPage() {
                 Go to Login Now <ArrowRight className="w-4 h-4" />
               </Link>
 
-              <p className="text-zen-light/40 text-xs mt-4">
+              <p className="text-gray-400 text-xs mt-4">
                 Didn&apos;t receive the email? Check your spam folder.
               </p>
             </motion.div>
@@ -295,21 +278,23 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex bg-[#FAFAFA]">
       {/* Left: Background */}
       <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
-        <LotusBackground />
+        <WarmBackground />
         <div className="relative z-10 text-center px-12">
-          <Flower2 className="w-16 h-16 text-zen-gold mx-auto mb-6" />
-          <h2 className="font-heading text-5xl text-zen-cream mb-4">Begin Your Journey</h2>
-          <p className="text-zen-light/60 text-lg">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <span className="text-white text-3xl">🕉️</span>
+          </div>
+          <h2 className="font-heading text-5xl text-gray-900 mb-4 font-semibold">Begin Your Journey</h2>
+          <p className="text-gray-500 text-lg">
             Join our community and experience the transformative power of yoga.
           </p>
         </div>
       </div>
 
       {/* Right: Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-zen-cream/[0.03]">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -317,22 +302,24 @@ export default function RegisterPage() {
         >
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 mb-8">
-            <Flower2 className="w-7 h-7 text-zen-gold" />
-            <span className="font-heading text-2xl text-zen-cream">
-              Zen<span className="text-zen-gold">Flow</span>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center">
+              <span className="text-white font-heading font-bold text-xs">V</span>
+            </div>
+            <span className="font-heading text-xl font-semibold text-gray-800">
+              Vedic<span className="text-[#FF9933]"> Yoga</span>
             </span>
           </div>
 
           <>
-            <h1 className="font-heading text-3xl text-zen-cream mb-2">Create Account</h1>
-            <p className="text-zen-light/50 mb-6">Join ZenFlow and start your practice today.</p>
+            <h1 className="font-heading text-3xl text-gray-900 mb-2 font-semibold">Create Account</h1>
+            <p className="text-gray-500 mb-6">Join Vedic Yoga Alliance and start your practice today.</p>
 
             {/* Progress bar */}
             <div className="flex gap-2 mb-8">
               {[1, 2].map((s) => (
                 <motion.div
                   key={s}
-                  className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-zen-gold' : 'bg-zen-sage/20'}`}
+                  className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-[#FF9933]' : 'bg-gray-100'}`}
                   initial={false}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.4 }}
@@ -350,15 +337,15 @@ export default function RegisterPage() {
                   transition={{ duration: 0.3 }}
                   className="mb-4"
                 >
-                  <div className="bg-red-500/10 border border-red-500/40 text-red-400 p-4 rounded-xl flex items-start gap-3">
+                  <div className="bg-red-50 border border-red-100 text-red-500 p-4 rounded-xl flex items-start gap-3">
                     <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
                     <div>
                       <p className="font-medium text-sm">Registration Failed</p>
-                      <p className="text-red-400/80 text-sm mt-0.5">{errorMessage}</p>
+                      <p className="text-red-500/80 text-sm mt-0.5">{errorMessage}</p>
                     </div>
                     <button
                       onClick={() => setErrorMessage('')}
-                      className="ml-auto text-red-400/60 hover:text-red-400 transition-colors"
+                      className="ml-auto text-red-300 hover:text-red-500 transition-colors"
                     >
                       ×
                     </button>
@@ -376,30 +363,30 @@ export default function RegisterPage() {
                   exit={{ opacity: 0, x: 30 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <h3 className="text-zen-cream font-medium mb-6">Step 1: Choose Your Role</h3>
+                  <h3 className="text-gray-700 font-medium mb-6">Step 1: Choose Your Role</h3>
 
                   <div className="grid grid-cols-2 gap-4 mb-8">
                     <button
                       onClick={() => handleRoleSelect('student')}
                       className={`p-6 rounded-xl border text-center transition-all duration-300 ${role === 'student'
-                        ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
-                        : 'border-zen-sage/20 hover:border-zen-sage/40'
+                        ? 'border-[#FF9933] bg-orange-50 shadow-md'
+                        : 'border-gray-200 hover:border-gray-300'
                         }`}
                     >
-                      <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
-                      <p className="font-medium text-zen-cream text-sm">I&apos;m a Student</p>
-                      <p className="text-zen-light/40 text-xs mt-1">Find & book classes</p>
+                      <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-[#FF9933]' : 'text-gray-400'}`} />
+                      <p className="font-medium text-gray-900 text-sm">I&apos;m a Student</p>
+                      <p className="text-gray-500 text-xs mt-1">Find & book classes</p>
                     </button>
                     <button
                       onClick={() => handleRoleSelect('studio')}
                       className={`p-6 rounded-xl border text-center transition-all duration-300 ${role === 'studio'
-                        ? 'border-zen-gold bg-zen-gold/10 shadow-lg shadow-zen-gold/10'
-                        : 'border-zen-sage/20 hover:border-zen-sage/40'
+                        ? 'border-[#FF9933] bg-orange-50 shadow-md'
+                        : 'border-gray-200 hover:border-gray-300'
                         }`}
                     >
-                      <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-zen-gold' : 'text-zen-light/60'}`} />
-                      <p className="font-medium text-zen-cream text-sm">I&apos;m a Studio</p>
-                      <p className="text-zen-light/40 text-xs mt-1">List your classes</p>
+                      <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-[#FF9933]' : 'text-gray-400'}`} />
+                      <p className="font-medium text-gray-900 text-sm">I&apos;m a Studio</p>
+                      <p className="text-gray-500 text-xs mt-1">List your classes</p>
                     </button>
                   </div>
 
@@ -419,12 +406,12 @@ export default function RegisterPage() {
                 >
                   <button
                     onClick={() => { setStep(1); setErrorMessage(''); }}
-                    className="flex items-center gap-1 text-zen-light/50 hover:text-zen-gold text-sm mb-6 transition-colors"
+                    className="flex items-center gap-1 text-gray-500 hover:text-[#FF9933] text-sm mb-6 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" /> Back
                   </button>
 
-                  <h3 className="text-zen-cream font-medium mb-6">
+                  <h3 className="text-gray-700 font-medium mb-6">
                     Step 2: {role === 'student' ? 'Student' : 'Studio'} Details
                   </h3>
 
@@ -467,7 +454,7 @@ export default function RegisterPage() {
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
                           >
                             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                           </button>
@@ -533,7 +520,7 @@ export default function RegisterPage() {
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 text-zen-light/40 hover:text-zen-gold transition-colors"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
                           >
                             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                           </button>
@@ -568,11 +555,11 @@ export default function RegisterPage() {
                         type="checkbox"
                         checked={agreed}
                         onChange={(e) => setAgreed(e.target.checked)}
-                        className="w-4 h-4 rounded border-zen-sage/30 text-zen-gold focus:ring-zen-gold bg-zen-medium/30"
+                        className="w-4 h-4 rounded border-gray-300 text-[#FF9933] focus:ring-[#FF9933] bg-white"
                       />
-                      <span className="text-zen-light/50 text-sm">
+                      <span className="text-gray-500 text-sm">
                         I agree to the{' '}
-                        <a href="#" className="text-zen-gold hover:underline">Terms & Conditions</a>
+                        <a href="#" className="text-[#FF9933] hover:underline">Terms & Conditions</a>
                       </span>
                     </label>
 
@@ -598,14 +585,14 @@ export default function RegisterPage() {
             </AnimatePresence>
 
             <div className="flex items-center gap-4 my-8">
-              <div className="flex-1 h-px bg-zen-sage/20" />
-              <span className="text-zen-light/30 text-sm">or</span>
-              <div className="flex-1 h-px bg-zen-sage/20" />
+              <div className="flex-1 h-px bg-gray-200" />
+              <span className="text-gray-400 text-sm">or</span>
+              <div className="flex-1 h-px bg-gray-200" />
             </div>
 
-            <p className="text-center text-zen-light/50 text-sm">
+            <p className="text-center text-gray-500 text-sm">
               Already have an account?{' '}
-              <Link href="/login" className="text-zen-gold hover:underline font-medium">
+              <Link href="/login" className="text-[#FF9933] hover:underline font-medium">
                 Sign In
               </Link>
             </p>
@@ -614,25 +601,25 @@ export default function RegisterPage() {
       </div>
 
       {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
-          <div className="bg-[#1A3320] border border-[#C9A84C] rounded-2xl p-10 text-center max-w-sm mx-4">
+        <div className="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white border border-orange-100 shadow-2xl rounded-2xl p-10 text-center max-w-sm mx-4">
             <div className="text-6xl mb-4">✉️</div>
-            <h2 className="text-[#C9A84C] text-2xl font-bold mb-3">
-              Email Bhej Diya!
+            <h2 className="text-gray-900 text-2xl font-semibold mb-3">
+              Email Sent!
             </h2>
-            <p className="text-[#E8E0D0] mb-2">
-              Verification link bheja gaya hai:
+            <p className="text-gray-600 mb-2">
+              Verification link has been sent to:
             </p>
-            <p className="text-[#C9A84C] font-semibold mb-4">
+            <p className="text-[#FF9933] font-semibold mb-4">
               {userEmail}
             </p>
-            <p className="text-[#9BB89A] text-sm mb-6">
-              📌 Spam folder bhi check karo
+            <p className="text-gray-400 text-sm mb-6">
+              📌 Please check your spam folder
             </p>
             <button
               onClick={() => window.location.href = '/login'}
-              className="w-full bg-[#C9A84C] text-[#0D1F0F] font-bold py-3 rounded-lg cursor-pointer">
-              Login Page Par Jao →
+              className="w-full gold-button justify-center font-bold py-3 rounded-lg cursor-pointer">
+              Go to Login Page →
             </button>
           </div>
         </div>

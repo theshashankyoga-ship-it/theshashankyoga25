@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
-import { Menu, X, Flower2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { name: 'Home', href: '/' },
@@ -37,8 +37,8 @@ export default function Navbar() {
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-zen-dark/95 backdrop-blur-xl shadow-2xl shadow-black/20'
-            : 'bg-transparent'
+            ? 'bg-white/95 backdrop-blur-xl shadow-md'
+            : 'bg-white/80 backdrop-blur-sm'
         }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
@@ -46,10 +46,12 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <Flower2 className="w-7 h-7 text-zen-gold group-hover:rotate-45 transition-transform duration-500" />
-            <span className="font-heading text-2xl font-semibold text-zen-cream">
-              Zen<span className="text-zen-gold">Flow</span>
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center shadow-sm">
+              <span className="text-white font-heading font-bold text-sm">V</span>
+            </div>
+            <span className="font-heading text-lg font-semibold text-gray-800">
+              Vedic<span className="text-[#FF9933]"> Yoga</span>
             </span>
           </Link>
 
@@ -59,13 +61,13 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="relative text-sm tracking-wide text-zen-light/80 hover:text-zen-cream transition-colors duration-300 py-1"
+                className="relative text-sm font-medium text-gray-600 hover:text-[#FF9933] transition-colors duration-300 py-1"
               >
                 {link.name}
                 {pathname === link.href && (
                   <motion.span
                     layoutId="navbar-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-zen-gold rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF9933] rounded-full"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -75,17 +77,17 @@ export default function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="outline-button text-sm py-2 px-5">
+            <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-[#FF9933] transition-colors px-4 py-2">
               Login
             </Link>
-            <Link href="/register" className="gold-button text-sm py-2 px-5">
+            <Link href="/register" className="gold-button text-sm py-2.5 px-6">
               Register
             </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden text-zen-cream p-2"
+            className="md:hidden text-gray-700 p-2"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -102,7 +104,7 @@ export default function Navbar() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-40 bg-zen-dark/98 backdrop-blur-2xl md:hidden"
+            className="fixed inset-0 z-40 bg-white md:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-8">
               {navLinks.map((link, i) => (
@@ -115,9 +117,9 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className={`font-heading text-4xl ${
-                      pathname === link.href ? 'text-zen-gold' : 'text-zen-cream'
-                    } hover:text-zen-gold transition-colors`}
+                    className={`font-heading text-3xl font-semibold ${
+                      pathname === link.href ? 'text-[#FF9933]' : 'text-gray-800'
+                    } hover:text-[#FF9933] transition-colors`}
                   >
                     {link.name}
                   </Link>

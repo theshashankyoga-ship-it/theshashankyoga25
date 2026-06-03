@@ -4,13 +4,13 @@ import { ToastProvider } from '@/components/ToastProvider';
 import CustomCursor from '@/components/CustomCursor';
 
 export const metadata: Metadata = {
-  title: 'ZenFlow Yoga — Premium Yoga Classes for Mind, Body & Soul',
+  title: 'Vedic Yoga Alliance — Preserving Ancient Wisdom, Empowering Modern Yoga',
   description:
-    'Discover premium yoga classes with expert instructors. Join our community of 500+ students. Book classes in Vinyasa, Power Yoga, Yin, Meditation, and more.',
-  keywords: ['yoga', 'wellness', 'meditation', 'vinyasa', 'yoga classes', 'online yoga', 'yoga studio'],
+    'Vedic Yoga Alliance connects students, yoga teachers, studios, and wellness communities. Discover premium yoga classes, find certified instructors, and join our growing community.',
+  keywords: ['yoga', 'vedic yoga', 'wellness', 'meditation', 'yoga alliance', 'yoga teachers', 'yoga studio', 'yoga classes'],
   openGraph: {
-    title: 'ZenFlow Yoga — Find Your Inner Peace',
-    description: 'Premium yoga classes for mind, body & soul.',
+    title: 'Vedic Yoga Alliance — Preserving Ancient Wisdom, Empowering Modern Yoga',
+    description: 'Connect with certified yoga teachers and studios. Join our community.',
     type: 'website',
   },
 };
@@ -18,10 +18,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="antialiased">
-      <body className="font-body bg-zen-dark text-zen-cream min-h-screen">
+      <body className="font-body bg-vedic-bg text-vedic-dark min-h-screen">
         <ToastProvider>
           <CustomCursor />
-          <div className="grain-overlay" />
           {children}
         </ToastProvider>
       </body>

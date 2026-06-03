@@ -49,9 +49,9 @@ export default function StudioDashboardHome() {
   ];
 
   const statusColors: Record<string, string> = {
-    confirmed: 'bg-green-800/50 text-green-300',
-    completed: 'bg-blue-800/50 text-blue-300',
-    cancelled: 'bg-red-800/50 text-red-300',
+    confirmed: 'bg-emerald-100 text-emerald-700',
+    completed: 'bg-blue-100 text-blue-700',
+    cancelled: 'bg-red-100 text-red-700',
   };
 
   return (
@@ -65,10 +65,10 @@ export default function StudioDashboardHome() {
 
       {/* Welcome */}
       <div className="mb-8">
-        <h1 className="font-heading text-3xl md:text-4xl text-zen-cream">
+        <h1 className="font-heading text-3xl md:text-4xl text-gray-900 font-semibold">
           Good Morning, {studioName} 🙏
         </h1>
-        <p className="text-zen-light/50 mt-2">Here&apos;s what&apos;s happening with your studio today.</p>
+        <p className="text-gray-500 mt-2">Here&apos;s what&apos;s happening with your studio today.</p>
       </div>
 
       {/* Stats */}
@@ -82,21 +82,23 @@ export default function StudioDashboardHome() {
             className="glass-card p-5"
           >
             <div className="flex items-center justify-between mb-3">
-              <stat.icon className="w-5 h-5 text-zen-sage" />
-              <span className="text-xs text-zen-sage">{stat.change}</span>
+              <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center">
+                <stat.icon className="w-4 h-4 text-[#FF9933]" />
+              </div>
+              <span className="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-1 rounded-full">{stat.change}</span>
             </div>
-            <p className="font-heading text-3xl text-zen-cream">{stat.value}</p>
-            <p className="text-zen-light/50 text-sm mt-1">{stat.label}</p>
+            <p className="font-heading text-3xl text-gray-900 font-semibold">{stat.value}</p>
+            <p className="text-gray-500 text-sm mt-1">{stat.label}</p>
           </motion.div>
         ))}
       </div>
 
       {/* Quick Actions */}
       <div className="flex gap-3 mb-8">
-        <a href="/studio/classes" className="gold-button text-sm">
+        <a href="/studio/classes" className="gold-button text-sm font-medium">
           <Plus className="w-4 h-4" /> Add New Class
         </a>
-        <a href="/studio/schedule" className="outline-button text-sm">
+        <a href="/studio/schedule" className="outline-button text-sm font-medium">
           <Calendar className="w-4 h-4" /> View Schedule
         </a>
       </div>
@@ -104,25 +106,25 @@ export default function StudioDashboardHome() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Recent Bookings */}
         <div className="lg:col-span-2 glass-card p-6">
-          <h3 className="font-heading text-xl text-zen-cream mb-4">Recent Bookings</h3>
+          <h3 className="font-heading text-xl text-gray-900 font-semibold mb-4">Recent Bookings</h3>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-zen-sage/10">
-                  <th className="text-left py-3 text-zen-light/40 font-medium">Student</th>
-                  <th className="text-left py-3 text-zen-light/40 font-medium">Class</th>
-                  <th className="text-left py-3 text-zen-light/40 font-medium">Date</th>
-                  <th className="text-left py-3 text-zen-light/40 font-medium">Status</th>
+                <tr className="border-b border-gray-100">
+                  <th className="text-left py-3 text-gray-400 font-medium uppercase tracking-wider text-xs">Student</th>
+                  <th className="text-left py-3 text-gray-400 font-medium uppercase tracking-wider text-xs">Class</th>
+                  <th className="text-left py-3 text-gray-400 font-medium uppercase tracking-wider text-xs">Date</th>
+                  <th className="text-left py-3 text-gray-400 font-medium uppercase tracking-wider text-xs">Status</th>
                 </tr>
               </thead>
               <tbody>
                 {recentBookings.map((booking, i) => (
-                  <tr key={i} className="border-b border-zen-sage/5 hover:bg-zen-medium/10 transition-colors">
-                    <td className="py-3 text-zen-cream">{booking.student}</td>
-                    <td className="py-3 text-zen-light/70">{booking.class}</td>
-                    <td className="py-3 text-zen-light/50">{booking.date}</td>
+                  <tr key={i} className="border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                    <td className="py-3 text-gray-900 font-medium">{booking.student}</td>
+                    <td className="py-3 text-gray-600">{booking.class}</td>
+                    <td className="py-3 text-gray-500">{booking.date}</td>
                     <td className="py-3">
-                      <span className={`text-xs px-2.5 py-1 rounded-full capitalize ${statusColors[booking.status]}`}>
+                      <span className={`text-xs px-2.5 py-1 rounded-full font-medium capitalize ${statusColors[booking.status]}`}>
                         {booking.status}
                       </span>
                     </td>
@@ -135,17 +137,17 @@ export default function StudioDashboardHome() {
 
         {/* Today's Classes */}
         <div className="glass-card p-6">
-          <h3 className="font-heading text-xl text-zen-cream mb-4">Today&apos;s Classes</h3>
+          <h3 className="font-heading text-xl text-gray-900 font-semibold mb-4">Today&apos;s Classes</h3>
           <div className="space-y-4">
             {todayClasses.map((cls, i) => (
-              <div key={i} className="p-4 rounded-xl bg-zen-medium/20 border border-zen-sage/10">
-                <h4 className="text-zen-cream font-medium text-sm">{cls.name}</h4>
-                <div className="flex items-center gap-4 mt-2 text-zen-light/50 text-xs">
+              <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#FF9933]/30 transition-colors">
+                <h4 className="text-gray-900 font-medium text-sm">{cls.name}</h4>
+                <div className="flex items-center gap-4 mt-2 text-gray-500 text-xs font-medium">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> {cls.time}
+                    <Clock className="w-3 h-3 text-[#FF9933]" /> {cls.time}
                   </span>
                   <span className="flex items-center gap-1">
-                    <User className="w-3 h-3" /> {cls.students} students
+                    <User className="w-3 h-3 text-[#FF9933]" /> {cls.students} students
                   </span>
                 </div>
               </div>

@@ -29,15 +29,15 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const icons = {
-    success: <CheckCircle className="w-5 h-5 text-green-400" />,
-    error: <XCircle className="w-5 h-5 text-red-400" />,
-    info: <Info className="w-5 h-5 text-blue-400" />,
+    success: <CheckCircle className="w-5 h-5 text-emerald-500" />,
+    error: <XCircle className="w-5 h-5 text-red-500" />,
+    info: <Info className="w-5 h-5 text-blue-500" />,
   };
 
   const bgColors = {
-    success: 'bg-green-900/80 border-green-700/50',
-    error: 'bg-red-900/80 border-red-700/50',
-    info: 'bg-blue-900/80 border-blue-700/50',
+    success: 'bg-white border-emerald-200',
+    error: 'bg-white border-red-200',
+    info: 'bg-white border-blue-200',
   };
 
   return (
@@ -51,13 +51,13 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, x: 100, scale: 0.95 }}
-              className={`flex items-center gap-3 px-5 py-3 rounded-xl border backdrop-blur-lg shadow-2xl ${bgColors[toast.type]}`}
+              className={`flex items-center gap-3 px-5 py-3 rounded-xl border shadow-lg ${bgColors[toast.type]}`}
             >
               {icons[toast.type]}
-              <span className="text-zen-cream text-sm font-medium">{toast.message}</span>
+              <span className="text-gray-800 text-sm font-medium">{toast.message}</span>
               <button
                 onClick={() => removeToast(toast.id)}
-                className="ml-2 text-zen-cream/60 hover:text-zen-cream transition-colors"
+                className="ml-2 text-gray-400 hover:text-gray-600 transition-colors"
               >
                 <X className="w-4 h-4" />
               </button>

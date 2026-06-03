@@ -28,10 +28,10 @@ export default function ClassCard({
   showBooking = true,
 }: ClassCardProps) {
   const levelColors: Record<string, string> = {
-    beginner: 'bg-green-800/60 text-green-300',
-    intermediate: 'bg-yellow-800/60 text-yellow-300',
-    advanced: 'bg-red-800/60 text-red-300',
-    all: 'bg-zen-sage/30 text-zen-sage',
+    beginner: 'bg-emerald-50 text-emerald-600 border border-emerald-200',
+    intermediate: 'bg-amber-50 text-amber-600 border border-amber-200',
+    advanced: 'bg-red-50 text-red-600 border border-red-200',
+    all: 'bg-orange-50 text-[#FF9933] border border-orange-200',
   };
 
   return (
@@ -44,10 +44,10 @@ export default function ClassCard({
     >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <span className="text-xs uppercase tracking-widest text-zen-gold font-medium">
+          <span className="text-xs uppercase tracking-widest text-[#FF9933] font-semibold">
             {style}
           </span>
-          <h3 className="font-heading text-2xl text-zen-cream mt-1">{name}</h3>
+          <h3 className="font-heading text-xl font-semibold text-gray-900 mt-1">{name}</h3>
         </div>
         <span className={`text-xs px-3 py-1 rounded-full font-medium ${levelColors[level.toLowerCase()] || levelColors.all}`}>
           {level}
@@ -55,30 +55,30 @@ export default function ClassCard({
       </div>
 
       <div className="flex flex-col gap-2 mb-4 flex-grow">
-        <div className="flex items-center gap-2 text-zen-light/70 text-sm">
-          <Clock className="w-4 h-4 text-zen-sage" />
+        <div className="flex items-center gap-2 text-gray-500 text-sm">
+          <Clock className="w-4 h-4 text-[#FF9933]" />
           <span>{duration}</span>
         </div>
-        <div className="flex items-center gap-2 text-zen-light/70 text-sm">
-          <User className="w-4 h-4 text-zen-sage" />
+        <div className="flex items-center gap-2 text-gray-500 text-sm">
+          <User className="w-4 h-4 text-[#FF9933]" />
           <span>{instructor}</span>
         </div>
         {schedule && (
-          <div className="flex items-center gap-2 text-zen-light/70 text-sm">
-            <BarChart3 className="w-4 h-4 text-zen-sage" />
+          <div className="flex items-center gap-2 text-gray-500 text-sm">
+            <BarChart3 className="w-4 h-4 text-[#FF9933]" />
             <span>{schedule}</span>
           </div>
         )}
       </div>
 
       {price && (
-        <p className="text-zen-gold font-semibold mb-4 text-lg">{price}</p>
+        <p className="text-[#FF9933] font-semibold mb-4 text-lg">{price}</p>
       )}
 
       {showBooking && (
         <Link
           href="/login"
-          className="gold-button text-center justify-center text-sm mt-auto group-hover:shadow-lg transition-shadow"
+          className="gold-button text-center justify-center text-sm mt-auto"
         >
           Book Now
         </Link>

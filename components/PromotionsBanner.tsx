@@ -64,7 +64,7 @@ export default function PromotionsBanner() {
 
   return (
     <div className="mb-8">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-purple-900/20 via-indigo-900/20 to-purple-900/20 border border-purple-500/10">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 border border-orange-200/60">
         <div className="relative h-[180px] sm:h-[200px]">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.a
@@ -85,19 +85,19 @@ export default function PromotionsBanner() {
                 className="absolute inset-0 bg-cover bg-center"
                 style={{ backgroundImage: `url(${promotions[currentIndex].image_url})` }}
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-transparent" />
               </div>
 
               {/* Content */}
               <div className="relative z-10 px-8 sm:px-12 flex items-center justify-between w-full">
                 <div>
-                  <span className="inline-block text-xs tracking-widest uppercase text-purple-300/80 mb-2 font-medium">
+                  <span className="inline-block text-xs tracking-widest uppercase text-orange-200/90 mb-2 font-medium">
                     ✨ Promotion
                   </span>
-                  <h3 className="font-heading text-2xl sm:text-3xl text-white mb-2">
+                  <h3 className="font-heading text-2xl sm:text-3xl text-white font-semibold mb-2">
                     {promotions[currentIndex].title}
                   </h3>
-                  <span className="inline-flex items-center gap-1.5 text-sm text-purple-200/70 group-hover:text-purple-200 transition-colors">
+                  <span className="inline-flex items-center gap-1.5 text-sm text-orange-100/80 group-hover:text-white transition-colors">
                     Learn More <ExternalLink className="w-3.5 h-3.5" />
                   </span>
                 </div>
@@ -110,13 +110,13 @@ export default function PromotionsBanner() {
             <>
               <button
                 onClick={(e) => { e.preventDefault(); prevSlide(); }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all"
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/30 transition-all"
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={(e) => { e.preventDefault(); nextSlide(); }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-black/60 transition-all"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/30 transition-all"
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -132,8 +132,8 @@ export default function PromotionsBanner() {
                   onClick={() => { setDirection(i > currentIndex ? 1 : -1); setCurrentIndex(i); }}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     i === currentIndex
-                      ? 'bg-purple-400 w-6'
-                      : 'bg-white/30 hover:bg-white/50'
+                      ? 'bg-[#FF9933] w-6'
+                      : 'bg-white/40 hover:bg-white/60'
                   }`}
                 />
               ))}

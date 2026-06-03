@@ -46,11 +46,11 @@ function StatItem({ label, value, suffix, index }: { label: string; value: numbe
       transition={{ delay: index * 0.15 }}
       className="text-center"
     >
-      <p className="font-heading text-4xl md:text-5xl text-zen-gold font-light">
+      <p className="font-heading text-4xl md:text-5xl text-[#FF9933] font-semibold">
         {count}
         {suffix}
       </p>
-      <p className="text-zen-light/60 text-sm mt-2 tracking-wide">{label}</p>
+      <p className="text-gray-500 text-sm mt-2 tracking-wide">{label}</p>
     </motion.div>
   );
 }
@@ -65,7 +65,7 @@ function StatsSection() {
   ];
 
   return (
-    <section className="relative bg-zen-deep border-y border-zen-sage/10 py-16">
+    <section className="relative bg-white border-y border-gray-100 py-16">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8">
         {stats.map((stat, i) => (
           <StatItem key={stat.label} label={stat.label} value={stat.value} suffix={stat.suffix} index={i} />
@@ -102,20 +102,20 @@ function FeaturedClasses() {
   ];
 
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-[#FAFAFA]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-14">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium"
+            className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold"
           >
             Our Programs
           </motion.span>
           <AnimatedText
             text="Featured Classes"
-            className="font-heading text-4xl md:text-5xl text-zen-cream mt-3 justify-center"
+            className="font-heading text-4xl md:text-5xl text-gray-900 mt-3 justify-center font-semibold"
           />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -162,20 +162,20 @@ function HowItWorks() {
   ];
 
   return (
-    <section className="section-padding bg-zen-deep/50">
+    <section className="section-padding bg-white">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium"
+            className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold"
           >
             Simple Process
           </motion.span>
           <AnimatedText
             text="How It Works"
-            className="font-heading text-4xl md:text-5xl text-zen-cream mt-3 justify-center"
+            className="font-heading text-4xl md:text-5xl text-gray-900 mt-3 justify-center font-semibold"
           />
         </div>
 
@@ -183,7 +183,7 @@ function HowItWorks() {
           {/* Connecting line */}
           <div className="hidden md:block absolute top-24 left-[20%] right-[20%] h-px">
             <motion.div
-              className="h-full border-t-2 border-dashed border-zen-sage/20"
+              className="h-full border-t-2 border-dashed border-gray-200"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
@@ -201,16 +201,16 @@ function HowItWorks() {
               className="relative text-center"
             >
               {/* Large background number */}
-              <span className="absolute top-0 left-1/2 -translate-x-1/2 font-heading text-[120px] text-zen-sage/5 font-bold leading-none select-none">
+              <span className="absolute top-0 left-1/2 -translate-x-1/2 font-heading text-[120px] text-gray-100 font-bold leading-none select-none">
                 {step.number}
               </span>
 
               <div className="relative z-10 flex flex-col items-center pt-8">
-                <div className="w-16 h-16 rounded-2xl bg-zen-medium/60 border border-zen-sage/20 flex items-center justify-center mb-6">
-                  <step.icon className="w-7 h-7 text-zen-gold" />
+                <div className="w-16 h-16 rounded-2xl bg-[#FFF4E6] border border-orange-100 flex items-center justify-center mb-6">
+                  <step.icon className="w-7 h-7 text-[#FF9933]" />
                 </div>
-                <h3 className="font-heading text-2xl text-zen-cream mb-3">{step.title}</h3>
-                <p className="text-zen-light/60 text-sm leading-relaxed max-w-xs">
+                <h3 className="font-heading text-xl font-semibold text-gray-900 mb-3">{step.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed max-w-xs">
                   {step.description}
                 </p>
               </div>
@@ -228,12 +228,12 @@ function Testimonials() {
     {
       name: 'Meera Patel',
       role: 'Student, 2 years',
-      text: 'ZenFlow transformed my practice completely. The instructors are world-class, and the booking system makes it so easy to maintain a consistent practice.',
+      text: 'Vedic Yoga Alliance transformed my practice completely. The instructors are world-class, and the booking system makes it so easy to maintain a consistent practice.',
     },
     {
       name: 'Arjun Nair',
       role: 'Studio Owner',
-      text: "Since listing on ZenFlow, our student enrollment grew by 300%. The platform's management tools are incredibly intuitive. Highly recommended for studios.",
+      text: "Since listing on Vedic Yoga Alliance, our student enrollment grew by 300%. The platform's management tools are incredibly intuitive. Highly recommended for studios.",
     },
     {
       name: 'Sanya Gupta',
@@ -254,20 +254,20 @@ function Testimonials() {
   }, [isPaused, testimonials.length]);
 
   return (
-    <section className="section-padding">
+    <section className="section-padding bg-[#FAFAFA]">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-14">
           <motion.span
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium"
+            className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold"
           >
             Testimonials
           </motion.span>
           <AnimatedText
             text="What Our Community Says"
-            className="font-heading text-4xl md:text-5xl text-zen-cream mt-3 justify-center"
+            className="font-heading text-4xl md:text-5xl text-gray-900 mt-3 justify-center font-semibold"
           />
         </div>
 
@@ -284,14 +284,14 @@ function Testimonials() {
             >
               {testimonials.map((t, i) => (
                 <div key={i} className="w-full flex-shrink-0 px-4">
-                  <div className="bg-zen-cream/5 border border-zen-sage/10 rounded-2xl p-8 md:p-12 text-center">
-                    <Quote className="w-10 h-10 text-zen-gold mx-auto mb-6 opacity-60" />
-                    <p className="text-zen-cream/90 text-lg md:text-xl leading-relaxed font-light italic mb-8">
+                  <div className="bg-white border border-gray-100 rounded-2xl p-8 md:p-12 text-center shadow-sm">
+                    <Quote className="w-10 h-10 text-[#FF9933] mx-auto mb-6 opacity-60" />
+                    <p className="text-gray-700 text-lg md:text-xl leading-relaxed font-light italic mb-8">
                       &ldquo;{t.text}&rdquo;
                     </p>
                     <div>
-                      <p className="font-heading text-xl text-zen-cream">{t.name}</p>
-                      <p className="text-zen-sage text-sm mt-1">{t.role}</p>
+                      <p className="font-heading text-lg font-semibold text-gray-900">{t.name}</p>
+                      <p className="text-[#FF9933] text-sm mt-1">{t.role}</p>
                     </div>
                   </div>
                 </div>
@@ -303,7 +303,7 @@ function Testimonials() {
           <div className="flex items-center justify-center gap-4 mt-8">
             <button
               onClick={() => setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length)}
-              className="w-10 h-10 rounded-full border border-zen-sage/20 flex items-center justify-center text-zen-light/60 hover:border-zen-gold hover:text-zen-gold transition-all"
+              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#FF9933] hover:text-[#FF9933] transition-all"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -312,14 +312,14 @@ function Testimonials() {
                 <button
                   key={i}
                   onClick={() => setCurrentIndex(i)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-zen-gold w-6' : 'bg-zen-sage/30'
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${i === currentIndex ? 'bg-[#FF9933] w-6' : 'bg-gray-200'
                     }`}
                 />
               ))}
             </div>
             <button
               onClick={() => setCurrentIndex((prev) => (prev + 1) % testimonials.length)}
-              className="w-10 h-10 rounded-full border border-zen-sage/20 flex items-center justify-center text-zen-light/60 hover:border-zen-gold hover:text-zen-gold transition-all"
+              className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#FF9933] hover:text-[#FF9933] transition-all"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -333,22 +333,22 @@ function Testimonials() {
 /* ── CTA Banner ───────────────────────────────────────────── */
 function CTABanner() {
   return (
-    <section className="relative section-padding bg-zen-medium/30 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-zen-dark via-zen-medium/20 to-zen-dark" />
+    <section className="relative section-padding overflow-hidden bg-gradient-to-r from-[#FF9933] to-[#E8872E]">
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22%23fff%22 fill-opacity=%220.05%22%3E%3Ccircle cx=%221%22 cy=%221%22 r=%221%22/%3E%3C/g%3E%3C/svg%3E')]" />
       <motion.div
         className="relative z-10 max-w-3xl mx-auto text-center"
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
       >
-        <h2 className="font-heading text-4xl md:text-5xl text-zen-cream mb-4">
+        <h2 className="font-heading text-4xl md:text-5xl text-white font-semibold mb-4">
           Are you a Yoga Studio?
         </h2>
-        <p className="text-zen-light/70 text-lg mb-8 max-w-xl mx-auto">
-          List your classes and reach 500+ students on ZenFlow. Grow your practice,
+        <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
+          List your classes and reach 500+ students on Vedic Yoga Alliance. Grow your practice,
           manage bookings, and build your community — all in one place.
         </p>
-        <Link href="/register" className="gold-button animate-breathe text-lg px-8 py-4">
+        <Link href="/register" className="inline-flex items-center gap-2 bg-white text-[#FF9933] font-semibold px-8 py-4 rounded-full text-lg hover:shadow-xl hover:-translate-y-0.5 transition-all animate-breathe">
           Register Your Studio <ArrowRight className="w-5 h-5" />
         </Link>
       </motion.div>

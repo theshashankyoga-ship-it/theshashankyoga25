@@ -7,17 +7,28 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'zen-dark': '#0D1F0F',
-        'zen-medium': '#1A3320',
-        'zen-cream': '#F5F0E8',
-        'zen-gold': '#C9A84C',
-        'zen-sage': '#7A9E7E',
-        'zen-light': '#E8E0D0',
-        'zen-deep': '#0A1A0C',
+        'zen-dark': '#1F2937',
+        'zen-medium': '#FFFFFF',
+        'zen-cream': '#1F2937',
+        'zen-gold': '#FF9933',
+        'zen-sage': '#FF9933',
+        'zen-light': '#4B5563',
+        'zen-deep': '#F3F4F6',
+        vedic: {
+          saffron: '#FF9933',
+          'saffron-light': '#FFF4E6',
+          'saffron-dark': '#E8872E',
+          bg: '#FAFAFA',
+          white: '#FFFFFF',
+          dark: '#1F2937',
+          body: '#4B5563',
+          border: '#E5E7EB',
+          success: '#10B981',
+        },
       },
       fontFamily: {
-        heading: ['Cormorant Garamond', 'serif'],
-        body: ['DM Sans', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Inter', 'sans-serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -25,7 +36,6 @@ module.exports = {
         'breathe': 'breathe 2s ease-in-out infinite',
         'bounce-slow': 'bounce 2s ease-in-out infinite',
         'spin-slow': 'spin 20s linear infinite',
-        'grain': 'grain 8s steps(10) infinite',
       },
       keyframes: {
         float: {
@@ -36,21 +46,14 @@ module.exports = {
           '0%, 100%': { transform: 'scale(1)' },
           '50%': { transform: 'scale(1.03)' },
         },
-        grain: {
-          '0%, 100%': { transform: 'translate(0, 0)' },
-          '10%': { transform: 'translate(-5%, -10%)' },
-          '20%': { transform: 'translate(-15%, 5%)' },
-          '30%': { transform: 'translate(7%, -25%)' },
-          '40%': { transform: 'translate(-5%, 25%)' },
-          '50%': { transform: 'translate(-15%, 10%)' },
-          '60%': { transform: 'translate(15%, 0%)' },
-          '70%': { transform: 'translate(0%, 15%)' },
-          '80%': { transform: 'translate(3%, 35%)' },
-          '90%': { transform: 'translate(-10%, 10%)' },
-        },
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+      },
+      boxShadow: {
+        'card': '0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)',
+        'card-hover': '0 10px 25px rgba(0,0,0,0.08)',
+        'premium': '0 20px 60px rgba(0,0,0,0.08)',
       },
     },
   },
