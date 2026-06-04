@@ -36,19 +36,21 @@ function WarmBackground() {
 
 function AdminBackground() {
   return (
-    <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #0A0F1E 0%, #131B35 50%, #0A0F1E 100%)' }} />
+    <div className="absolute inset-0 overflow-hidden bg-gray-50">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-gray-50 to-gray-100 opacity-80" />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22%23FF9933%22 fill-opacity=%220.03%22%3E%3Ccircle cx=%221%22 cy=%221%22 r=%221%22/%3E%3C/g%3E%3C/svg%3E')]" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF9933]/5 rounded-full blur-[100px]" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FF9933]/5 rounded-full blur-[100px]" />
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full"
+          className="absolute w-1 h-1 rounded-full bg-[#FF9933]"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            backgroundColor: '#7C3AED',
           }}
           animate={{
-            scale: [1, 2.5, 1],
+            scale: [1, 2, 1],
             opacity: [0.1, 0.4, 0.1],
           }}
           transition={{
@@ -127,21 +129,23 @@ function LoginContent() {
   // ===================== ADMIN LOGIN UI =====================
   if (isAdminMode) {
     return (
-      <div className="min-h-screen flex" style={{ backgroundColor: '#0A0F1E' }}>
+      <div className="min-h-screen flex bg-gray-50">
         {/* Left: Admin Background */}
-        <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
+        <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center border-r border-gray-200">
           <AdminBackground />
           <div className="relative z-10 text-center px-12">
-            <Shield className="w-16 h-16 mx-auto mb-6" style={{ color: '#7C3AED' }} />
-            <h2 className="font-heading text-5xl text-white mb-4 font-semibold">Admin Portal</h2>
-            <p className="text-gray-400 text-lg">
+            <div className="w-20 h-20 rounded-2xl bg-white shadow-xl flex items-center justify-center mx-auto mb-8 border border-gray-100 transform rotate-3">
+              <Shield className="w-10 h-10 text-[#FF9933] -rotate-3" />
+            </div>
+            <h2 className="font-heading text-5xl text-gray-900 mb-4 font-bold tracking-tight">Admin Portal</h2>
+            <p className="text-gray-500 text-lg font-medium">
               Secure access for system administrators only.
             </p>
           </div>
         </div>
 
         {/* Right: Admin Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8" style={{ backgroundColor: 'rgba(124, 58, 237, 0.03)' }}>
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -149,52 +153,46 @@ function LoginContent() {
           >
             {/* Mobile logo */}
             <div className="lg:hidden flex items-center gap-2 mb-8">
-              <Shield className="w-7 h-7" style={{ color: '#7C3AED' }} />
-              <span className="font-heading text-2xl text-white font-semibold">
-                Admin<span style={{ color: '#7C3AED' }}>Panel</span>
+              <div className="w-10 h-10 rounded-xl bg-[#FFF4E6] flex items-center justify-center">
+                <Shield className="w-5 h-5 text-[#FF9933]" />
+              </div>
+              <span className="font-heading text-2xl text-gray-900 font-bold">
+                Admin<span className="text-[#FF9933]">Portal</span>
               </span>
             </div>
 
-            <h1 className="font-heading text-3xl text-white mb-2 font-semibold">Admin Sign In 🛡️</h1>
-            <p className="text-gray-400 mb-8">Enter your admin credentials to continue.</p>
+            <div className="mb-8">
+              <h1 className="font-heading text-3xl text-gray-900 mb-2 font-bold tracking-tight">Admin Sign In</h1>
+              <p className="text-gray-500">Enter your credentials to access the secure dashboard.</p>
+            </div>
 
-            <form onSubmit={handleLogin} className="space-y-5">
-              <div>
-                <label className="text-gray-400 text-xs mb-1.5 block">Email Address</label>
+            <form onSubmit={handleLogin} className="space-y-6">
+              <div className="floating-label-input">
                 <input
                   type="email"
-                  placeholder="admin@vedic.com"
+                  placeholder=" "
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
                   id="admin-login-email"
-                  className="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all focus:ring-2 focus:ring-purple-500/40"
-                  style={{
-                    backgroundColor: 'rgba(124, 58, 237, 0.08)',
-                    border: '1px solid rgba(124, 58, 237, 0.2)',
-                  }}
                 />
+                <label htmlFor="admin-login-email">Admin Email Address</label>
               </div>
 
-              <div className="relative">
-                <label className="text-gray-400 text-xs mb-1.5 block">Password</label>
+              <div className="floating-label-input relative">
                 <input
                   type={showPassword ? 'text' : 'password'}
-                  placeholder="••••••••"
+                  placeholder=" "
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   id="admin-login-password"
-                  className="w-full px-4 py-3 rounded-xl text-white text-sm outline-none transition-all focus:ring-2"
-                  style={{
-                    backgroundColor: 'rgba(124, 58, 237, 0.08)',
-                    border: '1px solid rgba(124, 58, 237, 0.2)',
-                  }}
                 />
+                <label htmlFor="admin-login-password">Password</label>
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 bottom-3 text-gray-500 hover:text-purple-400 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -203,23 +201,25 @@ function LoginContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-full text-white text-base font-semibold transition-all disabled:opacity-50 flex items-center justify-center gap-2"
-                style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%)' }}
+                className="gold-button w-full justify-center text-base py-3.5 shadow-md hover:shadow-lg disabled:opacity-60 disabled:hover:shadow-md"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
                 ) : (
                   <>
-                    <Shield className="w-4 h-4" />
-                    Admin Login
+                    <Shield className="w-4 h-4 mr-2" />
+                    Sign In to Dashboard
                   </>
                 )}
               </button>
             </form>
 
-            <p className="text-center text-gray-600 text-xs mt-10 tracking-wide uppercase">
-              Authorized Personnel Only
-            </p>
+            <div className="mt-12 pt-8 border-t border-gray-100 text-center">
+              <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase flex items-center justify-center gap-2">
+                <Shield className="w-3 h-3" />
+                Authorized Personnel Only
+              </p>
+            </div>
           </motion.div>
         </div>
       </div>
