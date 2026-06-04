@@ -39,28 +39,29 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-[#FAFAFA]">
       {/* Sidebar - Desktop */}
       <motion.aside
         className={`hidden md:flex flex-col transition-all duration-300 ${
           collapsed ? 'w-20' : 'w-64'
-        }`}
-        style={{ backgroundColor: '#0A0F1E', borderRight: '1px solid rgba(124, 58, 237, 0.15)' }}
+        } bg-white border-r border-gray-200 shadow-sm`}
         initial={false}
       >
         {/* Logo */}
-        <div className="p-6 flex items-center justify-between" style={{ borderBottom: '1px solid rgba(124, 58, 237, 0.15)' }}>
+        <div className="p-6 flex items-center justify-between border-b border-gray-100">
           {!collapsed && (
-            <Link href="/admin" className="flex items-center gap-2">
-              <Shield className="w-6 h-6" style={{ color: '#7C3AED' }} />
-              <span className="font-heading text-xl text-white">
-                Vedic<span style={{ color: '#7C3AED' }}>Admin</span>
+            <Link href="/admin" className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center shadow-sm">
+                <Shield className="w-4 h-4 text-white" />
+              </div>
+              <span className="font-heading text-lg font-bold text-gray-900">
+                Vedic<span className="text-[#FF9933]">Admin</span>
               </span>
             </Link>
           )}
           <button
             onClick={() => setCollapsed(!collapsed)}
-            className="text-gray-400 hover:text-purple-400 transition-colors"
+            className="text-gray-400 hover:text-[#FF9933] transition-colors"
           >
             <ChevronLeft className={`w-5 h-5 transition-transform ${collapsed ? 'rotate-180' : ''}`} />
           </button>
@@ -72,16 +73,11 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
             <Link
               key={link.name}
               href={link.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all duration-300 ${
+              className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm transition-all duration-200 ${
                 isActive(link.href)
-                  ? 'text-white font-medium'
-                  : 'text-gray-400 hover:text-white'
+                  ? 'bg-[#FFF4E6] text-[#E8872E] font-semibold'
+                  : 'text-gray-500 hover:bg-gray-50 hover:text-gray-900'
               }`}
-              style={
-                isActive(link.href)
-                  ? { backgroundColor: 'rgba(124, 58, 237, 0.15)', color: '#A78BFA' }
-                  : {}
-              }
             >
               <link.icon className="w-5 h-5 shrink-0" />
               {!collapsed && <span>{link.name}</span>}
@@ -90,10 +86,10 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
         </nav>
 
         {/* Logout */}
-        <div className="p-3" style={{ borderTop: '1px solid rgba(124, 58, 237, 0.15)' }}>
+        <div className="p-3 border-t border-gray-100">
           <button
             onClick={handleLogout}
-            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-red-400/70 hover:bg-red-900/20 hover:text-red-400 transition-all w-full"
+            className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm text-red-400 hover:bg-red-50 hover:text-red-500 transition-all w-full"
           >
             <LogOut className="w-5 h-5 shrink-0" />
             {!collapsed && <span>Logout</span>}
@@ -102,15 +98,14 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       </motion.aside>
 
       {/* Mobile Header */}
-      <div
-        className="md:hidden fixed top-0 left-0 right-0 z-50 backdrop-blur-xl px-4 py-3 flex items-center justify-between"
-        style={{ backgroundColor: 'rgba(10, 15, 30, 0.95)', borderBottom: '1px solid rgba(124, 58, 237, 0.15)' }}
-      >
+      <div className="md:hidden fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-xl px-4 py-3 flex items-center justify-between border-b border-gray-100 shadow-sm">
         <Link href="/admin" className="flex items-center gap-2">
-          <Shield className="w-6 h-6" style={{ color: '#7C3AED' }} />
-          <span className="font-heading text-lg text-white">VedicAdmin</span>
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center">
+            <Shield className="w-4 h-4 text-white" />
+          </div>
+          <span className="font-heading text-lg font-bold text-gray-900">VedicAdmin</span>
         </Link>
-        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-white p-2">
+        <button onClick={() => setMobileOpen(!mobileOpen)} className="text-gray-700 p-2">
           {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
       </div>
@@ -121,8 +116,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
           initial={{ x: '-100%' }}
           animate={{ x: 0 }}
           exit={{ x: '-100%' }}
-          className="md:hidden fixed inset-0 z-40 backdrop-blur-xl flex flex-col pt-16"
-          style={{ backgroundColor: 'rgba(10, 15, 30, 0.98)' }}
+          className="md:hidden fixed inset-0 z-40 bg-white/98 backdrop-blur-xl flex flex-col pt-16"
         >
           <nav className="flex-1 py-6 px-4 space-y-1">
             {adminLinks.map((link) => (
@@ -131,23 +125,18 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
                 className={`flex items-center gap-3 px-4 py-3 rounded-xl text-base ${
-                  isActive(link.href) ? 'text-purple-300 font-medium' : 'text-gray-400'
+                  isActive(link.href) ? 'bg-[#FFF4E6] text-[#E8872E] font-semibold' : 'text-gray-500'
                 }`}
-                style={
-                  isActive(link.href)
-                    ? { backgroundColor: 'rgba(124, 58, 237, 0.15)' }
-                    : {}
-                }
               >
                 <link.icon className="w-5 h-5" />
                 <span>{link.name}</span>
               </Link>
             ))}
           </nav>
-          <div className="p-4" style={{ borderTop: '1px solid rgba(124, 58, 237, 0.15)' }}>
+          <div className="p-4 border-t border-gray-100">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-base text-red-400/70 w-full"
+              className="flex items-center gap-3 px-4 py-3 rounded-xl text-base text-red-400 hover:bg-red-50 w-full"
             >
               <LogOut className="w-5 h-5" />
               <span>Logout</span>
@@ -157,7 +146,7 @@ export default function AdminDashboardLayout({ children }: { children: React.Rea
       )}
 
       {/* Main Content */}
-      <main className="flex-1 min-h-screen pt-16 md:pt-0" style={{ backgroundColor: '#070B16' }}>
+      <main className="flex-1 min-h-screen pt-16 md:pt-0 bg-[#FAFAFA]">
         <div className="p-6 md:p-8 max-w-7xl mx-auto">
           {children}
         </div>
