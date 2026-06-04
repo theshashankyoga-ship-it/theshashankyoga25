@@ -6,7 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import {
   Shield, LayoutDashboard, Users, Building2, Megaphone,
-  LogOut, Menu, X, ChevronLeft
+  LogOut, Menu, X, ChevronLeft, BarChart3
 } from 'lucide-react';
 import { createClient } from '@/lib/supabase';
 import { useToast } from '@/components/ToastProvider';
@@ -16,6 +16,7 @@ const adminLinks = [
   { name: 'Students', href: '/admin?section=students', icon: Users },
   { name: 'Studios', href: '/admin?section=studios', icon: Building2 },
   { name: 'Promotions', href: '/admin?section=promotions', icon: Megaphone },
+  { name: 'Analytics', href: '/admin?section=analytics', icon: BarChart3 },
 ];
 
 export default function AdminDashboardLayout({ children }: { children: React.ReactNode }) {
