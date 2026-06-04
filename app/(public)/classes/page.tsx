@@ -87,24 +87,25 @@ export default function ClassesPage() {
     >
       {/* Hero */}
       <section className="relative pt-32 pb-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-zen-sage/10 via-zen-dark to-zen-dark" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FAFAFA]" />
+        <div className="absolute inset-0 bg-gradient-radial from-[#FF9933]/5 via-transparent to-transparent" />
         <div className="relative max-w-4xl mx-auto px-6 text-center">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium"
+            className="text-[#FF9933] text-sm tracking-[0.3em] uppercase font-semibold"
           >
             Find Your Practice
           </motion.span>
           <AnimatedText
             text="Yoga Classes"
-            className="font-heading text-5xl md:text-6xl text-zen-cream mt-3 justify-center"
+            className="font-heading text-5xl md:text-6xl text-gray-900 mt-3 justify-center font-semibold"
           />
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6 }}
-            className="text-zen-light/60 mt-4 max-w-lg mx-auto"
+            className="text-gray-600 mt-4 max-w-lg mx-auto"
           >
             Browse our curated selection of yoga classes taught by certified instructors.
             From gentle restorative to challenging power sessions.
@@ -113,33 +114,33 @@ export default function ClassesPage() {
       </section>
 
       {/* Filters */}
-      <section className="sticky top-[72px] z-30 bg-zen-dark/90 backdrop-blur-xl border-b border-zen-sage/10 py-4">
+      <section className="sticky top-[72px] z-30 bg-white/90 backdrop-blur-xl border-b border-gray-100 py-4 shadow-sm">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-wrap gap-3 items-center">
-            <span className="text-zen-light/40 text-sm mr-2">Level:</span>
+            <span className="text-gray-500 text-sm mr-2">Level:</span>
             {filters.map((f) => (
               <button
                 key={f}
                 onClick={() => setActiveFilter(f)}
                 className={`px-4 py-1.5 rounded-full text-sm transition-all duration-300 ${
                   activeFilter === f
-                    ? 'bg-zen-gold text-zen-dark font-semibold'
-                    : 'border border-zen-sage/20 text-zen-light/60 hover:border-zen-gold hover:text-zen-gold'
+                    ? 'bg-[#FF9933] text-white font-semibold shadow-md'
+                    : 'border border-gray-200 text-gray-600 hover:border-[#FF9933] hover:text-[#FF9933]'
                 }`}
               >
                 {f}
               </button>
             ))}
-            <div className="w-px h-6 bg-zen-sage/20 mx-2 hidden sm:block" />
-            <span className="text-zen-light/40 text-sm mr-2">Style:</span>
+            <div className="w-px h-6 bg-gray-200 mx-2 hidden sm:block" />
+            <span className="text-gray-500 text-sm mr-2">Style:</span>
             {styleFilters.map((f) => (
               <button
                 key={f}
                 onClick={() => setActiveStyle(f)}
                 className={`px-4 py-1.5 rounded-full text-sm transition-all duration-300 ${
                   activeStyle === f
-                    ? 'bg-zen-sage/30 text-zen-cream font-semibold'
-                    : 'border border-zen-sage/20 text-zen-light/60 hover:border-zen-sage hover:text-zen-sage'
+                    ? 'bg-[#FFF4E6] text-[#E8872E] font-semibold border border-[#FF9933]/30'
+                    : 'border border-gray-200 text-gray-600 hover:border-[#FF9933] hover:text-[#FF9933]'
                 }`}
               >
                 {f}
@@ -169,7 +170,7 @@ export default function ClassesPage() {
 
           {filtered.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-zen-light/40 text-lg">No classes found matching your filters.</p>
+              <p className="text-gray-500 text-lg">No classes found matching your filters.</p>
             </div>
           )}
         </div>

@@ -37,7 +37,7 @@ const values = [
 const timeline = [
   { year: '2019', title: 'The Beginning', description: 'Founded as a small community yoga studio in New Delhi.' },
   { year: '2020', title: 'Going Digital', description: 'Launched online classes during the pandemic, reaching students across India.' },
-  { year: '2021', title: 'ZenFlow Platform', description: 'Built the ZenFlow platform to connect studios and students seamlessly.' },
+  { year: '2021', title: 'Vedic Yoga Platform', description: 'Built the platform to connect studios and students seamlessly.' },
   { year: '2022', title: 'Community Growth', description: 'Surpassed 200 active students and partnered with 10 yoga studios.' },
   { year: '2023', title: 'Premium Programs', description: 'Introduced teacher training, retreats, and specialized wellness programs.' },
   { year: '2024', title: 'National Reach', description: '500+ students, 20+ instructors, and expanding to 5 major cities across India.' },
@@ -53,24 +53,25 @@ export default function AboutPage() {
     >
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-zen-sage/10 via-zen-dark to-zen-dark" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FAFAFA]" />
+        <div className="absolute inset-0 bg-gradient-radial from-[#FF9933]/5 via-transparent to-transparent" />
         <div className="relative max-w-4xl mx-auto px-6 text-center">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium"
+            className="text-[#FF9933] text-sm tracking-[0.3em] uppercase font-semibold"
           >
             Our Story
           </motion.span>
           <AnimatedText
-            text="About ZenFlow"
-            className="font-heading text-5xl md:text-6xl text-zen-cream mt-3 justify-center"
+            text="About Vedic Yoga"
+            className="font-heading text-5xl md:text-6xl text-gray-900 mt-3 justify-center font-semibold"
           />
           <motion.div
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="w-24 h-0.5 bg-zen-gold mx-auto mt-6"
+            className="w-24 h-0.5 bg-[#FF9933] mx-auto mt-6"
           />
         </div>
       </section>
@@ -83,12 +84,12 @@ export default function AboutPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-heading text-3xl md:text-4xl text-zen-cream mb-6">
+            <h2 className="font-heading text-3xl md:text-4xl text-gray-900 mb-6 font-semibold">
               A Journey of Mindfulness & Community
             </h2>
-            <div className="space-y-4 text-zen-light/70 leading-relaxed">
+            <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                ZenFlow was born from a simple belief: that yoga should be accessible,
+                Vedic Yoga was born from a simple belief: that yoga should be accessible,
                 authentic, and transformative. What started as a single studio in the
                 heart of New Delhi has evolved into a platform connecting yoga lovers
                 with the finest instructors across India.
@@ -99,7 +100,7 @@ export default function AboutPage() {
                 with studios that align with their goals and preferences.
               </p>
               <p>
-                Every class on ZenFlow is curated by certified instructors who share
+                Every class on Vedic Yoga is curated by certified instructors who share
                 our passion for holistic wellness and personal growth. We are not just
                 a platform — we are a community.
               </p>
@@ -112,11 +113,11 @@ export default function AboutPage() {
             className="relative"
           >
             <div className="glass-card p-10 text-center">
-              <Flower2 className="w-12 h-12 text-zen-gold mx-auto mb-6 opacity-60" />
-              <p className="font-heading text-3xl md:text-4xl text-zen-cream italic leading-snug">
+              <Flower2 className="w-12 h-12 text-[#FF9933] mx-auto mb-6 opacity-60" />
+              <p className="font-heading text-3xl md:text-4xl text-gray-900 italic leading-snug">
                 &ldquo;Yoga is the journey of the self, through the self, to the self.&rdquo;
               </p>
-              <p className="text-zen-sage mt-6 text-sm tracking-wide uppercase">
+              <p className="text-[#FF9933] mt-6 text-sm tracking-wide uppercase font-semibold">
                 — The Bhagavad Gita
               </p>
             </div>
@@ -125,7 +126,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="section-padding bg-zen-deep/50">
+      <section className="section-padding bg-[#FAFAFA]">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -133,11 +134,11 @@ export default function AboutPage() {
             viewport={{ once: true }}
             className="glass-card p-8"
           >
-            <div className="w-14 h-14 rounded-2xl bg-zen-gold/10 flex items-center justify-center mb-5">
-              <BookOpen className="w-7 h-7 text-zen-gold" />
+            <div className="w-14 h-14 rounded-2xl bg-[#FFF4E6] border border-[#FF9933]/20 flex items-center justify-center mb-5">
+              <BookOpen className="w-7 h-7 text-[#FF9933]" />
             </div>
-            <h3 className="font-heading text-2xl text-zen-cream mb-3">Our Mission</h3>
-            <p className="text-zen-light/70 leading-relaxed">
+            <h3 className="font-heading text-2xl text-gray-900 mb-3 font-semibold">Our Mission</h3>
+            <p className="text-gray-600 leading-relaxed">
               To make premium yoga accessible to everyone by connecting students with
               verified, world-class studios and instructors through a seamless digital
               platform. We believe yoga is not a luxury — it is a necessity.
@@ -150,11 +151,11 @@ export default function AboutPage() {
             transition={{ delay: 0.15 }}
             className="glass-card p-8"
           >
-            <div className="w-14 h-14 rounded-2xl bg-zen-gold/10 flex items-center justify-center mb-5">
-              <Award className="w-7 h-7 text-zen-gold" />
+            <div className="w-14 h-14 rounded-2xl bg-[#FFF4E6] border border-[#FF9933]/20 flex items-center justify-center mb-5">
+              <Award className="w-7 h-7 text-[#FF9933]" />
             </div>
-            <h3 className="font-heading text-2xl text-zen-cream mb-3">Our Vision</h3>
-            <p className="text-zen-light/70 leading-relaxed">
+            <h3 className="font-heading text-2xl text-gray-900 mb-3 font-semibold">Our Vision</h3>
+            <p className="text-gray-600 leading-relaxed">
               To become India&apos;s leading yoga community platform where every studio
               thrives and every student finds their perfect practice. A world where
               wellness is woven into the fabric of daily life.
@@ -171,13 +172,13 @@ export default function AboutPage() {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium"
+              className="text-[#FF9933] text-sm tracking-[0.3em] uppercase font-semibold"
             >
               Expert Guidance
             </motion.span>
             <AnimatedText
               text="Meet Our Instructors"
-              className="font-heading text-4xl md:text-5xl text-zen-cream mt-3 justify-center"
+              className="font-heading text-4xl md:text-5xl text-gray-900 mt-3 justify-center font-semibold"
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -190,14 +191,14 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.15 }}
                 className="glass-card glass-card-hover p-8 text-center"
               >
-                <div className="w-24 h-24 rounded-full bg-zen-sage/20 mx-auto mb-6 flex items-center justify-center">
-                  <span className="font-heading text-3xl text-zen-gold">
+                <div className="w-24 h-24 rounded-full bg-[#FFF4E6] mx-auto mb-6 flex items-center justify-center">
+                  <span className="font-heading text-3xl text-[#FF9933]">
                     {member.name.charAt(0)}
                   </span>
                 </div>
-                <h3 className="font-heading text-2xl text-zen-cream">{member.name}</h3>
-                <p className="text-zen-gold text-sm mt-1 mb-4">{member.specialty}</p>
-                <p className="text-zen-light/60 text-sm leading-relaxed">{member.bio}</p>
+                <h3 className="font-heading text-2xl text-gray-900 font-semibold">{member.name}</h3>
+                <p className="text-[#FF9933] text-sm mt-1 mb-4 font-medium">{member.specialty}</p>
+                <p className="text-gray-500 text-sm leading-relaxed">{member.bio}</p>
               </motion.div>
             ))}
           </div>
@@ -205,12 +206,12 @@ export default function AboutPage() {
       </section>
 
       {/* Values */}
-      <section className="section-padding bg-zen-deep/50">
+      <section className="section-padding bg-[#FAFAFA]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
             <AnimatedText
               text="Our Core Values"
-              className="font-heading text-4xl md:text-5xl text-zen-cream justify-center"
+              className="font-heading text-4xl md:text-5xl text-gray-900 justify-center font-semibold"
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -221,14 +222,14 @@ export default function AboutPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="flex items-start gap-4 p-6 rounded-xl hover:bg-zen-medium/20 transition-colors"
+                className="flex items-start gap-4 p-6 rounded-xl hover:bg-white hover:shadow-sm transition-all border border-transparent hover:border-gray-100"
               >
-                <div className="w-12 h-12 rounded-xl bg-zen-gold/10 flex items-center justify-center shrink-0">
-                  <value.icon className="w-5 h-5 text-zen-gold" />
+                <div className="w-12 h-12 rounded-xl bg-[#FFF4E6] flex items-center justify-center shrink-0">
+                  <value.icon className="w-5 h-5 text-[#FF9933]" />
                 </div>
                 <div>
-                  <h4 className="font-heading text-xl text-zen-cream mb-1">{value.title}</h4>
-                  <p className="text-zen-light/60 text-sm">{value.description}</p>
+                  <h4 className="font-heading text-xl text-gray-900 mb-1 font-semibold">{value.title}</h4>
+                  <p className="text-gray-500 text-sm">{value.description}</p>
                 </div>
               </motion.div>
             ))}
@@ -242,13 +243,13 @@ export default function AboutPage() {
           <div className="text-center mb-14">
             <AnimatedText
               text="Our Journey"
-              className="font-heading text-4xl md:text-5xl text-zen-cream justify-center"
+              className="font-heading text-4xl md:text-5xl text-gray-900 justify-center font-semibold"
             />
           </div>
           <div className="relative">
             {/* Vertical line */}
             <motion.div
-              className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-zen-sage/20"
+              className="absolute left-6 md:left-1/2 top-0 bottom-0 w-px bg-gray-200"
               initial={{ scaleY: 0 }}
               whileInView={{ scaleY: 1 }}
               viewport={{ once: true }}
@@ -269,13 +270,13 @@ export default function AboutPage() {
                   }`}
                 >
                   {/* Dot */}
-                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-zen-gold border-2 border-zen-dark z-10" />
+                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#FF9933] border-2 border-white z-10 shadow-sm" />
 
                   {/* Content */}
                   <div className={`ml-14 md:ml-0 md:w-1/2 ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                    <span className="text-zen-gold font-heading text-2xl">{item.year}</span>
-                    <h4 className="font-heading text-xl text-zen-cream mt-1">{item.title}</h4>
-                    <p className="text-zen-light/60 text-sm mt-2">{item.description}</p>
+                    <span className="text-[#FF9933] font-heading text-2xl font-semibold">{item.year}</span>
+                    <h4 className="font-heading text-xl text-gray-900 mt-1 font-semibold">{item.title}</h4>
+                    <p className="text-gray-500 text-sm mt-2">{item.description}</p>
                   </div>
                 </motion.div>
               ))}

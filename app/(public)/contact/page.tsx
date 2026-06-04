@@ -70,18 +70,19 @@ export default function ContactPage() {
     >
       {/* Hero */}
       <section className="relative pt-32 pb-16">
-        <div className="absolute inset-0 bg-gradient-to-b from-zen-sage/10 via-zen-dark to-zen-dark" />
+        <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FAFAFA]" />
+        <div className="absolute inset-0 bg-gradient-radial from-[#FF9933]/5 via-transparent to-transparent" />
         <div className="relative max-w-4xl mx-auto px-6 text-center">
           <motion.span
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-zen-gold text-sm tracking-[0.3em] uppercase font-medium"
+            className="text-[#FF9933] text-sm tracking-[0.3em] uppercase font-semibold"
           >
             Get In Touch
           </motion.span>
           <AnimatedText
             text="Contact Us"
-            className="font-heading text-5xl md:text-6xl text-zen-cream mt-3 justify-center"
+            className="font-heading text-5xl md:text-6xl text-gray-900 mt-3 justify-center font-semibold"
           />
         </div>
       </section>
@@ -95,7 +96,7 @@ export default function ContactPage() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <h2 className="font-heading text-3xl text-zen-cream mb-8">Send Us a Message</h2>
+            <h2 className="font-heading text-3xl text-gray-900 mb-8 font-semibold">Send Us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="floating-label-input">
                 <input
@@ -156,7 +157,7 @@ export default function ContactPage() {
                 className="gold-button w-full justify-center text-base disabled:opacity-60"
               >
                 {loading ? (
-                  <div className="w-5 h-5 border-2 border-zen-dark/30 border-t-zen-dark rounded-full animate-spin" />
+                  <div className="w-5 h-5 border-2 border-gray-200 border-t-gray-800 rounded-full animate-spin" />
                 ) : (
                   <>
                     Send Message <Send className="w-4 h-4" />
@@ -173,7 +174,7 @@ export default function ContactPage() {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <h2 className="font-heading text-3xl text-zen-cream mb-8">Contact Information</h2>
+            <h2 className="font-heading text-3xl text-gray-900 mb-8 font-semibold">Contact Information</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {contactInfo.map((info, i) => (
@@ -185,10 +186,10 @@ export default function ContactPage() {
                   transition={{ delay: i * 0.1 }}
                   className="glass-card p-6"
                 >
-                  <info.icon className="w-6 h-6 text-zen-gold mb-3" />
-                  <h4 className="font-heading text-lg text-zen-cream mb-2">{info.title}</h4>
+                  <info.icon className="w-6 h-6 text-[#FF9933] mb-3" />
+                  <h4 className="font-heading text-lg text-gray-900 mb-2 font-medium">{info.title}</h4>
                   {info.details.map((d, j) => (
-                    <p key={j} className="text-zen-light/60 text-sm">{d}</p>
+                    <p key={j} className="text-gray-500 text-sm">{d}</p>
                   ))}
                 </motion.div>
               ))}
@@ -196,25 +197,25 @@ export default function ContactPage() {
 
             {/* Map placeholder */}
             <div className="glass-card p-1 overflow-hidden">
-              <div className="w-full h-48 bg-zen-medium/40 rounded-xl flex items-center justify-center">
+              <div className="w-full h-48 bg-gray-50 rounded-xl flex items-center justify-center border border-gray-100">
                 <div className="text-center">
-                  <MapPin className="w-8 h-8 text-zen-sage mx-auto mb-2" />
-                  <p className="text-zen-light/40 text-sm">Interactive map</p>
-                  <p className="text-zen-light/30 text-xs">42 Serenity Lane, New Delhi</p>
+                  <MapPin className="w-8 h-8 text-[#FF9933] mx-auto mb-2" />
+                  <p className="text-gray-400 text-sm">Interactive map</p>
+                  <p className="text-gray-400 text-xs mt-1">42 Serenity Lane, New Delhi</p>
                 </div>
               </div>
             </div>
 
             {/* Social */}
             <div>
-              <h4 className="font-heading text-lg text-zen-cream mb-4">Follow Us</h4>
+              <h4 className="font-heading text-lg text-gray-900 mb-4 font-medium">Follow Us</h4>
               <div className="flex gap-3">
                 {socials.map((social) => (
                   <a
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className={`w-12 h-12 rounded-xl border border-zen-sage/20 flex items-center justify-center text-zen-light/60 ${social.color} hover:border-current hover:bg-current/10 transition-all duration-300`}
+                    className={`w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center text-gray-500 ${social.color} hover:border-current hover:bg-current/10 transition-all duration-300`}
                   >
                     <social.icon className="w-5 h-5" />
                   </a>
