@@ -4,10 +4,12 @@ import { useState, useEffect, useCallback, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase';
 import { useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import {
   Users, Building2, Megaphone, Trash2, Ban,
   Plus, X, ToggleLeft, ToggleRight, Pencil,
-  ExternalLink, Loader2, CheckCircle
+  ExternalLink, Loader2, CheckCircle,
+  BarChart3, Eye, MousePointerClick, TrendingUp, ArrowRight
 } from 'lucide-react';
 
 interface Profile {
@@ -26,6 +28,9 @@ interface Promotion {
   redirect_url: string;
   is_active: boolean;
   created_at: string;
+  views_count?: number;
+  clicks_count?: number;
+  target_audience?: string;
 }
 
 export default function AdminDashboardPage() {
@@ -48,6 +53,12 @@ function AdminContent() {
   const [studios, setStudios] = useState<Profile[]>([]);
   const [promotions, setPromotions] = useState<Promotion[]>([]);
   const [loading, setLoading] = useState(true);
+
+  // Analytics state
+  const [analyticsPromos, setAnalyticsPromos] = useState<Promotion[]>([]);
+  const [todayViews, setTodayViews] = useState(0);
+  const [todayClicks, setTodayClicks] = useState(0);
+  const [analyticsLoading, setAnalyticsLoading] = useState(false);
 
   // Promotion form
   const [showForm, setShowForm] = useState(false);
@@ -76,6 +87,31 @@ function AdminContent() {
   useEffect(() => {
     fetchAllData();
   }, [fetchAllData]);
+
+  // Fetch analytics data when section is analytics
+  useEffect(() => {
+    if (section !== 'analytics') return;
+    const fetchAnalytics = async () => {
+      setAnalyticsLoading(true);
+      const { data: promos } = await supabase
+        .from('promotions')
+        .select('*')
+        .order('views_count', { ascending: false });
+      if (promos) setAnalyticsPromos(promos);
+
+      const today = new Date().toISOString().split('T')[0];
+      const { data: todayData } = await supabase
+        .from('promotion_analytics')
+        .select('event_type')
+        .gte('created_at', today + 'T00:00:00');
+      if (todayData) {
+        setTodayViews(todayData.filter((e: any) => e.event_type === 'view').length);
+        setTodayClicks(todayData.filter((e: any) => e.event_type === 'click').length);
+      }
+      setAnalyticsLoading(false);
+    };
+    fetchAnalytics();
+  }, [section, supabase]);
 
   const handleDeleteProfile = async (id: string) => {
     if (!confirm('Are you sure you want to delete this user?')) return;
@@ -334,6 +370,177 @@ function AdminContent() {
                 </div>
               </motion.div>
             </div>
+          )}
+        </motion.div>
+      )}
+
+      {/* ANALYTICS SECTION */}
+      {section === 'analytics' && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <div className="mb-6">
+            <h2 className="font-heading text-xl text-gray-900 font-semibold">Promotions Analytics</h2>
+            <p className="text-gray-500 text-sm mt-1">Track performance across all promotions.</p>
+          </div>
+
+          {analyticsLoading ? (
+            <div className="flex items-center justify-center py-20">
+              <Loader2 className="w-8 h-8 animate-spin text-[#FF9933]" />
+            </div>
+          ) : analyticsPromos.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm">
+              <div className="w-16 h-16 rounded-2xl bg-[#FFF4E6] flex items-center justify-center mx-auto mb-4">
+                <Megaphone className="w-8 h-8 text-[#FF9933]" />
+              </div>
+              <h3 className="font-heading text-lg text-gray-900 font-semibold mb-2">No promotions yet</h3>
+              <p className="text-gray-500 text-sm mb-6">Create your first promotion to start tracking analytics!</p>
+              <Link href="/admin?section=promotions" className="gold-button text-sm">
+                Go to Promotions <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          ) : (
+            <>
+              {/* Summary Stats */}
+              {(() => {
+                const totalViews = analyticsPromos.reduce((sum, p) => sum + (p.views_count || 0), 0);
+                const totalClicks = analyticsPromos.reduce((sum, p) => sum + (p.clicks_count || 0), 0);
+                const avgCtr = totalViews > 0 ? ((totalClicks / totalViews) * 100).toFixed(1) : '0.0';
+                const activeCount = analyticsPromos.filter(p => p.is_active).length;
+                const summaryStats = [
+                  { label: 'Total Views', value: totalViews.toLocaleString(), icon: Eye, bg: '#EFF6FF', iconColor: '#3B82F6' },
+                  { label: 'Total Clicks', value: totalClicks.toLocaleString(), icon: MousePointerClick, bg: '#FFF4E6', iconColor: '#FF9933' },
+                  { label: 'Average CTR', value: avgCtr + '%', icon: TrendingUp, bg: '#ECFDF5', iconColor: '#10B981' },
+                  { label: 'Active Promos', value: activeCount, icon: Megaphone, bg: '#F5F3FF', iconColor: '#7C3AED' },
+                ];
+                return (
+                  <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    {summaryStats.map((stat, i) => (
+                      <motion.div
+                        key={stat.label}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.08 }}
+                        className="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm"
+                      >
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3" style={{ backgroundColor: stat.bg }}>
+                          <stat.icon className="w-5 h-5" style={{ color: stat.iconColor }} />
+                        </div>
+                        <p className="font-heading text-2xl text-gray-900 font-bold">{stat.value}</p>
+                        <p className="text-gray-500 text-xs mt-1">{stat.label}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                );
+              })()}
+
+              {/* Today's Activity */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                <div className="bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-5">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Eye className="w-5 h-5 text-blue-500" />
+                    <span className="text-gray-600 text-sm font-medium">Today&apos;s Views</span>
+                  </div>
+                  <p className="font-heading text-3xl text-gray-900 font-bold">{todayViews}</p>
+                </div>
+                <div className="bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5">
+                  <div className="flex items-center gap-3 mb-2">
+                    <MousePointerClick className="w-5 h-5 text-[#FF9933]" />
+                    <span className="text-gray-600 text-sm font-medium">Today&apos;s Clicks</span>
+                  </div>
+                  <p className="font-heading text-3xl text-gray-900 font-bold">{todayClicks}</p>
+                </div>
+              </div>
+
+              {/* Top 3 Performing */}
+              {analyticsPromos.length > 0 && (
+                <div className="mb-8">
+                  <h3 className="font-heading text-lg text-gray-900 font-semibold mb-4">Top Performing</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {analyticsPromos.slice(0, 3).map((promo, i) => {
+                      const views = promo.views_count || 0;
+                      const clicks = promo.clicks_count || 0;
+                      const ctr = views > 0 ? ((clicks / views) * 100) : 0;
+                      const medals = ['🥇', '🥈', '🥉'];
+                      return (
+                        <motion.div
+                          key={promo.id}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: i * 0.1 }}
+                          className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                        >
+                          <div className="h-28 bg-cover bg-center relative" style={{ backgroundImage: `url(${promo.image_url})` }}>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                            <span className="absolute top-3 left-3 text-2xl">{medals[i]}</span>
+                          </div>
+                          <div className="p-4">
+                            <h4 className="font-semibold text-gray-900 text-sm truncate mb-3">{promo.title}</h4>
+                            <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
+                              <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{views.toLocaleString()}</span>
+                              <span className="flex items-center gap-1"><MousePointerClick className="w-3 h-3" />{clicks.toLocaleString()}</span>
+                              <span className="font-semibold text-[#FF9933]">{ctr.toFixed(1)}%</span>
+                            </div>
+                            <div className="w-full bg-gray-100 rounded-full h-1.5">
+                              <div className="bg-gradient-to-r from-[#FF9933] to-[#E8872E] h-1.5 rounded-full transition-all" style={{ width: `${Math.min(ctr, 100)}%` }} />
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Performance Table */}
+              <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
+                <div className="p-6 border-b border-gray-100">
+                  <h3 className="font-heading text-lg text-gray-900 font-semibold">All Promotions Performance</h3>
+                </div>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="border-b border-gray-100 bg-gray-50/50">
+                        <th className="text-left py-3.5 px-6 text-gray-500 font-medium text-xs uppercase tracking-wider">Promotion</th>
+                        <th className="text-left py-3.5 px-6 text-gray-500 font-medium text-xs uppercase tracking-wider">Target</th>
+                        <th className="text-left py-3.5 px-6 text-gray-500 font-medium text-xs uppercase tracking-wider">Views</th>
+                        <th className="text-left py-3.5 px-6 text-gray-500 font-medium text-xs uppercase tracking-wider">Clicks</th>
+                        <th className="text-left py-3.5 px-6 text-gray-500 font-medium text-xs uppercase tracking-wider">CTR%</th>
+                        <th className="text-left py-3.5 px-6 text-gray-500 font-medium text-xs uppercase tracking-wider">Status</th>
+                        <th className="text-left py-3.5 px-6 text-gray-500 font-medium text-xs uppercase tracking-wider">Created</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {analyticsPromos.map((promo) => {
+                        const views = promo.views_count || 0;
+                        const clicks = promo.clicks_count || 0;
+                        const ctr = views > 0 ? ((clicks / views) * 100).toFixed(1) : '0.0';
+                        const targetLabel = promo.target_audience === 'student' ? 'Students' : promo.target_audience === 'studio' ? 'Studios' : 'All Users';
+                        const targetColor = promo.target_audience === 'student' ? 'bg-blue-50 text-blue-600 border-blue-100' : promo.target_audience === 'studio' ? 'bg-purple-50 text-purple-600 border-purple-100' : 'bg-gray-50 text-gray-600 border-gray-200';
+                        return (
+                          <tr key={promo.id} className="hover:bg-[#FFF9F0] transition-colors border-b border-gray-50 last:border-0">
+                            <td className="py-3.5 px-6">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-lg bg-cover bg-center border border-gray-100 shrink-0" style={{ backgroundImage: `url(${promo.image_url})` }} />
+                                <span className="text-gray-900 font-medium truncate max-w-[200px]">{promo.title}</span>
+                              </div>
+                            </td>
+                            <td className="py-3.5 px-6"><span className={`text-xs px-2.5 py-1 rounded-full font-medium border ${targetColor}`}>{targetLabel}</span></td>
+                            <td className="py-3.5 px-6 text-gray-700 font-medium">{views.toLocaleString()}</td>
+                            <td className="py-3.5 px-6 text-gray-700 font-medium">{clicks.toLocaleString()}</td>
+                            <td className="py-3.5 px-6 font-semibold text-[#FF9933]">{ctr}%</td>
+                            <td className="py-3.5 px-6">
+                              {promo.is_active
+                                ? <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 font-medium border border-emerald-100">Active</span>
+                                : <span className="text-xs px-2.5 py-1 rounded-full bg-gray-50 text-gray-400 font-medium border border-gray-200">Inactive</span>}
+                            </td>
+                            <td className="py-3.5 px-6 text-gray-500">{formatDate(promo.created_at)}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </>
           )}
         </motion.div>
       )}
