@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { createClient } from '@/lib/supabase';
 import { useSearchParams } from 'next/navigation';
@@ -9,7 +9,7 @@ import {
   Users, Building2, Megaphone, Trash2, Ban,
   Plus, X, ToggleLeft, ToggleRight, Pencil,
   ExternalLink, Loader2, CheckCircle,
-  BarChart3, Eye, MousePointerClick, TrendingUp, ArrowRight
+  BarChart3, Eye, MousePointerClick, TrendingUp, ArrowRight, UploadCloud
 } from 'lucide-react';
 
 interface Profile {
@@ -68,6 +68,8 @@ function AdminContent() {
   const [formRedirectUrl, setFormRedirectUrl] = useState('');
   const [formActive, setFormActive] = useState(true);
   const [saving, setSaving] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   const supabase = createClient();
 
@@ -149,6 +151,30 @@ function AdminContent() {
     setFormRedirectUrl(promo.redirect_url);
     setFormActive(promo.is_active);
     setShowForm(true);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    
+    setUploadingImage(true);
+    
+    const fileExt = file.name.split('.').pop();
+    const fileName = `promotion-${Date.now()}.${fileExt}`;
+    
+    const { error } = await supabase.storage
+      .from('promotions')
+      .upload(fileName, file, { upsert: true });
+    
+    if (!error) {
+      const { data } = supabase.storage
+        .from('promotions')
+        .getPublicUrl(fileName);
+      
+      setFormImageUrl(data.publicUrl);
+    }
+    
+    setUploadingImage(false);
   };
 
   const handleSavePromo = async () => {
@@ -349,9 +375,33 @@ function AdminContent() {
                     <input value={formTitle} onChange={(e) => setFormTitle(e.target.value)} placeholder=" " id="promo-title" />
                     <label htmlFor="promo-title">Title</label>
                   </div>
-                  <div className="floating-label-input">
-                    <input value={formImageUrl} onChange={(e) => setFormImageUrl(e.target.value)} placeholder=" " id="promo-image" />
-                    <label htmlFor="promo-image">Image URL</label>
+                  <div>
+                    <label className="text-gray-600 text-xs font-medium mb-1.5 block">Promotion Image</label>
+                    <div className="flex flex-col gap-3">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={handleImageUpload}
+                        className="hidden"
+                        ref={fileInputRef}
+                      />
+                      <button 
+                        type="button"
+                        onClick={() => fileInputRef.current?.click()}
+                        disabled={uploadingImage}
+                        className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100 transition-colors disabled:opacity-50"
+                      >
+                        {uploadingImage ? <Loader2 className="w-4 h-4 animate-spin" /> : <UploadCloud className="w-4 h-4" />}
+                        {uploadingImage ? 'Uploading...' : 'Upload Image'}
+                      </button>
+                      {formImageUrl && (
+                        <img 
+                          src={formImageUrl} 
+                          alt="Preview"
+                          className="w-full h-40 object-cover rounded-xl border border-gray-100 shadow-sm" 
+                        />
+                      )}
+                    </div>
                   </div>
                   <div className="floating-label-input">
                     <input value={formRedirectUrl} onChange={(e) => setFormRedirectUrl(e.target.value)} placeholder=" " id="promo-redirect" />
