@@ -24,11 +24,17 @@ module.exports = {
           body: '#4B5563',
           border: '#E5E7EB',
           success: '#10B981',
+          forest: '#0D1F0F',
+          gold: '#C9A84C',
+          sage: '#7A9E7E',
+          cream: '#F5F0E8',
         },
       },
       fontFamily: {
         heading: ['Poppins', 'sans-serif'],
         body: ['Inter', 'sans-serif'],
+        cormorant: ['"Cormorant Garamond"', 'serif'],
+        dm: ['"DM Sans"', 'sans-serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
@@ -36,6 +42,12 @@ module.exports = {
         'breathe': 'breathe 2s ease-in-out infinite',
         'bounce-slow': 'bounce 2s ease-in-out infinite',
         'spin-slow': 'spin 20s linear infinite',
+        'fade-up': 'fade-up 0.8s ease-out forwards',
+        'fade-up-delay-1': 'fade-up 0.8s ease-out 0.2s forwards',
+        'fade-up-delay-2': 'fade-up 0.8s ease-out 0.4s forwards',
+        'fade-up-delay-3': 'fade-up 0.8s ease-out 0.6s forwards',
+        'fade-up-delay-4': 'fade-up 0.8s ease-out 0.8s forwards',
+        'float-up': 'float-up 20s linear infinite',
       },
       keyframes: {
         float: {
@@ -45,6 +57,16 @@ module.exports = {
         breathe: {
           '0%, 100%': { transform: 'scale(1)' },
           '50%': { transform: 'scale(1.03)' },
+        },
+        'fade-up': {
+          from: { opacity: '0', transform: 'translateY(30px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
+        'float-up': {
+          '0%': { transform: 'translateY(100vh) rotate(0deg)', opacity: '0' },
+          '10%': { opacity: '0.12' },
+          '90%': { opacity: '0.08' },
+          '100%': { transform: 'translateY(-10vh) rotate(360deg)', opacity: '0' },
         },
       },
       backgroundImage: {
