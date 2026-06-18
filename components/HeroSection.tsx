@@ -138,67 +138,8 @@ export default function HeroSection() {
             </motion.div>
           </div>
 
-          {/* Right: Floating Stat Badges */}
-          <motion.div
-            className="hidden lg:flex items-center justify-center relative"
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            <div className="relative w-[420px] h-[420px]">
-              {/* Glassmorphic circle */}
-              <div className="absolute inset-0 rounded-full border border-white/10" />
-              <div className="absolute inset-12 rounded-full border border-white/5" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-                  className="w-72 h-72 rounded-full border border-white/10"
-                />
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-36 h-36 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center shadow-2xl">
-                  <span className="text-white text-6xl">🕉️</span>
-                </div>
-              </div>
-
-              <motion.div
-                className="absolute top-6 right-0 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 flex items-center gap-2"
-                animate={{ y: [0, -8, 0] }}
-                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-              >
-                <span className="text-xl">🎓</span>
-                <div>
-                  <p className="text-sm font-bold text-white">10,000+</p>
-                  <p className="text-xs text-white/60">Certified</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="absolute bottom-10 -left-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 flex items-center gap-2"
-                animate={{ y: [0, 8, 0] }}
-                transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-              >
-                <span className="text-xl">🌍</span>
-                <div>
-                  <p className="text-sm font-bold text-white">45+</p>
-                  <p className="text-xs text-white/60">Countries</p>
-                </div>
-              </motion.div>
-
-              <motion.div
-                className="absolute top-1/2 -left-8 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 flex items-center gap-2"
-                animate={{ y: [0, 6, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-              >
-                <span className="text-xl">⭐</span>
-                <div>
-                  <p className="text-sm font-bold text-white">4.9</p>
-                  <p className="text-xs text-white/60">Rating</p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
+          {/* Right: Empty space to let video show through */}
+          <div className="hidden lg:block"></div>
         </div>
       </section>
     </>
