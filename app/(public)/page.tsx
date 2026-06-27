@@ -6,6 +6,7 @@ import CertificationPrograms from '@/components/home/CertificationPrograms';
 import PartnerBanner from '@/components/home/PartnerBanner';
 import WhyChoose from '@/components/home/WhyChoose';
 import StatsSection from '@/components/home/StatsSection';
+import WhyYoga from '@/components/home/WhyYoga';
 import TeacherTraining from '@/components/home/TeacherTraining';
 import GlobalCommunity from '@/components/home/GlobalCommunity';
 import Testimonials from '@/components/home/Testimonials';
@@ -25,6 +26,7 @@ export default function HomePage() {
       <PartnerBanner />
       <WhyChoose />
       <StatsSection />
+      <WhyYoga />
       <TeacherTraining />
       <GlobalCommunity />
       <Testimonials />
