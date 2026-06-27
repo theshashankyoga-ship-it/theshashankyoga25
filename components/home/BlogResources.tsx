@@ -10,21 +10,21 @@ const articles = [
     title: 'Complete Guide to Starting Your Yoga Teaching Career in 2025',
     excerpt: 'Everything you need to know about becoming a certified yoga teacher — from choosing the right program to landing your first class.',
     readTime: '8 min read',
-    gradient: 'from-[#FF9933]/20 to-[#FFA94D]/10',
+    gradient: 'from-[#E6862A]/20 to-[#C97321]/10',
   },
   {
     category: 'Wellness',
     title: 'The Science Behind Pranayama: How Breathwork Transforms Health',
     excerpt: 'Research-backed insights into how ancient breathing techniques can reduce stress, improve focus, and boost immune function.',
     readTime: '6 min read',
-    gradient: 'from-[#1B2A4A]/10 to-[#2D4066]/5',
+    gradient: 'from-[#202020]/10 to-[#1F1F1F]/5',
   },
   {
     category: 'Certification',
     title: 'RYT 200 vs RYT 500: Which Certification Is Right for You?',
     excerpt: 'A detailed comparison to help aspiring yoga teachers choose the certification path that aligns with their goals and experience.',
     readTime: '5 min read',
-    gradient: 'from-[#E8872E]/15 to-[#FF9933]/5',
+    gradient: 'from-[#C97321]/15 to-[#E6862A]/5',
   },
   {
     category: 'Resources',
@@ -37,12 +37,12 @@ const articles = [
 
 export default function BlogResources() {
   return (
-    <section className="section-padding bg-white" id="blog">
+    <section className="section-padding bg-[#F5F5F5]" id="blog">
       <div className="max-w-7xl mx-auto">
         <motion.div className="text-center mb-14" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <span className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold">Knowledge Hub</span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-gray-900 mt-3 font-bold">Blog & Resources</h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">Insights, guides, and resources to support your yoga journey.</p>
+          <span className="text-[#E6862A] text-sm tracking-[0.2em] uppercase font-semibold">Knowledge Hub</span>
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1F1F1F] mt-3 font-bold">Blog & Resources</h2>
+          <p className="text-[#666666] mt-4 max-w-2xl mx-auto">Insights, guides, and resources to support your yoga journey.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -60,16 +60,16 @@ export default function BlogResources() {
                 <BookOpen className="w-10 h-10 text-gray-300" />
               </div>
               <div className="p-5">
-                <span className="text-[#FF9933] text-[10px] font-bold tracking-widest uppercase">{a.category}</span>
-                <h3 className="font-heading text-sm font-semibold text-gray-900 mt-1.5 mb-2 leading-snug line-clamp-2 group-hover:text-[#FF9933] transition-colors">
+                <span className="text-[#E6862A] text-[10px] font-bold tracking-widest uppercase">{a.category}</span>
+                <h3 className="font-heading text-sm font-semibold text-[#1F1F1F] mt-1.5 mb-2 leading-snug line-clamp-2 group-hover:text-[#E6862A] transition-colors">
                   {a.title}
                 </h3>
-                <p className="text-gray-500 text-xs leading-relaxed mb-3 line-clamp-2">{a.excerpt}</p>
+                <p className="text-[#666666] text-xs leading-relaxed mb-3 line-clamp-2">{a.excerpt}</p>
                 <div className="flex items-center justify-between">
                   <span className="flex items-center gap-1 text-gray-400 text-[10px]">
                     <Clock className="w-3 h-3" /> {a.readTime}
                   </span>
-                  <span className="text-[#FF9933] text-xs font-semibold group-hover:underline">Read →</span>
+                  <span className="text-[#E6862A] text-xs font-semibold group-hover:underline">Read →</span>
                 </div>
               </div>
             </motion.article>

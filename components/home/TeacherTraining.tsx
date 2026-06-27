@@ -18,8 +18,8 @@ const levels = [
     title: '300-Hour Advanced',
     desc: 'Deepen your practice and teaching skills with advanced methodology and specialization.',
     features: ['Advanced sequencing', 'Therapeutic yoga', 'Meditation & mindfulness', 'Yoga Nidra training', 'Teaching practicum'],
-    accent: 'border-[#FF9933]',
-    badgeColor: 'bg-[#FFF4E6] text-[#E8872E]',
+    accent: 'border-[#E6862A]',
+    badgeColor: 'bg-[#F2ECE4] text-[#C97321]',
     popular: true,
   },
   {
@@ -27,8 +27,8 @@ const levels = [
     title: '500-Hour Master',
     desc: 'Comprehensive master program combining 200 and 300 hour certifications into one journey.',
     features: ['Complete curriculum', 'Specialization tracks', 'Research projects', 'Guest masterclasses', 'International certification'],
-    accent: 'border-[#1B2A4A]',
-    badgeColor: 'bg-[#1B2A4A] text-white',
+    accent: 'border-[#202020]',
+    badgeColor: 'bg-[#202020] text-white',
   },
   {
     badge: 'Professional',
@@ -50,11 +50,11 @@ export default function TeacherTraining() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold">Training Levels</span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-gray-900 mt-3 font-bold">
+          <span className="text-[#E6862A] text-sm tracking-[0.2em] uppercase font-semibold">Training Levels</span>
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1F1F1F] mt-3 font-bold">
             Teacher Training Programs
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+          <p className="text-[#666666] mt-4 max-w-2xl mx-auto">
             Progressive training paths from beginner to professional teacher trainer.
           </p>
         </motion.div>
@@ -70,25 +70,25 @@ export default function TeacherTraining() {
               className={`relative bg-white rounded-2xl border-t-4 ${lvl.accent} shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 p-6 flex flex-col`}
             >
               {lvl.popular && (
-                <span className="absolute -top-3 right-4 bg-[#FF9933] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wider uppercase">
+                <span className="absolute -top-3 right-4 bg-[#E6862A] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wider uppercase">
                   Most Popular
                 </span>
               )}
               <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full w-fit mb-3 ${lvl.badgeColor}`}>
                 {lvl.badge}
               </span>
-              <h3 className="font-heading text-lg font-bold text-gray-900 mb-2">{lvl.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">{lvl.desc}</p>
+              <h3 className="font-heading text-lg font-bold text-[#1F1F1F] mb-2">{lvl.title}</h3>
+              <p className="text-[#666666] text-sm leading-relaxed mb-4">{lvl.desc}</p>
 
               <ul className="space-y-2 mb-5 flex-1">
                 {lvl.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
-                    <CheckCircle className="w-4 h-4 text-[#FF9933] mt-0.5 shrink-0" /> {f}
+                  <li key={f} className="flex items-start gap-2 text-sm text-[#666666]">
+                    <CheckCircle className="w-4 h-4 text-[#E6862A] mt-0.5 shrink-0" /> {f}
                   </li>
                 ))}
               </ul>
 
-              <Link href="/register" className="inline-flex items-center gap-1 text-[#FF9933] text-sm font-semibold hover:gap-2 transition-all">
+              <Link href="/register" className="inline-flex items-center gap-1 text-[#E6862A] text-sm font-semibold hover:gap-2 transition-all">
                 Learn More <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>

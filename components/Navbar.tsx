@@ -37,7 +37,7 @@ export default function Navbar() {
       <motion.nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? 'bg-white/95 backdrop-blur-xl shadow-md'
+            ? 'bg-white/95 backdrop-blur-xl shadow-sm'
             : 'bg-white/80 backdrop-blur-sm'
         }`}
         initial={{ y: -100 }}
@@ -47,11 +47,11 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center shadow-sm">
+            <div className="w-9 h-9 rounded-full bg-[#E6862A] flex items-center justify-center shadow-sm">
               <span className="text-white font-heading font-bold text-sm">V</span>
             </div>
-            <span className="font-heading text-lg font-semibold text-gray-800">
-              Vedic<span className="text-[#FF9933]"> Yoga</span>
+            <span className="font-heading text-lg font-semibold text-[#1F1F1F]">
+              Vedic<span className="text-[#E6862A]"> Yoga</span>
             </span>
           </Link>
 
@@ -61,13 +61,13 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className="relative text-sm font-medium text-gray-600 hover:text-[#FF9933] transition-colors duration-300 py-1"
+                className="relative text-sm font-medium text-[#666666] hover:text-[#E6862A] transition-colors duration-300 py-1"
               >
                 {link.name}
                 {pathname === link.href && (
                   <motion.span
                     layoutId="navbar-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#FF9933] rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#E6862A] rounded-full"
                     transition={{ type: 'spring', stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -77,7 +77,7 @@ export default function Navbar() {
 
           {/* Desktop Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-[#FF9933] transition-colors px-4 py-2">
+            <Link href="/login" className="text-sm font-medium text-[#666666] hover:text-[#E6862A] transition-colors px-4 py-2">
               Login
             </Link>
             <Link href="/register" className="gold-button text-sm py-2.5 px-6">
@@ -118,8 +118,8 @@ export default function Navbar() {
                     href={link.href}
                     onClick={() => setIsOpen(false)}
                     className={`font-heading text-3xl font-semibold ${
-                      pathname === link.href ? 'text-[#FF9933]' : 'text-gray-800'
-                    } hover:text-[#FF9933] transition-colors`}
+                      pathname === link.href ? 'text-[#E6862A]' : 'text-[#1F1F1F]'
+                    } hover:text-[#E6862A] transition-colors`}
                   >
                     {link.name}
                   </Link>

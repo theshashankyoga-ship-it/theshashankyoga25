@@ -14,7 +14,7 @@ const features = [
 
 export default function WhyChoose() {
   return (
-    <section className="section-padding bg-[#FFF8F0]" id="why-choose">
+    <section className="section-padding bg-[#F2ECE4]" id="why-choose">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="text-center mb-14"
@@ -22,8 +22,8 @@ export default function WhyChoose() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <span className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold">Why Us</span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-gray-900 mt-3 font-bold">
+          <span className="text-[#E6862A] text-sm tracking-[0.2em] uppercase font-semibold">Why Us</span>
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1F1F1F] mt-3 font-bold">
             Why Choose Vedic Yoga Alliance
           </h2>
         </motion.div>
@@ -38,11 +38,11 @@ export default function WhyChoose() {
               transition={{ delay: i * 0.08 }}
               className="glass-card p-6 group"
             >
-              <div className="w-12 h-12 rounded-xl bg-[#FFF4E6] border border-[#FF9933]/15 flex items-center justify-center mb-4 group-hover:bg-[#FF9933] group-hover:border-[#FF9933] transition-colors duration-300">
-                <f.icon className="w-6 h-6 text-[#FF9933] group-hover:text-white transition-colors duration-300" />
+              <div className="w-12 h-12 rounded-xl bg-white border border-[#E6862A]/15 flex items-center justify-center mb-4 group-hover:bg-[#E6862A] group-hover:border-[#E6862A] transition-colors duration-300">
+                <f.icon className="w-6 h-6 text-[#E6862A] group-hover:text-white transition-colors duration-300" />
               </div>
-              <h3 className="font-heading text-lg font-semibold text-gray-900 mb-2">{f.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed">{f.desc}</p>
+              <h3 className="font-heading text-lg font-semibold text-[#1F1F1F] mb-2">{f.title}</h3>
+              <p className="text-[#666666] text-sm leading-relaxed">{f.desc}</p>
             </motion.div>
           ))}
         </div>

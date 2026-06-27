@@ -40,18 +40,18 @@ export default function Footer() {
   const [email, setEmail] = useState('');
 
   return (
-    <footer className="bg-[#1B2A4A] text-white">
+    <footer className="bg-[#202020] text-white">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand & Newsletter */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center">
+              <div className="w-9 h-9 rounded-full bg-[#E6862A] flex items-center justify-center">
                 <span className="text-white font-heading font-bold text-sm">V</span>
               </div>
               <span className="font-heading text-lg font-semibold">
-                Vedic<span className="text-[#FF9933]"> Yoga</span> Alliance
+                Vedic<span className="text-[#E6862A]"> Yoga</span> Alliance
               </span>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-sm">
@@ -67,9 +67,9 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="flex-1 bg-white/10 border border-white/15 rounded-full px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#FF9933] transition-colors"
+                  className="flex-1 bg-white/10 border border-white/15 rounded-full px-4 py-2.5 text-sm text-white placeholder:text-white/40 focus:outline-none focus:border-[#E6862A] transition-colors"
                 />
-                <button className="bg-[#FF9933] hover:bg-[#E8872E] text-white rounded-full px-4 py-2.5 transition-colors flex items-center gap-1 text-sm font-medium">
+                <button className="bg-[#E6862A] hover:bg-[#C97321] text-white rounded-full px-4 py-2.5 transition-colors flex items-center gap-1 text-sm font-medium">
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
@@ -83,7 +83,7 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-white/50 text-sm hover:text-[#FF9933] transition-colors duration-200">
+                    <Link href={link.href} className="text-white/50 text-sm hover:text-[#E6862A] transition-colors duration-200">
                       {link.name}
                     </Link>
                   </li>
@@ -95,10 +95,10 @@ export default function Footer() {
 
         {/* Contact Row */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10">
-          <a href="mailto:info@vedicyogaalliance.com" className="flex items-center gap-2 text-white/50 text-sm hover:text-[#FF9933] transition-colors">
+          <a href="mailto:info@vedicyogaalliance.com" className="flex items-center gap-2 text-white/50 text-sm hover:text-[#E6862A] transition-colors">
             <Mail className="w-4 h-4" /> info@vedicyogaalliance.com
           </a>
-          <a href="tel:+911234567890" className="flex items-center gap-2 text-white/50 text-sm hover:text-[#FF9933] transition-colors">
+          <a href="tel:+911234567890" className="flex items-center gap-2 text-white/50 text-sm hover:text-[#E6862A] transition-colors">
             <Phone className="w-4 h-4" /> +91 123 456 7890
           </a>
           <span className="flex items-center gap-2 text-white/50 text-sm">
@@ -119,7 +119,7 @@ export default function Footer() {
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/50 hover:bg-[#FF9933] hover:text-white transition-all duration-200"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/50 hover:bg-[#E6862A] hover:text-white transition-all duration-200"
               >
                 <s.icon className="w-3.5 h-3.5" />
               </a>

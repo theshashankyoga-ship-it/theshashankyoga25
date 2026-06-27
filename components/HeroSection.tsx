@@ -11,7 +11,7 @@ function AnnouncementBanner() {
   if (!visible) return null;
 
   return (
-    <div className="relative bg-gradient-to-r from-[#FF9933] via-[#FFA94D] to-[#FF9933] text-white">
+    <div className="relative bg-[#E6862A] text-white">
       <div className="max-w-7xl mx-auto px-4 py-2.5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
         <p className="text-xs sm:text-sm font-medium">
           🎉 International Yoga Teacher Training &amp; Certification Programs Now Open – Enroll Today!
@@ -20,7 +20,7 @@ function AnnouncementBanner() {
           <Link href="/classes" className="text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full transition-colors">
             Explore Programs
           </Link>
-          <Link href="/register" className="text-[10px] sm:text-xs font-bold bg-white text-[#FF9933] px-3 py-1 rounded-full hover:bg-white/90 transition-colors">
+          <Link href="/register" className="text-[10px] sm:text-xs font-bold bg-white text-[#E6862A] px-3 py-1 rounded-full hover:bg-white/90 transition-colors">
             Apply Now
           </Link>
         </div>
@@ -37,7 +37,7 @@ function TrustBadge({ icon: Icon, label }: { icon: React.ElementType; label: str
   return (
     <div className="flex items-center gap-2 text-white/70">
       <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
-        <Icon className="w-4 h-4 text-[#FF9933]" />
+        <Icon className="w-4 h-4 text-[#E6862A]" />
       </div>
       <span className="text-xs sm:text-sm font-medium">{label}</span>
     </div>
@@ -59,7 +59,7 @@ export default function HeroSection() {
             loop
             playsInline
             className="absolute inset-0 w-full h-full object-cover object-center md:object-center"
-            style={{ objectPosition: '60% center', filter: 'brightness(1.12)' }}
+            style={{ objectPosition: '60% center', filter: 'brightness(1.15)' }}
           >
             <source
               src="https://videos.pexels.com/video-files/6870454/6870454-uhd_2560_1440_30fps.mp4"
@@ -70,7 +70,7 @@ export default function HeroSection() {
           <div
             className="absolute inset-0"
             style={{
-              background: 'rgba(0,0,0,0.30)',
+              background: 'rgba(0,0,0,0.20)',
             }}
           />
           <div
@@ -97,7 +97,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5 }}
               className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-3 py-1.5 md:px-4 md:py-1.5 mb-4 md:mb-6"
             >
-              <Star className="w-3.5 h-3.5 text-[#FF9933] fill-[#FF9933]" />
+              <Star className="w-3.5 h-3.5 text-[#E6862A] fill-[#E6862A]" />
               <span className="text-white text-[10px] sm:text-xs md:text-sm font-semibold tracking-wide uppercase sm:normal-case">
                 Internationally Recognized Certification
               </span>
@@ -111,7 +111,7 @@ export default function HeroSection() {
               style={{ textShadow: '0 2px 12px rgba(0,0,0,0.35)' }}
             >
               Transform Your Passion for Yoga into a{' '}
-              <span className="text-[#FF9933]" style={{ textShadow: '0 2px 10px rgba(255,153,51,0.25)' }}>Globally Recognized Career</span>
+              <span className="text-[#E6862A]" style={{ textShadow: '0 2px 10px rgba(230,134,42,0.25)' }}>Globally Recognized Career</span>
             </motion.h1>
 
             <motion.p
@@ -130,7 +130,7 @@ export default function HeroSection() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex flex-col sm:flex-row flex-wrap gap-3 mb-8 md:mb-10 w-full sm:w-auto items-center sm:items-start"
             >
-              <Link href="/register" className="gold-button w-full sm:w-auto justify-center text-sm sm:text-base py-3.5 px-7" style={{ boxShadow: '0 4px 18px rgba(255,153,51,0.30)' }}>
+              <Link href="/register" className="gold-button w-full sm:w-auto justify-center text-sm sm:text-base py-3.5 px-7">
                 Become Certified <ArrowRight className="w-4 h-4" />
               </Link>
               <Link href="/classes" className="inline-flex items-center justify-center w-full sm:w-auto gap-2 border-2 border-white/40 text-white font-medium py-3.5 px-7 rounded-full hover:bg-white/10 hover:border-white/60 transition-all text-sm sm:text-base backdrop-blur-sm">

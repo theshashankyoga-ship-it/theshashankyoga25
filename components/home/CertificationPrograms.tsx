@@ -11,7 +11,7 @@ const programs = [
     duration: '3-6 Months',
     format: 'Online & In-Person',
     price: 'Starting ₹45,000',
-    color: 'from-[#FF9933] to-[#FFA94D]',
+    color: 'from-[#E6862A] to-[#C97321]',
     features: ['Foundation yoga philosophy', 'Anatomy & physiology', 'Teaching methodology', 'Practicum hours'],
   },
   {
@@ -20,7 +20,7 @@ const programs = [
     duration: '4-8 Months',
     format: 'Hybrid Learning',
     price: 'Starting ₹65,000',
-    color: 'from-[#1B2A4A] to-[#2D4066]',
+    color: 'from-[#202020] to-[#1F1F1F]',
     features: ['Advanced asana techniques', 'Therapeutic applications', 'Business of yoga', 'Mentorship program'],
   },
   {
@@ -29,7 +29,7 @@ const programs = [
     duration: '8-12 Months',
     format: 'Comprehensive',
     price: 'Starting ₹95,000',
-    color: 'from-[#E8872E] to-[#FF9933]',
+    color: 'from-[#C97321] to-[#E6862A]',
     features: ['Complete mastery curriculum', 'Specialization tracks', 'Research methodology', 'International certification'],
   },
   {
@@ -38,7 +38,7 @@ const programs = [
     duration: 'Self-Paced',
     format: 'Online Platform',
     price: 'Starting ₹35,000',
-    color: 'from-[#2D4066] to-[#1B2A4A]',
+    color: 'from-[#1F1F1F] to-[#202020]',
     features: ['Continuing education credits', 'Advanced specializations', 'Teacher trainer pathway', 'Global teaching registry'],
   },
 ];
@@ -54,11 +54,11 @@ export default function CertificationPrograms() {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold">Our Programs</span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-gray-900 mt-3 font-bold">
+          <span className="text-[#E6862A] text-sm tracking-[0.2em] uppercase font-semibold">Our Programs</span>
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1F1F1F] mt-3 font-bold">
             Featured Certification Programs
           </h2>
-          <p className="text-gray-500 mt-4 max-w-2xl mx-auto">
+          <p className="text-[#666666] mt-4 max-w-2xl mx-auto">
             Choose from internationally recognized yoga certification programs designed for every stage of your teaching journey.
           </p>
         </motion.div>
@@ -81,25 +81,25 @@ export default function CertificationPrograms() {
 
               {/* Body */}
               <div className="p-5 flex-1 flex flex-col">
-                <div className="flex items-center gap-4 text-xs text-gray-500 mb-4">
+                <div className="flex items-center gap-4 text-xs text-[#666666] mb-4">
                   <span className="flex items-center gap-1"><Clock className="w-3.5 h-3.5" /> {prog.duration}</span>
                   <span className="flex items-center gap-1"><Monitor className="w-3.5 h-3.5" /> {prog.format}</span>
                 </div>
 
                 <ul className="space-y-2 mb-5 flex-1">
                   {prog.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2 text-sm text-gray-600">
-                      <CheckCircle className="w-4 h-4 text-[#FF9933] mt-0.5 shrink-0" />
+                    <li key={f} className="flex items-start gap-2 text-sm text-[#666666]">
+                      <CheckCircle className="w-4 h-4 text-[#E6862A] mt-0.5 shrink-0" />
                       {f}
                     </li>
                   ))}
                 </ul>
 
-                <p className="text-[#FF9933] font-bold text-sm mb-3">{prog.price}</p>
+                <p className="text-[#E6862A] font-bold text-sm mb-3">{prog.price}</p>
 
                 <Link
                   href="/register"
-                  className="w-full text-center text-sm font-semibold py-2.5 rounded-full border border-[#FF9933] text-[#FF9933] hover:bg-[#FF9933] hover:text-white transition-all duration-300"
+                  className="w-full text-center text-sm font-semibold py-2.5 rounded-full border border-[#E6862A] text-[#E6862A] hover:bg-[#E6862A] hover:text-white transition-all duration-300"
                 >
                   Apply Now
                 </Link>

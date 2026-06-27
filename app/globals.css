@@ -6,14 +6,14 @@
 
 @layer base {
   :root {
-    --bg-dark: #FAFAFA;
+    --bg-dark: #F5F5F5;
     --bg-medium: #FFFFFF;
-    --cream: #1F2937;
-    --gold: #FF9933;
-    --sage: #FF9933;
-    --text-light: #4B5563;
-    --border: #E5E7EB;
-    --saffron-light: #FFF4E6;
+    --cream: #FAF7F2;
+    --gold: #E6862A;
+    --sage: #E6862A;
+    --text-light: #666666;
+    --border: #E8E3DC;
+    --saffron-light: #F2ECE4;
   }
 
   html {
@@ -22,8 +22,8 @@
 
   body {
     font-family: 'Inter', sans-serif;
-    color: #1F2937;
-    background-color: #FAFAFA;
+    color: #1F1F1F;
+    background-color: #F5F5F5;
     overflow-x: hidden;
   }
 
@@ -32,34 +32,32 @@
   }
 
   ::selection {
-    background-color: rgba(255, 153, 51, 0.2);
-    color: #1F2937;
+    background-color: rgba(230, 134, 42, 0.2);
+    color: #1F1F1F;
   }
 }
 
 @layer components {
   .glass-card {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 1rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.06);
+    background: #FFFFFF;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .glass-card:hover {
-    border-color: rgba(255, 153, 51, 0.3);
-    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+    border-color: rgba(230, 134, 42, 0.3);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
     transform: translateY(-4px);
   }
 
   .gold-button {
-    background: linear-gradient(135deg, #FF9933 0%, #E8872E 100%);
+    background: #E6862A;
     color: #FFFFFF;
     font-weight: 600;
     padding: 0.75rem 2rem;
-    border-radius: 9999px;
+    border-radius: 50px;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
@@ -67,27 +65,27 @@
   }
 
   .gold-button:hover {
-    background: linear-gradient(135deg, #FFA94D 0%, #FF9933 100%);
-    box-shadow: 0 4px 20px rgba(255, 153, 51, 0.35);
+    background: #C97321;
+    box-shadow: 0 4px 20px rgba(230, 134, 42, 0.35);
     transform: translateY(-1px);
   }
 
   .outline-button {
-    border: 1.5px solid #1F2937;
-    color: #1F2937;
+    border: 1.5px solid #1F1F1F;
+    color: #1F1F1F;
     font-weight: 500;
     padding: 0.75rem 2rem;
-    border-radius: 9999px;
+    border-radius: 50px;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    background: transparent;
+    background: #FFFFFF;
   }
 
   .outline-button:hover {
-    background: #1F2937;
-    color: #FFFFFF;
+    border-color: #E6862A;
+    color: #E6862A;
   }
 
   .section-padding {
@@ -110,9 +108,9 @@
     width: 100%;
     padding: 1rem 1rem 0.5rem;
     background: #FFFFFF;
-    border: 1px solid #E5E7EB;
+    border: 1px solid #E8E3DC;
     border-radius: 0.75rem;
-    color: #1F2937;
+    color: #1F1F1F;
     font-size: 1rem;
     transition: all 0.3s ease;
     outline: none;
@@ -121,8 +119,8 @@
   .floating-label-input input:focus,
   .floating-label-input textarea:focus,
   .floating-label-input select:focus {
-    border-color: #FF9933;
-    box-shadow: 0 0 0 3px rgba(255, 153, 51, 0.12);
+    border-color: #E6862A;
+    box-shadow: 0 0 0 3px rgba(230, 134, 42, 0.12);
   }
 
   .floating-label-input label {
@@ -150,7 +148,7 @@
     top: 0.35rem;
     transform: none;
     font-size: 0.75rem;
-    color: #FF9933;
+    color: #E6862A;
   }
 
   /* Scrollbar */
@@ -168,15 +166,12 @@
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #FF9933;
+    background: #E6862A;
   }
 }
 
 @layer utilities {
   .text-gradient-gold {
-    background: linear-gradient(135deg, #FF9933 0%, #FFA94D 50%, #FF9933 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #E6862A;
   }
 }

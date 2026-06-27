@@ -31,7 +31,7 @@ export default function ClassCard({
     beginner: 'bg-emerald-50 text-emerald-600 border border-emerald-200',
     intermediate: 'bg-amber-50 text-amber-600 border border-amber-200',
     advanced: 'bg-red-50 text-red-600 border border-red-200',
-    all: 'bg-orange-50 text-[#FF9933] border border-orange-200',
+    all: 'bg-orange-50 text-[#E6862A] border border-orange-200',
   };
 
   return (
@@ -44,10 +44,10 @@ export default function ClassCard({
     >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <span className="text-xs uppercase tracking-widest text-[#FF9933] font-semibold">
+          <span className="text-xs uppercase tracking-widest text-[#E6862A] font-semibold">
             {style}
           </span>
-          <h3 className="font-heading text-xl font-semibold text-gray-900 mt-1">{name}</h3>
+          <h3 className="font-heading text-xl font-semibold text-[#1F1F1F] mt-1">{name}</h3>
         </div>
         <span className={`text-xs px-3 py-1 rounded-full font-medium ${levelColors[level.toLowerCase()] || levelColors.all}`}>
           {level}
@@ -55,24 +55,24 @@ export default function ClassCard({
       </div>
 
       <div className="flex flex-col gap-2 mb-4 flex-grow">
-        <div className="flex items-center gap-2 text-gray-500 text-sm">
-          <Clock className="w-4 h-4 text-[#FF9933]" />
+        <div className="flex items-center gap-2 text-[#666666] text-sm">
+          <Clock className="w-4 h-4 text-[#E6862A]" />
           <span>{duration}</span>
         </div>
-        <div className="flex items-center gap-2 text-gray-500 text-sm">
-          <User className="w-4 h-4 text-[#FF9933]" />
+        <div className="flex items-center gap-2 text-[#666666] text-sm">
+          <User className="w-4 h-4 text-[#E6862A]" />
           <span>{instructor}</span>
         </div>
         {schedule && (
-          <div className="flex items-center gap-2 text-gray-500 text-sm">
-            <BarChart3 className="w-4 h-4 text-[#FF9933]" />
+          <div className="flex items-center gap-2 text-[#666666] text-sm">
+            <BarChart3 className="w-4 h-4 text-[#E6862A]" />
             <span>{schedule}</span>
           </div>
         )}
       </div>
 
       {price && (
-        <p className="text-[#FF9933] font-semibold mb-4 text-lg">{price}</p>
+        <p className="text-[#E6862A] font-semibold mb-4 text-lg">{price}</p>
       )}
 
       {showBooking && (

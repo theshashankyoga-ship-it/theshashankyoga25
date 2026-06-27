@@ -56,11 +56,11 @@ export default function Testimonials() {
   const next = () => setCurrent((p) => (p + 1) % testimonials.length);
 
   return (
-    <section className="section-padding bg-white" id="testimonials">
+    <section className="section-padding bg-[#FAF7F2]" id="testimonials">
       <div className="max-w-4xl mx-auto">
         <motion.div className="text-center mb-14" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <span className="text-[#FF9933] text-sm tracking-[0.2em] uppercase font-semibold">Testimonials</span>
-          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-gray-900 mt-3 font-bold">What Our Community Says</h2>
+          <span className="text-[#E6862A] text-sm tracking-[0.2em] uppercase font-semibold">Testimonials</span>
+          <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1F1F1F] mt-3 font-bold">What Our Community Says</h2>
         </motion.div>
 
         <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} className="relative">
@@ -69,20 +69,20 @@ export default function Testimonials() {
               {testimonials.map((t, i) => (
                 <div key={i} className="w-full flex-shrink-0 px-4">
                   <div className="glass-card p-8 sm:p-10 text-center">
-                    <Quote className="w-8 h-8 text-[#FF9933] mx-auto mb-4 opacity-50" />
+                    <Quote className="w-8 h-8 text-[#E6862A] mx-auto mb-4 opacity-50" />
                     <div className="flex justify-center gap-1 mb-4">
                       {[...Array(t.rating)].map((_, s) => (
-                        <Star key={s} className="w-4 h-4 text-[#FF9933] fill-[#FF9933]" />
+                        <Star key={s} className="w-4 h-4 text-[#E6862A] fill-[#E6862A]" />
                       ))}
                     </div>
                     <p className="text-gray-700 text-base sm:text-lg leading-relaxed font-light italic mb-6">
                       &ldquo;{t.text}&rdquo;
                     </p>
-                    <div className="w-12 h-12 mx-auto rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center mb-3">
+                    <div className="w-12 h-12 mx-auto rounded-full bg-[#E6862A] flex items-center justify-center mb-3">
                       <span className="text-white font-bold text-lg">{t.name[0]}</span>
                     </div>
-                    <p className="font-heading text-base font-semibold text-gray-900">{t.name}</p>
-                    <p className="text-[#FF9933] text-sm mt-0.5">{t.role}</p>
+                    <p className="font-heading text-base font-semibold text-[#1F1F1F]">{t.name}</p>
+                    <p className="text-[#E6862A] text-sm mt-0.5">{t.role}</p>
                     <span className="inline-block mt-2 text-[10px] font-bold tracking-widest uppercase text-gray-400 bg-gray-100 px-3 py-1 rounded-full">{t.type}</span>
                   </div>
                 </div>
@@ -92,15 +92,15 @@ export default function Testimonials() {
 
           {/* Navigation */}
           <div className="flex items-center justify-center gap-4 mt-8">
-            <button onClick={prev} className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#FF9933] hover:text-[#FF9933] transition-all">
+            <button onClick={prev} className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#E6862A] hover:text-[#E6862A] transition-all">
               <ChevronLeft className="w-5 h-5" />
             </button>
             <div className="flex gap-2">
               {testimonials.map((_, i) => (
-                <button key={i} onClick={() => setCurrent(i)} className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-[#FF9933] w-6' : 'bg-gray-200 w-2'}`} />
+                <button key={i} onClick={() => setCurrent(i)} className={`h-2 rounded-full transition-all duration-300 ${i === current ? 'bg-[#E6862A] w-6' : 'bg-gray-200 w-2'}`} />
               ))}
             </div>
-            <button onClick={next} className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#FF9933] hover:text-[#FF9933] transition-all">
+            <button onClick={next} className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:border-[#E6862A] hover:text-[#E6862A] transition-all">
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
