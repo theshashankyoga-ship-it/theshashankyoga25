@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import HeroSection from '@/components/HeroSection';
 import CertificationPrograms from '@/components/home/CertificationPrograms';
+import PartnerBanner from '@/components/home/PartnerBanner';
 import WhyChoose from '@/components/home/WhyChoose';
 import StatsSection from '@/components/home/StatsSection';
 import TeacherTraining from '@/components/home/TeacherTraining';
@@ -21,6 +22,7 @@ export default function HomePage() {
     >
       <HeroSection />
       <CertificationPrograms />
+      <PartnerBanner />
       <WhyChoose />
       <StatsSection />
       <TeacherTraining />
