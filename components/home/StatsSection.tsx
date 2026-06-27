@@ -52,12 +52,12 @@ const stats = [
 
 export default function StatsSection() {
   return (
-    <section className="relative py-20 overflow-hidden bg-[#202020]">
-      <div className="absolute inset-0 opacity-10 pointer-events-none"
-        style={{ backgroundImage: 'radial-gradient(circle, #E6862A 1px, transparent 1px)', backgroundSize: '30px 30px' }}
+    <section className="relative py-24 overflow-hidden bg-[#034047]">
+      <div className="absolute inset-0 opacity-[0.07]"
+        style={{ backgroundImage: 'radial-gradient(circle, #ffffff 1px, transparent 1px)', backgroundSize: '30px 30px' }}
       />
-      <div className="absolute top-0 right-0 w-72 h-72 bg-[#E6862A]/10 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-[#E6862A]/10 rounded-full blur-[100px]" />
+      <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-10">
         {stats.map((stat, i) => (
