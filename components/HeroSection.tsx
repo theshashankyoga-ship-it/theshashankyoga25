@@ -2,35 +2,8 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Shield, Award, Globe, Star, X } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, Shield, Award, Globe, Star } from 'lucide-react';
 
-/* ── Announcement Banner ──────────────────────────────────── */
-function AnnouncementBanner() {
-  const [visible, setVisible] = useState(true);
-  if (!visible) return null;
-
-  return (
-    <div className="relative bg-[#E6862A] text-white">
-      <div className="max-w-7xl mx-auto px-4 py-2.5 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-center">
-        <p className="text-xs sm:text-sm font-medium">
-          🎉 International Yoga Teacher Training &amp; Certification Programs Now Open – Enroll Today!
-        </p>
-        <div className="flex items-center gap-2">
-          <Link href="/classes" className="text-[10px] sm:text-xs font-bold bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full transition-colors">
-            Explore Programs
-          </Link>
-          <Link href="/register" className="text-[10px] sm:text-xs font-bold bg-white text-[#E6862A] px-3 py-1 rounded-full hover:bg-white/90 transition-colors">
-            Apply Now
-          </Link>
-        </div>
-      </div>
-      <button onClick={() => setVisible(false)} className="absolute right-2 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-1" aria-label="Dismiss">
-        <X className="w-4 h-4" />
-      </button>
-    </div>
-  );
-}
 
 /* ── Trust Badge ──────────────────────────────────────────── */
 function TrustBadge({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
@@ -48,8 +21,6 @@ function TrustBadge({ icon: Icon, label }: { icon: React.ElementType; label: str
 export default function HeroSection() {
   return (
     <>
-      <AnnouncementBanner />
-
       <section className="relative min-h-[90vh] flex items-center overflow-hidden" id="hero">
         {/* ── Video Background ──────────────────────────────── */}
         <div className="absolute inset-0 z-0 overflow-hidden">
