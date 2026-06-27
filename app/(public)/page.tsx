@@ -7,11 +7,7 @@ import PartnerBanner from '@/components/home/PartnerBanner';
 import WhyChoose from '@/components/home/WhyChoose';
 import StatsSection from '@/components/home/StatsSection';
 import WhyYoga from '@/components/home/WhyYoga';
-import TeacherTraining from '@/components/home/TeacherTraining';
 import GlobalCommunity from '@/components/home/GlobalCommunity';
-import Testimonials from '@/components/home/Testimonials';
-import LearningExperience from '@/components/home/LearningExperience';
-import BlogResources from '@/components/home/BlogResources';
 import FinalCTA from '@/components/home/FinalCTA';
 
 export default function HomePage() {
@@ -27,11 +23,7 @@ export default function HomePage() {
       <WhyChoose />
       <StatsSection />
       <WhyYoga />
-      <TeacherTraining />
       <GlobalCommunity />
-      <Testimonials />
-      <LearningExperience />
-      <BlogResources />
       <FinalCTA />
     </motion.div>
   );
