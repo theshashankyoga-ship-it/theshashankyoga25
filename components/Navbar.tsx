@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -46,11 +47,17 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-10 h-10 rounded-full bg-[#034047] flex items-center justify-center shadow-sm">
-              <span className="text-white font-heading font-bold text-sm">V</span>
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className="relative w-12 h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+              <Image 
+                src="/logo.png" 
+                alt="Vedic Yoga Logo" 
+                fill
+                className="object-contain drop-shadow-md"
+                priority
+              />
             </div>
-            <span className="font-heading text-lg font-semibold text-[#1F1F1F]">
+            <span className="font-heading text-2xl font-bold tracking-tight text-[#1F1F1F]">
               Vedic<span className="text-[#034047]"> Yoga</span>
             </span>
           </Link>
