@@ -1,6 +1,8 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
+import logoPic from '@/logo/ChatGPT Image Jun 28, 2026, 12_53_05 PM.png';
 import { Mail, Phone, MapPin, ArrowRight, Facebook, Instagram, Twitter, Youtube, Linkedin } from 'lucide-react';
 import { useState } from 'react';
 
@@ -53,11 +55,16 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand & Newsletter */}
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-full bg-[#E6862A] flex items-center justify-center">
-                <span className="text-white font-heading font-bold text-sm">V</span>
+            <Link href="/" className="flex items-center gap-3 mb-4 group">
+              <div className="relative w-16 h-16 flex-shrink-0 bg-white/10 rounded-xl p-2 transition-transform duration-300 group-hover:scale-105">
+                <Image 
+                  src={logoPic} 
+                  alt="Vedic Yoga Logo" 
+                  fill
+                  className="object-contain drop-shadow-md"
+                />
               </div>
-              <span className="font-heading text-lg font-semibold">
+              <span className="font-heading text-xl font-semibold">
                 Vedic<span className="text-[#E6862A]"> Yoga</span> Alliance
               </span>
             </Link>
