@@ -70,6 +70,24 @@
     transform: translateY(-1px);
   }
 
+  .teal-button {
+    background: #034047;
+    color: #FFFFFF;
+    font-weight: 600;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .teal-button:hover {
+    background: #022A2F;
+    box-shadow: 0 4px 20px rgba(3, 64, 71, 0.35);
+    transform: translateY(-1px);
+  }
+
   .outline-button {
     border: 1.5px solid #1F1F1F;
     color: #1F1F1F;
@@ -86,6 +104,24 @@
   .outline-button:hover {
     border-color: #E6862A;
     color: #E6862A;
+  }
+
+  .outline-teal-button {
+    border: 1.5px solid #1F1F1F;
+    color: #1F1F1F;
+    font-weight: 500;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: #FFFFFF;
+  }
+
+  .outline-teal-button:hover {
+    border-color: #034047;
+    color: #034047;
   }
 
   .section-padding {

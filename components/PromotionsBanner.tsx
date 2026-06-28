@@ -64,7 +64,7 @@ export default function PromotionsBanner() {
 
   return (
     <div className="mb-8">
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-orange-50 via-amber-50 to-orange-50 border border-orange-200/60">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#e6f0f1] via-[#f4f8f9] to-[#e6f0f1] border border-[#034047]/20">
         <div className="relative h-[180px] sm:h-[200px]">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.a
@@ -91,13 +91,13 @@ export default function PromotionsBanner() {
               {/* Content */}
               <div className="relative z-10 px-8 sm:px-12 flex items-center justify-between w-full">
                 <div>
-                  <span className="inline-block text-xs tracking-widest uppercase text-orange-200/90 mb-2 font-medium">
+                  <span className="inline-block text-xs tracking-widest uppercase text-[#e6f0f1]/90 mb-2 font-medium">
                     ✨ Promotion
                   </span>
                   <h3 className="font-heading text-2xl sm:text-3xl text-white font-semibold mb-2">
                     {promotions[currentIndex].title}
                   </h3>
-                  <span className="inline-flex items-center gap-1.5 text-sm text-orange-100/80 group-hover:text-white transition-colors">
+                  <span className="inline-flex items-center gap-1.5 text-sm text-[#e6f0f1]/80 group-hover:text-white transition-colors">
                     Learn More <ExternalLink className="w-3.5 h-3.5" />
                   </span>
                 </div>
@@ -132,7 +132,7 @@ export default function PromotionsBanner() {
                   onClick={() => { setDirection(i > currentIndex ? 1 : -1); setCurrentIndex(i); }}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     i === currentIndex
-                      ? 'bg-[#FF9933] w-6'
+                      ? 'bg-[#034047] w-6'
                       : 'bg-white/40 hover:bg-white/60'
                   }`}
                 />

@@ -76,8 +76,8 @@ export default function StudentDashboardHome() {
             transition={{ delay: i * 0.1 }}
             className="glass-card p-5"
           >
-            <div className="w-10 h-10 rounded-full bg-orange-50 flex items-center justify-center mb-3">
-              <stat.icon className="w-5 h-5 text-[#FF9933]" />
+            <div className="w-10 h-10 rounded-full bg-[#e6f0f1] flex items-center justify-center mb-3">
+              <stat.icon className="w-5 h-5 text-[#034047]" />
             </div>
             <p className="font-heading text-3xl text-gray-900 font-semibold">{stat.value}</p>
             <p className="text-gray-500 text-sm mt-1">{stat.label}</p>
@@ -92,15 +92,15 @@ export default function StudentDashboardHome() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="glass-card p-6 border-l-4 border-l-[#FF9933]"
+            className="glass-card p-6 border-l-4 border-l-[#034047]"
           >
-            <span className="text-[#FF9933] text-xs tracking-widest uppercase font-bold">Today&apos;s Class</span>
+            <span className="text-[#034047] text-xs tracking-widest uppercase font-bold">Today&apos;s Class</span>
             <h3 className="font-heading text-2xl text-gray-900 font-semibold mt-2">Morning Vinyasa Flow</h3>
             <div className="flex flex-wrap gap-4 mt-3 text-sm text-gray-600 font-medium">
-              <span className="flex items-center gap-1"><Clock className="w-4 h-4 text-[#FF9933]" /> 7:00 AM — 8:00 AM</span>
-              <span className="flex items-center gap-1"><MapPin className="w-4 h-4 text-[#FF9933]" /> Lotus Studio</span>
+              <span className="flex items-center gap-1"><Clock className="w-4 h-4 text-[#034047]" /> 7:00 AM — 8:00 AM</span>
+              <span className="flex items-center gap-1"><MapPin className="w-4 h-4 text-[#034047]" /> Lotus Studio</span>
             </div>
-            <button className="gold-button mt-4 text-sm font-medium">
+            <button className="teal-button mt-4 text-sm font-medium">
               Join Class <ArrowRight className="w-4 h-4" />
             </button>
           </motion.div>
@@ -110,19 +110,19 @@ export default function StudentDashboardHome() {
             <h3 className="font-heading text-xl text-gray-900 font-semibold mb-4">Upcoming Bookings</h3>
             <div className="space-y-3">
               {upcomingBookings.map((booking, i) => (
-                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#FF9933]/30 transition-colors">
+                <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#034047]/30 transition-colors">
                   <div>
                     <p className="text-gray-900 font-medium text-sm">{booking.name}</p>
                     <p className="text-gray-500 text-xs mt-0.5">{booking.studio}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-[#FF9933] text-sm font-semibold">{booking.date}</p>
+                    <p className="text-[#034047] text-sm font-semibold">{booking.date}</p>
                     <p className="text-gray-500 text-xs font-medium">{booking.time}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <Link href="/student/my-classes" className="inline-block mt-4 text-[#FF9933] text-sm font-medium hover:underline">
+            <Link href="/student/my-classes" className="inline-block mt-4 text-[#034047] text-sm font-medium hover:underline">
               View All Classes →
             </Link>
           </div>
@@ -133,20 +133,20 @@ export default function StudentDashboardHome() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="glass-card p-6 border-t-4 border-t-[#FF9933]"
+          className="glass-card p-6 border-t-4 border-t-[#034047]"
         >
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center">
-              <Lightbulb className="w-4 h-4 text-[#FF9933]" />
+            <div className="w-8 h-8 rounded-full bg-[#e6f0f1] flex items-center justify-center">
+              <Lightbulb className="w-4 h-4 text-[#034047]" />
             </div>
-            <span className="text-[#FF9933] text-sm font-bold uppercase tracking-wider">Tip of the Day</span>
+            <span className="text-[#034047] text-sm font-bold uppercase tracking-wider">Tip of the Day</span>
           </div>
           <p className="text-gray-700 text-sm leading-relaxed italic">
             &ldquo;{yogaTips[tipIndex]}&rdquo;
           </p>
 
           <div className="mt-8">
-            <Link href="/student/my-classes" className="outline-button text-sm w-full justify-center">
+            <Link href="/student/my-classes" className="outline-teal-button text-sm w-full justify-center">
               View My Classes
             </Link>
           </div>

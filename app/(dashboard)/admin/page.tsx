@@ -37,7 +37,7 @@ export default function AdminDashboardPage() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#FF9933]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#034047]" />
       </div>
     }>
       <AdminContent />
@@ -205,13 +205,13 @@ function AdminContent() {
   const statCards = [
     { label: 'Total Students', value: students.length, icon: Users, bg: '#EFF6FF', iconColor: '#3B82F6' },
     { label: 'Total Studios', value: studios.length, icon: Building2, bg: '#ECFDF5', iconColor: '#10B981' },
-    { label: 'Active Promos', value: promotions.filter((p) => p.is_active).length, icon: Megaphone, bg: '#FFF4E6', iconColor: '#FF9933' },
+    { label: 'Active Promos', value: promotions.filter((p) => p.is_active).length, icon: Megaphone, bg: '#e6f0f1', iconColor: '#034047' },
   ];
 
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#FF9933]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#034047]" />
       </div>
     );
   }
@@ -265,7 +265,7 @@ function AdminContent() {
               </thead>
               <tbody>
                 {students.map((s) => (
-                  <tr key={s.id} className="hover:bg-[#FFF9F0] transition-colors border-b border-gray-50 last:border-0">
+                  <tr key={s.id} className="hover:bg-[#f4f8f9] transition-colors border-b border-gray-50 last:border-0">
                     <td className="py-3.5 px-6 text-gray-900 font-medium">{s.full_name || '—'}</td>
                     <td className="py-3.5 px-6 text-gray-600">{s.email}</td>
                     <td className="py-3.5 px-6 text-gray-500">{formatDate(s.created_at)}</td>
@@ -304,7 +304,7 @@ function AdminContent() {
               </thead>
               <tbody>
                 {studios.map((s) => (
-                  <tr key={s.id} className="hover:bg-[#FFF9F0] transition-colors border-b border-gray-50 last:border-0">
+                  <tr key={s.id} className="hover:bg-[#f4f8f9] transition-colors border-b border-gray-50 last:border-0">
                     <td className="py-3.5 px-6 text-gray-900 font-medium">{s.full_name || '—'}</td>
                     <td className="py-3.5 px-6 text-gray-600">{s.email}</td>
                     <td className="py-3.5 px-6 text-gray-500">{s.city || '—'}</td>
@@ -328,7 +328,7 @@ function AdminContent() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-heading text-xl text-gray-900 font-semibold">Promotions</h2>
-            <button onClick={openAddForm} className="gold-button text-sm">
+            <button onClick={openAddForm} className="teal-button text-sm">
               <Plus className="w-4 h-4" /> Add New
             </button>
           </div>
@@ -340,7 +340,7 @@ function AdminContent() {
                 <div className="w-full sm:w-32 h-20 rounded-xl bg-cover bg-center shrink-0 border border-gray-100" style={{ backgroundImage: `url(${promo.image_url})` }} />
                 <div className="flex-1 min-w-0">
                   <h3 className="text-gray-900 font-semibold truncate">{promo.title}</h3>
-                  <a href={promo.redirect_url} target="_blank" rel="noopener noreferrer" className="text-[#FF9933]/70 text-xs hover:text-[#FF9933] flex items-center gap-1 mt-1 truncate">
+                  <a href={promo.redirect_url} target="_blank" rel="noopener noreferrer" className="text-[#034047]/70 text-xs hover:text-[#034047] flex items-center gap-1 mt-1 truncate">
                     {promo.redirect_url} <ExternalLink className="w-3 h-3 shrink-0" />
                   </a>
                 </div>
@@ -350,7 +350,7 @@ function AdminContent() {
                       ? <ToggleRight className="w-7 h-7 text-emerald-500" />
                       : <ToggleLeft className="w-7 h-7 text-gray-300" />}
                   </button>
-                  <button onClick={() => openEditForm(promo)} className="text-gray-400 hover:text-[#FF9933] transition-colors p-1.5 rounded-lg hover:bg-[#FFF4E6]"><Pencil className="w-4 h-4" /></button>
+                  <button onClick={() => openEditForm(promo)} className="text-gray-400 hover:text-[#034047] transition-colors p-1.5 rounded-lg hover:bg-[#e6f0f1]"><Pencil className="w-4 h-4" /></button>
                   <button onClick={() => handleDeletePromo(promo.id)} className="text-gray-300 hover:text-red-500 transition-colors p-1.5 rounded-lg hover:bg-red-50"><Trash2 className="w-4 h-4" /></button>
                 </div>
               </div>
@@ -413,7 +413,7 @@ function AdminContent() {
                       {formActive ? <ToggleRight className="w-7 h-7 text-emerald-500" /> : <ToggleLeft className="w-7 h-7 text-gray-300" />}
                     </button>
                   </div>
-                  <button onClick={handleSavePromo} disabled={saving || !formTitle || !formImageUrl || !formRedirectUrl} className="gold-button w-full justify-center text-sm disabled:opacity-40">
+                  <button onClick={handleSavePromo} disabled={saving || !formTitle || !formImageUrl || !formRedirectUrl} className="teal-button w-full justify-center text-sm disabled:opacity-40">
                     {saving ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
                     {editingPromo ? 'Update' : 'Save'} Promotion
                   </button>
@@ -434,16 +434,16 @@ function AdminContent() {
 
           {analyticsLoading ? (
             <div className="flex items-center justify-center py-20">
-              <Loader2 className="w-8 h-8 animate-spin text-[#FF9933]" />
+              <Loader2 className="w-8 h-8 animate-spin text-[#034047]" />
             </div>
           ) : analyticsPromos.length === 0 ? (
             <div className="bg-white rounded-2xl border border-gray-100 p-12 text-center shadow-sm">
-              <div className="w-16 h-16 rounded-2xl bg-[#FFF4E6] flex items-center justify-center mx-auto mb-4">
-                <Megaphone className="w-8 h-8 text-[#FF9933]" />
+              <div className="w-16 h-16 rounded-2xl bg-[#e6f0f1] flex items-center justify-center mx-auto mb-4">
+                <Megaphone className="w-8 h-8 text-[#034047]" />
               </div>
               <h3 className="font-heading text-lg text-gray-900 font-semibold mb-2">No promotions yet</h3>
               <p className="text-gray-500 text-sm mb-6">Create your first promotion to start tracking analytics!</p>
-              <Link href="/admin?section=promotions" className="gold-button text-sm">
+              <Link href="/admin?section=promotions" className="teal-button text-sm">
                 Go to Promotions <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
@@ -457,7 +457,7 @@ function AdminContent() {
                 const activeCount = analyticsPromos.filter(p => p.is_active).length;
                 const summaryStats = [
                   { label: 'Total Views', value: totalViews.toLocaleString(), icon: Eye, bg: '#EFF6FF', iconColor: '#3B82F6' },
-                  { label: 'Total Clicks', value: totalClicks.toLocaleString(), icon: MousePointerClick, bg: '#FFF4E6', iconColor: '#FF9933' },
+                  { label: 'Total Clicks', value: totalClicks.toLocaleString(), icon: MousePointerClick, bg: '#e6f0f1', iconColor: '#034047' },
                   { label: 'Average CTR', value: avgCtr + '%', icon: TrendingUp, bg: '#ECFDF5', iconColor: '#10B981' },
                   { label: 'Active Promos', value: activeCount, icon: Megaphone, bg: '#F5F3FF', iconColor: '#7C3AED' },
                 ];
@@ -491,9 +491,9 @@ function AdminContent() {
                   </div>
                   <p className="font-heading text-3xl text-gray-900 font-bold">{todayViews}</p>
                 </div>
-                <div className="bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5">
+                <div className="bg-gradient-to-br from-[#e6f0f1] to-white rounded-2xl border border-[#034047]/20 p-5">
                   <div className="flex items-center gap-3 mb-2">
-                    <MousePointerClick className="w-5 h-5 text-[#FF9933]" />
+                    <MousePointerClick className="w-5 h-5 text-[#034047]" />
                     <span className="text-gray-600 text-sm font-medium">Today&apos;s Clicks</span>
                   </div>
                   <p className="font-heading text-3xl text-gray-900 font-bold">{todayClicks}</p>
@@ -527,10 +527,10 @@ function AdminContent() {
                             <div className="flex items-center justify-between text-xs text-gray-500 mb-2">
                               <span className="flex items-center gap-1"><Eye className="w-3 h-3" />{views.toLocaleString()}</span>
                               <span className="flex items-center gap-1"><MousePointerClick className="w-3 h-3" />{clicks.toLocaleString()}</span>
-                              <span className="font-semibold text-[#FF9933]">{ctr.toFixed(1)}%</span>
+                              <span className="font-semibold text-[#034047]">{ctr.toFixed(1)}%</span>
                             </div>
                             <div className="w-full bg-gray-100 rounded-full h-1.5">
-                              <div className="bg-gradient-to-r from-[#FF9933] to-[#E8872E] h-1.5 rounded-full transition-all" style={{ width: `${Math.min(ctr, 100)}%` }} />
+                              <div className="bg-gradient-to-r from-[#034047] to-[#022A2F] h-1.5 rounded-full transition-all" style={{ width: `${Math.min(ctr, 100)}%` }} />
                             </div>
                           </div>
                         </motion.div>
@@ -566,7 +566,7 @@ function AdminContent() {
                         const targetLabel = promo.target_audience === 'student' ? 'Students' : promo.target_audience === 'studio' ? 'Studios' : 'All Users';
                         const targetColor = promo.target_audience === 'student' ? 'bg-blue-50 text-blue-600 border-blue-100' : promo.target_audience === 'studio' ? 'bg-purple-50 text-purple-600 border-purple-100' : 'bg-gray-50 text-gray-600 border-gray-200';
                         return (
-                          <tr key={promo.id} className="hover:bg-[#FFF9F0] transition-colors border-b border-gray-50 last:border-0">
+                          <tr key={promo.id} className="hover:bg-[#f4f8f9] transition-colors border-b border-gray-50 last:border-0">
                             <td className="py-3.5 px-6">
                               <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 rounded-lg bg-cover bg-center border border-gray-100 shrink-0" style={{ backgroundImage: `url(${promo.image_url})` }} />
@@ -576,7 +576,7 @@ function AdminContent() {
                             <td className="py-3.5 px-6"><span className={`text-xs px-2.5 py-1 rounded-full font-medium border ${targetColor}`}>{targetLabel}</span></td>
                             <td className="py-3.5 px-6 text-gray-700 font-medium">{views.toLocaleString()}</td>
                             <td className="py-3.5 px-6 text-gray-700 font-medium">{clicks.toLocaleString()}</td>
-                            <td className="py-3.5 px-6 font-semibold text-[#FF9933]">{ctr}%</td>
+                            <td className="py-3.5 px-6 font-semibold text-[#034047]">{ctr}%</td>
                             <td className="py-3.5 px-6">
                               {promo.is_active
                                 ? <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-600 font-medium border border-emerald-100">Active</span>

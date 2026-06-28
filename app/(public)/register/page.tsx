@@ -11,13 +11,13 @@ import { useToast } from '@/components/ToastProvider';
 function WarmBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FFECD2]" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#FFC078]/10 rounded-full blur-[100px]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#e6f0f1] via-[#f4f8f9] to-[#ffffff]" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#034047]/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#056a7a]/10 rounded-full blur-[100px]" />
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 rounded-full bg-[#FF9933]"
+          className="absolute w-2 h-2 rounded-full bg-[#034047]"
           style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
           animate={{
             y: [0, -20, 0],
@@ -180,7 +180,7 @@ export default function RegisterPage() {
         <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
           <WarmBackground />
           <div className="relative z-10 text-center px-12">
-            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#034047] to-[#022A2F] flex items-center justify-center mx-auto mb-6 shadow-lg">
               <span className="text-white text-3xl">🕉️</span>
             </div>
             <h2 className="font-heading text-5xl text-gray-900 mb-4 font-semibold">Almost There!</h2>
@@ -240,19 +240,19 @@ export default function RegisterPage() {
               {registeredEmail && (
                 <div className="bg-orange-50 border border-orange-100 rounded-xl p-4 mb-6">
                   <p className="text-gray-500 text-sm mb-1">Sent to</p>
-                  <p className="text-[#FF9933] font-medium">{registeredEmail}</p>
+                  <p className="text-[#034047] font-medium">{registeredEmail}</p>
                 </div>
               )}
 
               <div className="mb-6">
                 <p className="text-gray-500 text-sm">
                   Redirecting to login in{' '}
-                  <span className="text-[#FF9933] font-bold text-lg">{countdown}</span>{' '}
+                  <span className="text-[#034047] font-bold text-lg">{countdown}</span>{' '}
                   second{countdown !== 1 ? 's' : ''}...
                 </p>
                 <div className="mt-3 w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-[#FF9933] to-[#E8872E] rounded-full"
+                    className="h-full bg-gradient-to-r from-[#034047] to-[#022A2F] rounded-full"
                     initial={{ width: '100%' }}
                     animate={{ width: '0%' }}
                     transition={{ duration: 5, ease: 'linear' }}
@@ -262,7 +262,7 @@ export default function RegisterPage() {
 
               <Link
                 href="/login"
-                className="gold-button w-full justify-center text-base inline-flex"
+                className="teal-button w-full justify-center text-base inline-flex"
               >
                 Go to Login Now <ArrowRight className="w-4 h-4" />
               </Link>
@@ -302,11 +302,11 @@ export default function RegisterPage() {
         >
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#034047] to-[#022A2F] flex items-center justify-center">
               <span className="text-white font-heading font-bold text-xs">V</span>
             </div>
             <span className="font-heading text-xl font-semibold text-gray-800">
-              Vedic<span className="text-[#FF9933]"> Yoga</span>
+              Vedic<span className="text-[#034047]"> Yoga</span>
             </span>
           </div>
 
@@ -319,7 +319,7 @@ export default function RegisterPage() {
               {[1, 2].map((s) => (
                 <motion.div
                   key={s}
-                  className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-[#FF9933]' : 'bg-gray-100'}`}
+                  className={`h-1 rounded-full flex-1 ${s <= step ? 'bg-[#034047]' : 'bg-gray-100'}`}
                   initial={false}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.4 }}
@@ -369,28 +369,28 @@ export default function RegisterPage() {
                     <button
                       onClick={() => handleRoleSelect('student')}
                       className={`p-6 rounded-xl border text-center transition-all duration-300 ${role === 'student'
-                        ? 'border-[#FF9933] bg-orange-50 shadow-md'
+                        ? 'border-[#034047] bg-[#e6f0f1] shadow-md'
                         : 'border-gray-200 hover:border-gray-300'
                         }`}
                     >
-                      <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-[#FF9933]' : 'text-gray-400'}`} />
+                      <User className={`w-10 h-10 mx-auto mb-3 ${role === 'student' ? 'text-[#034047]' : 'text-gray-400'}`} />
                       <p className="font-medium text-gray-900 text-sm">I&apos;m a Student</p>
                       <p className="text-gray-500 text-xs mt-1">Find & book classes</p>
                     </button>
                     <button
                       onClick={() => handleRoleSelect('studio')}
                       className={`p-6 rounded-xl border text-center transition-all duration-300 ${role === 'studio'
-                        ? 'border-[#FF9933] bg-orange-50 shadow-md'
+                        ? 'border-[#034047] bg-[#e6f0f1] shadow-md'
                         : 'border-gray-200 hover:border-gray-300'
                         }`}
                     >
-                      <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-[#FF9933]' : 'text-gray-400'}`} />
+                      <Building2 className={`w-10 h-10 mx-auto mb-3 ${role === 'studio' ? 'text-[#034047]' : 'text-gray-400'}`} />
                       <p className="font-medium text-gray-900 text-sm">I&apos;m a Studio</p>
                       <p className="text-gray-500 text-xs mt-1">List your classes</p>
                     </button>
                   </div>
 
-                  <button onClick={goToStep2} className="gold-button w-full justify-center text-base">
+                  <button onClick={goToStep2} className="teal-button w-full justify-center text-base">
                     Continue <ArrowRight className="w-4 h-4" />
                   </button>
                 </motion.div>
@@ -406,7 +406,7 @@ export default function RegisterPage() {
                 >
                   <button
                     onClick={() => { setStep(1); setErrorMessage(''); }}
-                    className="flex items-center gap-1 text-gray-500 hover:text-[#FF9933] text-sm mb-6 transition-colors"
+                    className="flex items-center gap-1 text-gray-500 hover:text-[#034047] text-sm mb-6 transition-colors"
                   >
                     <ArrowLeft className="w-4 h-4" /> Back
                   </button>
@@ -454,7 +454,7 @@ export default function RegisterPage() {
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#034047] transition-colors"
                           >
                             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                           </button>
@@ -520,7 +520,7 @@ export default function RegisterPage() {
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#034047] transition-colors"
                           >
                             {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                           </button>
@@ -555,18 +555,18 @@ export default function RegisterPage() {
                         type="checkbox"
                         checked={agreed}
                         onChange={(e) => setAgreed(e.target.checked)}
-                        className="w-4 h-4 rounded border-gray-300 text-[#FF9933] focus:ring-[#FF9933] bg-white"
+                        className="w-4 h-4 rounded border-gray-300 text-[#034047] focus:ring-[#034047] bg-white"
                       />
                       <span className="text-gray-500 text-sm">
                         I agree to the{' '}
-                        <a href="#" className="text-[#FF9933] hover:underline">Terms & Conditions</a>
+                        <a href="#" className="text-[#034047] hover:underline">Terms & Conditions</a>
                       </span>
                     </label>
 
                     <button
                       type="submit"
                       disabled={loading || !agreed}
-                      className="gold-button w-full justify-center text-base disabled:opacity-60"
+                      className="teal-button w-full justify-center text-base disabled:opacity-60"
                     >
                       {loading ? (
                         <>
@@ -592,7 +592,7 @@ export default function RegisterPage() {
 
             <p className="text-center text-gray-500 text-sm">
               Already have an account?{' '}
-              <Link href="/login" className="text-[#FF9933] hover:underline font-medium">
+              <Link href="/login" className="text-[#034047] hover:underline font-medium">
                 Sign In
               </Link>
             </p>
@@ -610,7 +610,7 @@ export default function RegisterPage() {
             <p className="text-gray-600 mb-2">
               Verification link has been sent to:
             </p>
-            <p className="text-[#FF9933] font-semibold mb-4">
+            <p className="text-[#034047] font-semibold mb-4">
               {userEmail}
             </p>
             <p className="text-gray-400 text-sm mb-6">
@@ -618,7 +618,7 @@ export default function RegisterPage() {
             </p>
             <button
               onClick={() => window.location.href = '/login'}
-              className="w-full gold-button justify-center font-bold py-3 rounded-lg cursor-pointer">
+              className="w-full teal-button justify-center font-bold py-3 rounded-lg cursor-pointer">
               Go to Login Page →
             </button>
           </div>

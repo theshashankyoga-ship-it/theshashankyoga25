@@ -170,7 +170,7 @@ export default function StudioProfilePage() {
         <motion.div
           animate={{ rotate: 360 }}
           transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
-          className="w-10 h-10 border-2 border-[#FF9933] border-t-transparent rounded-full"
+          className="w-10 h-10 border-2 border-[#034047] border-t-transparent rounded-full"
         />
       </div>
     );
@@ -202,8 +202,8 @@ export default function StudioProfilePage() {
                 className="w-24 h-24 rounded-full object-cover border-2 border-gray-200"
               />
             ) : (
-              <div className="w-24 h-24 rounded-full bg-orange-50 flex items-center justify-center border-2 border-orange-100">
-                <Building2 className="w-10 h-10 text-orange-200" />
+              <div className="w-24 h-24 rounded-full bg-[#e6f0f1] flex items-center justify-center border-2 border-[#034047]/20">
+                <Building2 className="w-10 h-10 text-[#034047]/30" />
               </div>
             )}
             <button
@@ -247,7 +247,7 @@ export default function StudioProfilePage() {
             <button
               onClick={() => fileInputRef.current?.click()}
               disabled={uploading}
-              className="mt-3 flex items-center gap-2 text-xs font-medium text-[#FF9933] hover:text-white bg-orange-50 hover:bg-[#FF9933] px-3 py-1.5 rounded-lg transition-all"
+              className="mt-3 flex items-center gap-2 text-xs font-medium text-[#034047] hover:text-white bg-[#e6f0f1] hover:bg-[#034047] px-3 py-1.5 rounded-lg transition-all"
             >
               {uploading ? (
                 <>
@@ -378,7 +378,7 @@ export default function StudioProfilePage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="gold-button w-full justify-center text-sm font-semibold"
+          className="teal-button w-full justify-center text-sm font-semibold"
         >
           {saving ? (
             <>
@@ -405,10 +405,10 @@ export default function StudioProfilePage() {
             initial={{ opacity: 0, y: 20, height: 0 }}
             animate={{ opacity: 1, y: 0, height: 'auto' }}
             exit={{ opacity: 0, y: -10, height: 0 }}
-            className="glass-card p-6 mb-6 border-t-2 border-t-[#FF9933] overflow-hidden"
+            className="glass-card p-6 mb-6 border-t-2 border-t-[#034047] overflow-hidden"
           >
             <div className="flex items-center gap-2 mb-4">
-              <Share2 className="w-5 h-5 text-[#FF9933]" />
+              <Share2 className="w-5 h-5 text-[#034047]" />
               <h3 className="font-heading text-xl text-gray-900 font-semibold">Share Your Studio Link</h3>
             </div>
 
@@ -449,7 +449,7 @@ export default function StudioProfilePage() {
               href={profileUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 mt-4 text-[#FF9933] text-sm font-medium hover:underline"
+              className="inline-flex items-center gap-1.5 mt-4 text-[#034047] text-sm font-medium hover:underline"
             >
               <ExternalLink className="w-3.5 h-3.5" />
               Preview your public profile

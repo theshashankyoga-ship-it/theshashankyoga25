@@ -82,8 +82,8 @@ export default function StudioDashboardHome() {
             className="glass-card p-5"
           >
             <div className="flex items-center justify-between mb-3">
-              <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center">
-                <stat.icon className="w-4 h-4 text-[#FF9933]" />
+              <div className="w-8 h-8 rounded-full bg-[#e6f0f1] flex items-center justify-center">
+                <stat.icon className="w-4 h-4 text-[#034047]" />
               </div>
               <span className="text-xs text-emerald-600 font-medium bg-emerald-50 px-2 py-1 rounded-full">{stat.change}</span>
             </div>
@@ -95,10 +95,10 @@ export default function StudioDashboardHome() {
 
       {/* Quick Actions */}
       <div className="flex gap-3 mb-8">
-        <a href="/studio/classes" className="gold-button text-sm font-medium">
+        <a href="/studio/classes" className="teal-button text-sm font-medium">
           <Plus className="w-4 h-4" /> Add New Class
         </a>
-        <a href="/studio/schedule" className="outline-button text-sm font-medium">
+        <a href="/studio/schedule" className="outline-teal-button text-sm font-medium">
           <Calendar className="w-4 h-4" /> View Schedule
         </a>
       </div>
@@ -140,14 +140,14 @@ export default function StudioDashboardHome() {
           <h3 className="font-heading text-xl text-gray-900 font-semibold mb-4">Today&apos;s Classes</h3>
           <div className="space-y-4">
             {todayClasses.map((cls, i) => (
-              <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#FF9933]/30 transition-colors">
+              <div key={i} className="p-4 rounded-xl bg-gray-50 border border-gray-100 hover:border-[#034047]/30 transition-colors">
                 <h4 className="text-gray-900 font-medium text-sm">{cls.name}</h4>
                 <div className="flex items-center gap-4 mt-2 text-gray-500 text-xs font-medium">
                   <span className="flex items-center gap-1">
-                    <Clock className="w-3 h-3 text-[#FF9933]" /> {cls.time}
+                    <Clock className="w-3 h-3 text-[#034047]" /> {cls.time}
                   </span>
                   <span className="flex items-center gap-1">
-                    <User className="w-3 h-3 text-[#FF9933]" /> {cls.students} students
+                    <User className="w-3 h-3 text-[#034047]" /> {cls.students} students
                   </span>
                 </div>
               </div>

@@ -11,13 +11,13 @@ import { useToast } from '@/components/ToastProvider';
 function WarmBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-[#FFF4E6] to-[#FFECD2]" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#FF9933]/10 rounded-full blur-[120px]" />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#FFC078]/10 rounded-full blur-[100px]" />
+      <div className="absolute inset-0 bg-gradient-to-br from-[#e6f0f1] via-[#f4f8f9] to-[#ffffff]" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#034047]/10 rounded-full blur-[120px]" />
+      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-[#056a7a]/10 rounded-full blur-[100px]" />
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 rounded-full bg-[#FF9933]"
+          className="absolute w-2 h-2 rounded-full bg-[#034047]"
           style={{ left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }}
           animate={{
             y: [0, -20, 0],
@@ -38,13 +38,13 @@ function AdminBackground() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-gray-50">
       <div className="absolute inset-0 bg-gradient-to-br from-[#FFF8F0] via-gray-50 to-gray-100 opacity-80" />
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22%23FF9933%22 fill-opacity=%220.03%22%3E%3Ccircle cx=%221%22 cy=%221%22 r=%221%22/%3E%3C/g%3E%3C/svg%3E')]" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF9933]/5 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FF9933]/5 rounded-full blur-[100px]" />
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22%23034047%22 fill-opacity=%220.03%22%3E%3Ccircle cx=%221%22 cy=%221%22 r=%221%22/%3E%3C/g%3E%3C/svg%3E')]" />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#034047]/5 rounded-full blur-[100px]" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#034047]/5 rounded-full blur-[100px]" />
       {[...Array(6)].map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-1 h-1 rounded-full bg-[#FF9933]"
+          className="absolute w-1 h-1 rounded-full bg-[#034047]"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -68,7 +68,7 @@ export default function LoginPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-[#FAFAFA]">
-        <Loader2 className="w-8 h-8 text-[#FF9933] animate-spin" />
+        <Loader2 className="w-8 h-8 text-[#034047] animate-spin" />
       </div>
     }>
       <LoginContent />
@@ -135,7 +135,7 @@ function LoginContent() {
           <AdminBackground />
           <div className="relative z-10 text-center px-12">
             <div className="w-20 h-20 rounded-2xl bg-white shadow-xl flex items-center justify-center mx-auto mb-8 border border-gray-100 transform rotate-3">
-              <Shield className="w-10 h-10 text-[#FF9933] -rotate-3" />
+              <Shield className="w-10 h-10 text-[#034047] -rotate-3" />
             </div>
             <h2 className="font-heading text-5xl text-gray-900 mb-4 font-bold tracking-tight">Admin Portal</h2>
             <p className="text-gray-500 text-lg font-medium">
@@ -153,11 +153,11 @@ function LoginContent() {
           >
             {/* Mobile logo */}
             <div className="lg:hidden flex items-center gap-2 mb-8">
-              <div className="w-10 h-10 rounded-xl bg-[#FFF4E6] flex items-center justify-center">
-                <Shield className="w-5 h-5 text-[#FF9933]" />
+              <div className="w-10 h-10 rounded-xl bg-[#e6f0f1] flex items-center justify-center">
+                <Shield className="w-5 h-5 text-[#034047]" />
               </div>
               <span className="font-heading text-2xl text-gray-900 font-bold">
-                Admin<span className="text-[#FF9933]">Portal</span>
+                Admin<span className="text-[#034047]">Portal</span>
               </span>
             </div>
 
@@ -192,7 +192,7 @@ function LoginContent() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#034047] transition-colors"
                 >
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
@@ -201,7 +201,7 @@ function LoginContent() {
               <button
                 type="submit"
                 disabled={loading}
-                className="gold-button w-full justify-center text-base py-3.5 shadow-md hover:shadow-lg disabled:opacity-60 disabled:hover:shadow-md"
+                className="teal-button w-full justify-center text-base py-3.5 shadow-md hover:shadow-lg disabled:opacity-60 disabled:hover:shadow-md"
               >
                 {loading ? (
                   <Loader2 className="w-5 h-5 animate-spin" />
@@ -233,7 +233,7 @@ function LoginContent() {
       <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center">
         <WarmBackground />
         <div className="relative z-10 text-center px-12">
-          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center mx-auto mb-6 shadow-lg">
+          <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#034047] to-[#022A2F] flex items-center justify-center mx-auto mb-6 shadow-lg">
             <span className="text-white text-3xl">🕉️</span>
           </div>
           <h2 className="font-heading text-5xl text-gray-900 mb-4 font-semibold">Welcome Back</h2>
@@ -252,11 +252,11 @@ function LoginContent() {
         >
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-2 mb-8">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#FF9933] to-[#E8872E] flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#034047] to-[#022A2F] flex items-center justify-center">
               <span className="text-white font-heading font-bold text-xs">V</span>
             </div>
             <span className="font-heading text-xl font-semibold text-gray-800">
-              Vedic<span className="text-[#FF9933]"> Yoga</span>
+              Vedic<span className="text-[#034047]"> Yoga</span>
             </span>
           </div>
 
@@ -270,7 +270,7 @@ function LoginContent() {
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`flex-1 py-2.5 rounded-full text-sm font-medium transition-all duration-300 capitalize ${activeTab === tab
-                  ? 'bg-[#FF9933] text-white shadow-sm'
+                  ? 'bg-[#034047] text-white shadow-sm'
                   : 'text-gray-500 hover:text-gray-700'
                   }`}
               >
@@ -305,14 +305,14 @@ function LoginContent() {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#FF9933] transition-colors"
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-[#034047] transition-colors"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
             </div>
 
             <div className="flex justify-end">
-              <button type="button" className="text-[#FF9933] text-sm hover:underline">
+              <button type="button" className="text-[#034047] text-sm hover:underline">
                 Forgot Password?
               </button>
             </div>
@@ -320,7 +320,7 @@ function LoginContent() {
             <button
               type="submit"
               disabled={loading}
-              className="gold-button w-full justify-center text-base disabled:opacity-60"
+              className="teal-button w-full justify-center text-base disabled:opacity-60"
             >
               {loading ? (
                 <Loader2 className="w-5 h-5 animate-spin" />
@@ -338,7 +338,7 @@ function LoginContent() {
 
           <p className="text-center text-gray-500 text-sm">
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="text-[#FF9933] hover:underline font-medium">
+            <Link href="/register" className="text-[#034047] hover:underline font-medium">
               Register
             </Link>
           </p>
