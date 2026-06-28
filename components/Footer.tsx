@@ -62,7 +62,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="text-white/60 text-sm leading-relaxed mb-6 max-w-sm">
-              Preserving ancient wisdom. Empowering modern yoga practitioners worldwide with internationally recognized certification programs.
+              Founded by Shashank Gupta. Preserving ancient wisdom and empowering modern yoga practitioners worldwide with internationally recognized certification programs.
             </p>
 
             {/* Newsletter */}
@@ -102,14 +102,14 @@ export default function Footer() {
 
         {/* Contact Row */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10">
-          <a href="mailto:info@vedicyogaalliance.com" className="flex items-center gap-2 py-2 text-white/50 text-sm hover:text-[#E6862A] focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-colors">
-            <Mail className="w-4 h-4" /> info@vedicyogaalliance.com
+          <a href="mailto:Yogashashank@gmail.com" className="flex items-center gap-2 py-2 text-white/50 text-sm hover:text-[#E6862A] focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-colors">
+            <Mail className="w-4 h-4 shrink-0" /> Yogashashank@gmail.com
           </a>
-          <a href="tel:+911234567890" className="flex items-center gap-2 py-2 text-white/50 text-sm hover:text-[#E6862A] focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-colors">
-            <Phone className="w-4 h-4" /> +91 123 456 7890
+          <a href="tel:+918470030016" className="flex items-center gap-2 py-2 text-white/50 text-sm hover:text-[#E6862A] focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-colors">
+            <Phone className="w-4 h-4 shrink-0" /> +91 84700 30016
           </a>
-          <span className="flex items-center gap-2 py-2 text-white/50 text-sm">
-            <MapPin className="w-4 h-4" /> Rishikesh, India
+          <span className="flex items-start gap-2 py-2 text-white/50 text-sm max-w-xs">
+            <MapPin className="w-4 h-4 shrink-0 mt-0.5" /> <span className="leading-tight">192, Indira Colony, Sector 52, Gurgaon, Haryana, India</span>
           </span>
         </div>
       </div>

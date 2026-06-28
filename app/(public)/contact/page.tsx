@@ -13,22 +13,33 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Visit Us',
-    details: ['42 Serenity Lane, Wellness District', 'New Delhi, India 110001'],
+    details: [
+      { text: '192, Indira Colony, Sector 52' },
+      { text: 'Gurgaon, Haryana, India' }
+    ],
   },
   {
     icon: Phone,
     title: 'Call Us',
-    details: ['+91 98765 43210', '+91 11 2345 6789'],
+    details: [
+      { text: 'Shashank Gupta (Owner)' },
+      { text: '+91 84700 30016', href: 'tel:+918470030016' }
+    ],
   },
   {
     icon: Mail,
     title: 'Email Us',
-    details: ['hello@zenflow.yoga', 'support@zenflow.yoga'],
+    details: [
+      { text: 'Yogashashank@gmail.com', href: 'mailto:Yogashashank@gmail.com' }
+    ],
   },
   {
     icon: Clock,
     title: 'Working Hours',
-    details: ['Mon - Sat: 6:00 AM – 9:00 PM', 'Sunday: 7:00 AM – 2:00 PM'],
+    details: [
+      { text: 'Mon - Sat: 6:00 AM – 9:00 PM' },
+      { text: 'Sunday: 7:00 AM – 2:00 PM' }
+    ],
   },
 ];
 
@@ -189,7 +200,11 @@ export default function ContactPage() {
                   <info.icon className="w-6 h-6 text-[#FF9933] mb-3" />
                   <h4 className="font-heading text-lg text-gray-900 mb-2 font-medium">{info.title}</h4>
                   {info.details.map((d, j) => (
-                    <p key={j} className="text-gray-500 text-sm">{d}</p>
+                    d.href ? (
+                      <a key={j} href={d.href} className="block text-gray-500 text-sm hover:text-[#FF9933] transition-colors">{d.text}</a>
+                    ) : (
+                      <p key={j} className="text-gray-500 text-sm">{d.text}</p>
+                    )
                   ))}
                 </motion.div>
               ))}
@@ -201,7 +216,7 @@ export default function ContactPage() {
                 <div className="text-center">
                   <MapPin className="w-8 h-8 text-[#FF9933] mx-auto mb-2" />
                   <p className="text-gray-400 text-sm">Interactive map</p>
-                  <p className="text-gray-400 text-xs mt-1">42 Serenity Lane, New Delhi</p>
+                  <p className="text-gray-400 text-xs mt-1">192, Indira Colony, Sector 52, Gurgaon</p>
                 </div>
               </div>
             </div>

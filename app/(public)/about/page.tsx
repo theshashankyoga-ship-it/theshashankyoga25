@@ -89,7 +89,7 @@ export default function AboutPage() {
             </h2>
             <div className="space-y-4 text-gray-600 leading-relaxed">
               <p>
-                Vedic Yoga was born from a simple belief: that yoga should be accessible,
+                Founded by Shashank Gupta, Vedic Yoga was born from a simple belief: that yoga should be accessible,
                 authentic, and transformative. What started as a single studio in the
                 heart of New Delhi has evolved into a platform connecting yoga lovers
                 with the finest instructors across India.
