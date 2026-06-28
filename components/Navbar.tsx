@@ -48,8 +48,8 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="relative w-12 h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+          <Link href="/" className="flex items-center group">
+            <div className="relative w-24 h-24 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image 
                 src={logoPic} 
                 alt="Vedic Yoga Logo" 
@@ -58,9 +58,6 @@ export default function Navbar() {
                 priority
               />
             </div>
-            <span className="font-heading text-2xl font-bold tracking-tight text-[#1F1F1F]">
-              Vedic<span className="text-[#034047]"> Yoga</span>
-            </span>
           </Link>
 
           {/* Desktop Links */}
