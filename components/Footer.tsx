@@ -40,9 +40,16 @@ export default function Footer() {
   const [email, setEmail] = useState('');
 
   return (
-    <footer className="bg-[#202020] text-white">
+    <footer className="bg-gradient-to-b from-[#034047] to-[#01181b] text-white relative border-t border-[#034047]">
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='1'%3E%3Ccircle cx='1' cy='1' r='1'/%3E%3C/g%3E%3C/svg%3E\")" }}
+      />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#E6862A]/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-white/5 rounded-full blur-[120px] pointer-events-none" />
+
       {/* Main Footer */}
-      <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 pt-16 pb-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
           {/* Brand & Newsletter */}
           <div className="lg:col-span-2">
@@ -108,7 +115,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/10">
+      <div className="relative z-10 border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-white/40 text-xs">
             © {new Date().getFullYear()} Vedic Yoga Alliance. All rights reserved.
