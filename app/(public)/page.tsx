@@ -8,7 +8,7 @@ import WhyChoose from '@/components/home/WhyChoose';
 import StatsSection from '@/components/home/StatsSection';
 import WhyYoga from '@/components/home/WhyYoga';
 import GlobalCommunity from '@/components/home/GlobalCommunity';
-import FinalCTA from '@/components/home/FinalCTA';
+
 
 export default function HomePage() {
   return (
@@ -24,7 +24,7 @@ export default function HomePage() {
       <StatsSection />
       <WhyYoga />
       <GlobalCommunity />
-      <FinalCTA />
+
     </motion.div>
   );
 }
