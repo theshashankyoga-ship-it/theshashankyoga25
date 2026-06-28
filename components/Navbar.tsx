@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import logoPic from '@/logo/ChatGPT Image Jun 28, 2026, 12_53_05 PM.png';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -50,7 +51,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className="relative w-12 h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image 
-                src="/logo.png" 
+                src={logoPic} 
                 alt="Vedic Yoga Logo" 
                 fill
                 className="object-contain drop-shadow-md"
