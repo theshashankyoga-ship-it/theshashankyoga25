@@ -9,7 +9,7 @@ function TrustBadge({ icon: Icon, label }: { icon: React.ElementType; label: str
   return (
     <div className="flex items-center gap-2 text-[#034047]/80">
       <div className="w-8 h-8 rounded-full bg-[#034047]/10 flex items-center justify-center">
-        <Icon className="w-4 h-4 text-[#034047]" />
+        <Icon className="w-5 h-5 text-[#034047]" />
       </div>
       <span className="text-xs sm:text-sm font-medium">{label}</span>
     </div>
@@ -28,8 +28,8 @@ export default function HeroSection() {
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover object-center md:object-center"
-            style={{ objectPosition: '60% center', filter: 'brightness(1.1)' }}
+            className="absolute inset-0 w-full h-full object-cover object-center md:object-[60%_center]"
+            style={{ filter: 'brightness(1.15)' }}
           >
             <source
               src="https://videos.pexels.com/video-files/6870454/6870454-uhd_2560_1440_30fps.mp4"
@@ -41,7 +41,7 @@ export default function HeroSection() {
           <div
             className="absolute inset-0 md:hidden"
             style={{
-              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 45%, rgba(255, 255, 255, 0.3) 100%)',
+              background: 'rgba(255, 255, 255, 0.25)',
             }}
           />
           
@@ -73,7 +73,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-heading text-4xl sm:text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-[#034047] leading-[1.15] md:leading-[1.12] mb-4 md:mb-6"
+              className="font-heading text-[32px] leading-[1.25] sm:text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-[#034047] md:leading-[1.12] mb-4 md:mb-6"
             >
               Transform Your Passion for Yoga into a{' '}
               <span className="text-[#E89D78]">Globally Recognized Career</span>
@@ -92,12 +92,12 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col sm:flex-row flex-wrap gap-3 mb-8 md:mb-10 w-full sm:w-auto items-center sm:items-start"
+              className="flex flex-col sm:flex-row flex-wrap gap-4 sm:gap-3 mb-8 md:mb-10 w-full sm:w-auto items-center sm:items-start"
             >
-              <Link href="/register" className="inline-flex items-center gap-2 bg-[#034047] text-white font-semibold w-full sm:w-auto justify-center text-sm sm:text-base py-3.5 px-7 rounded-full hover:bg-[#022a2e] transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+              <Link href="/register" className="inline-flex items-center gap-2 bg-[#034047] text-white font-semibold w-full sm:w-auto justify-center text-sm sm:text-base py-3.5 px-7 rounded-full hover:bg-[#022a2e] transition-all shadow-md hover:shadow-xl hover:-translate-y-0.5">
                 Become Certified <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/classes" className="inline-flex items-center justify-center w-full sm:w-auto gap-2 border-2 border-[#034047] text-[#034047] font-semibold py-3.5 px-7 rounded-full hover:bg-[#034047]/5 transition-all text-sm sm:text-base bg-white/50 backdrop-blur-sm">
+              <Link href="/classes" className="inline-flex items-center justify-center w-full sm:w-auto gap-2 border-2 border-[#034047] text-[#034047] font-semibold py-3.5 px-7 rounded-full hover:bg-[#034047]/5 transition-all text-sm sm:text-base bg-white/50 backdrop-blur-sm shadow-md hover:shadow-lg">
                 Explore Programs
               </Link>
             </motion.div>
@@ -106,7 +106,7 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-4 md:gap-6"
+              className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center sm:justify-start gap-3 sm:gap-4 md:gap-6"
             >
               <TrustBadge icon={Shield} label="Certified & Accredited" />
               <TrustBadge icon={Globe} label="Global Recognition" />

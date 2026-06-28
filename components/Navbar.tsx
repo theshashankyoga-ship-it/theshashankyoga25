@@ -47,7 +47,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-full bg-[#034047] flex items-center justify-center shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-[#034047] flex items-center justify-center shadow-sm">
               <span className="text-white font-heading font-bold text-sm">V</span>
             </div>
             <span className="font-heading text-lg font-semibold text-[#1F1F1F]">
@@ -92,7 +92,7 @@ export default function Navbar() {
             aria-label={isOpen ? "Close menu" : "Open menu"}
             aria-expanded={isOpen}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
           </button>
         </div>
       </motion.nav>
