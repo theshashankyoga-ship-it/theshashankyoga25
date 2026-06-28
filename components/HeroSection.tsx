@@ -56,7 +56,7 @@ export default function HeroSection() {
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center pt-20 md:pt-24 pb-16 md:pb-20">
           {/* Left Content */}
-          <div className="mt-8 md:mt-0 text-center sm:text-left">
+          <div className="mt-8 md:mt-0 text-center sm:text-left flex flex-col items-center sm:items-start w-full">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="font-heading text-[32px] leading-[1.25] sm:text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-[#034047] md:leading-[1.12] mb-4 md:mb-6"
+              className="font-heading text-[32px] leading-[1.25] sm:text-4xl md:text-5xl lg:text-[3.4rem] font-bold text-[#034047] md:leading-[1.12] mb-4 md:mb-6 text-center sm:text-left"
             >
               Transform Your Passion for Yoga into a{' '}
               <span className="text-[#E89D78]">Globally Recognized Career</span>
@@ -83,7 +83,7 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.25 }}
-              className="text-[#034047]/80 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed mb-6 md:mb-8 mx-auto sm:mx-0 font-medium"
+              className="text-[#034047]/80 text-sm sm:text-base md:text-lg max-w-xl leading-relaxed mb-6 md:mb-8 mx-auto sm:mx-0 font-medium text-center sm:text-left"
             >
               Join professional yoga teacher training and certification programs designed for aspiring and experienced yoga practitioners.
             </motion.p>
@@ -106,7 +106,7 @@ export default function HeroSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
-              className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center sm:justify-start gap-3 sm:gap-4 md:gap-6"
+              className="flex flex-wrap justify-center sm:justify-start gap-4 md:gap-6 w-full"
             >
               <TrustBadge icon={Shield} label="Certified & Accredited" />
               <TrustBadge icon={Globe} label="Global Recognition" />

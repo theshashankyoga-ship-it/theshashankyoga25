@@ -33,11 +33,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="antialiased">
-      <body className="font-body bg-vedic-bg text-vedic-dark min-h-screen">
+    <html lang="en" className="antialiased overflow-x-hidden">
+      <body className="font-body bg-vedic-bg text-vedic-dark min-h-screen overflow-x-hidden">
         <ToastProvider>
           <CustomCursor />
-          {children}
+          <div className="overflow-x-hidden w-full flex flex-col min-h-screen relative">
+            {children}
+          </div>
         </ToastProvider>
       </body>
     </html>
