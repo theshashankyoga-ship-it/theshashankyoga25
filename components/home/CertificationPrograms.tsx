@@ -56,7 +56,7 @@ export default function CertificationPrograms() {
           className="text-center mb-14"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           <motion.span variants={itemVariants} className="inline-block text-[#034047] text-sm tracking-[0.2em] uppercase font-semibold">
@@ -74,14 +74,14 @@ export default function CertificationPrograms() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           {programs.map((prog) => (
             <motion.div
               key={prog.level}
               variants={itemVariants}
-              className="glass-card group flex flex-col hover:-translate-y-1 transition-transform duration-300"
+              className="glass-card group flex flex-col hover:-translate-y-2 hover:shadow-[0_20px_40px_rgb(3,64,71,0.08)] transition-all duration-400"
             >
               {/* Header */}
               <div className="bg-[#034047] rounded-t-[1.5rem] px-5 py-6 text-white text-center">
@@ -114,7 +114,7 @@ export default function CertificationPrograms() {
 
                 <Link
                   href="/register"
-                  className="w-full flex items-center justify-center gap-2 text-sm font-semibold py-3 rounded-full bg-white border-2 border-[#034047] text-[#034047] hover:bg-[#034047] hover:text-white transition-all duration-300"
+                  className="w-full min-h-[48px] flex items-center justify-center gap-2 text-sm font-semibold py-3 rounded-full bg-white border-2 border-[#034047] text-[#034047] hover:bg-[#034047] hover:text-white focus-visible:ring-2 focus-visible:ring-[#034047] focus-visible:ring-offset-2 outline-none transition-all duration-300"
                 >
                   Apply Now <ArrowRight className="w-4 h-4" />
                 </Link>

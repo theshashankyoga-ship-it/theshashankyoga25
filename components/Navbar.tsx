@@ -87,9 +87,10 @@ export default function Navbar() {
 
           {/* Mobile Menu Toggle */}
           <button
-            className="md:hidden text-gray-700 p-2"
+            className="md:hidden text-gray-700 p-2 flex items-center justify-center min-h-[48px] min-w-[48px] rounded-full focus-visible:ring-2 focus-visible:ring-[#034047] outline-none"
             onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -125,18 +126,18 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
               ))}
-              <div className="flex flex-col gap-4 mt-8">
+              <div className="flex flex-col gap-4 mt-8 w-full px-8 max-w-sm">
                 <Link
                   href="/login"
                   onClick={() => setIsOpen(false)}
-                  className="outline-teal-button text-center"
+                  className="outline-teal-button text-center w-full min-h-[48px]"
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
                   onClick={() => setIsOpen(false)}
-                  className="teal-button text-center"
+                  className="teal-button text-center w-full min-h-[48px]"
                 >
                   Register
                 </Link>

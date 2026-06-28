@@ -48,7 +48,7 @@ export default function TeacherTraining() {
           className="text-center mb-14"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
         >
           <span className="text-[#E6862A] text-sm tracking-[0.2em] uppercase font-semibold">Training Levels</span>
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1F1F1F] mt-3 font-bold">
@@ -65,9 +65,9 @@ export default function TeacherTraining() {
               key={lvl.badge}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1 }}
-              className={`relative bg-white rounded-2xl border-t-4 ${lvl.accent} shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 p-6 flex flex-col`}
+              className={`relative bg-white rounded-[24px] border-t-4 ${lvl.accent} shadow-card hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-400 hover:-translate-y-2 p-6 flex flex-col`}
             >
               {lvl.popular && (
                 <span className="absolute -top-3 right-4 bg-[#E6862A] text-white text-[10px] font-bold px-3 py-1 rounded-full tracking-wider uppercase">
@@ -88,7 +88,7 @@ export default function TeacherTraining() {
                 ))}
               </ul>
 
-              <Link href="/register" className="inline-flex items-center gap-1 text-[#E6862A] text-sm font-semibold hover:gap-2 transition-all">
+              <Link href="/register" className="inline-flex items-center gap-1 text-[#E6862A] text-sm font-semibold hover:gap-2 py-2 focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-all">
                 Learn More <ArrowRight className="w-4 h-4" />
               </Link>
             </motion.div>

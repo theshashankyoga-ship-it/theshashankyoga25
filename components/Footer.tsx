@@ -90,7 +90,7 @@ export default function Footer() {
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.name}>
-                    <Link href={link.href} className="text-white/50 text-sm hover:text-[#E6862A] transition-colors duration-200">
+                    <Link href={link.href} className="inline-block py-1 text-white/50 text-sm hover:text-[#E6862A] focus-visible:text-[#E6862A] focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-colors duration-200">
                       {link.name}
                     </Link>
                   </li>
@@ -102,13 +102,13 @@ export default function Footer() {
 
         {/* Contact Row */}
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-10">
-          <a href="mailto:info@vedicyogaalliance.com" className="flex items-center gap-2 text-white/50 text-sm hover:text-[#E6862A] transition-colors">
+          <a href="mailto:info@vedicyogaalliance.com" className="flex items-center gap-2 py-2 text-white/50 text-sm hover:text-[#E6862A] focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-colors">
             <Mail className="w-4 h-4" /> info@vedicyogaalliance.com
           </a>
-          <a href="tel:+911234567890" className="flex items-center gap-2 text-white/50 text-sm hover:text-[#E6862A] transition-colors">
+          <a href="tel:+911234567890" className="flex items-center gap-2 py-2 text-white/50 text-sm hover:text-[#E6862A] focus-visible:ring-2 focus-visible:ring-[#E6862A] rounded outline-none transition-colors">
             <Phone className="w-4 h-4" /> +91 123 456 7890
           </a>
-          <span className="flex items-center gap-2 text-white/50 text-sm">
+          <span className="flex items-center gap-2 py-2 text-white/50 text-sm">
             <MapPin className="w-4 h-4" /> Rishikesh, India
           </span>
         </div>
@@ -126,7 +126,7 @@ export default function Footer() {
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/50 hover:bg-[#E6862A] hover:text-white transition-all duration-200"
+                className="w-10 h-10 sm:w-8 sm:h-8 rounded-full bg-white/10 flex items-center justify-center text-white/50 hover:bg-[#E6862A] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E6862A] outline-none transition-all duration-200"
               >
                 <s.icon className="w-3.5 h-3.5" />
               </a>

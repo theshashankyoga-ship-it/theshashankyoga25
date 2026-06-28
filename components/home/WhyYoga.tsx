@@ -120,12 +120,12 @@ export default function WhyYoga() {
           className="flex justify-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, margin: "-100px" }}
           transition={{ delay: 0.6, duration: 0.5 }}
         >
           <Link 
             href="/classes" 
-            className="inline-flex items-center gap-3 bg-[#034047] text-white px-7 py-3.5 rounded-full font-semibold text-lg hover:bg-[#023136] transition-colors"
+            className="inline-flex items-center gap-3 bg-[#034047] text-white min-h-[48px] px-7 py-3.5 rounded-full font-semibold text-lg hover:bg-[#023136] focus-visible:ring-2 focus-visible:ring-[#034047] focus-visible:ring-offset-2 outline-none transition-colors"
           >
             Learn About Yoga
             <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">

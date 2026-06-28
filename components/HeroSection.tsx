@@ -37,11 +37,11 @@ export default function HeroSection() {
             />
           </video>
           
-          {/* Lightweight light overlay for mobile readability */}
+          {/* Enhanced mobile overlay for perfect readability while keeping video visible at the bottom */}
           <div
             className="absolute inset-0 md:hidden"
             style={{
-              background: 'rgba(255, 255, 255, 0.7)',
+              background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 45%, rgba(255, 255, 255, 0.3) 100%)',
             }}
           />
           

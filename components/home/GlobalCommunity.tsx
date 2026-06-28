@@ -44,7 +44,7 @@ export default function GlobalCommunity() {
           className="text-center mb-16"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           <motion.span variants={itemVariants} className="inline-block text-[#034047] text-sm tracking-[0.25em] uppercase font-bold mb-3">
@@ -97,7 +97,7 @@ export default function GlobalCommunity() {
           className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 max-w-5xl mx-auto"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           {highlights.map((h) => (

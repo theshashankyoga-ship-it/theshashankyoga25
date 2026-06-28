@@ -18,7 +18,7 @@ export default function FinalCTA() {
         className="relative z-10 max-w-3xl mx-auto text-center px-6"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        viewport={{ once: true, margin: "-100px" }}
       >
         <div className="inline-flex items-center gap-2 bg-white/20 rounded-full px-4 py-1.5 mb-6">
           <Sparkles className="w-4 h-4 text-white" />
@@ -34,10 +34,10 @@ export default function FinalCTA() {
         </p>
 
         <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/register" className="inline-flex items-center gap-2 bg-white text-[#E6862A] font-bold px-8 py-4 rounded-full text-sm sm:text-base hover:shadow-xl hover:-translate-y-0.5 transition-all">
+          <Link href="/register" className="inline-flex items-center justify-center gap-2 bg-white text-[#E6862A] font-bold min-h-[48px] px-8 py-4 rounded-full text-sm sm:text-base hover:shadow-xl hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E6862A] outline-none transition-all">
             Register Now <ArrowRight className="w-4 h-4" />
           </Link>
-          <Link href="/contact" className="inline-flex items-center gap-2 border-2 border-white text-white font-semibold px-8 py-4 rounded-full text-sm sm:text-base hover:bg-white/10 transition-all">
+          <Link href="/contact" className="inline-flex items-center justify-center gap-2 border-2 border-white text-white font-semibold min-h-[48px] px-8 py-4 rounded-full text-sm sm:text-base hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E6862A] outline-none transition-all">
             Contact Us
           </Link>
         </div>

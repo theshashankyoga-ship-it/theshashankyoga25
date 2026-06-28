@@ -42,7 +42,7 @@
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -58,10 +58,17 @@
     font-weight: 600;
     padding: 0.75rem 2rem;
     border-radius: 50px;
+    min-height: 48px;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
+    outline: none;
+  }
+
+  .gold-button:focus-visible {
+    box-shadow: 0 0 0 4px rgba(230, 134, 42, 0.3);
   }
 
   .gold-button:hover {
@@ -76,10 +83,17 @@
     font-weight: 600;
     padding: 0.75rem 2rem;
     border-radius: 50px;
+    min-height: 48px;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
+    outline: none;
+  }
+
+  .teal-button:focus-visible {
+    box-shadow: 0 0 0 4px rgba(3, 64, 71, 0.3);
   }
 
   .teal-button:hover {
@@ -94,11 +108,18 @@
     font-weight: 500;
     padding: 0.75rem 2rem;
     border-radius: 50px;
+    min-height: 48px;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     background: #FFFFFF;
+    outline: none;
+  }
+
+  .outline-button:focus-visible {
+    box-shadow: 0 0 0 4px rgba(31, 31, 31, 0.2);
   }
 
   .outline-button:hover {
@@ -112,11 +133,18 @@
     font-weight: 500;
     padding: 0.75rem 2rem;
     border-radius: 50px;
+    min-height: 48px;
     transition: all 0.3s ease;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     background: #FFFFFF;
+    outline: none;
+  }
+
+  .outline-teal-button:focus-visible {
+    box-shadow: 0 0 0 4px rgba(3, 64, 71, 0.3);
   }
 
   .outline-teal-button:hover {
@@ -148,6 +176,7 @@
     border-radius: 0.75rem;
     color: #1F1F1F;
     font-size: 1rem;
+    min-height: 52px;
     transition: all 0.3s ease;
     outline: none;
   }

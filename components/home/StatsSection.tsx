@@ -31,7 +31,7 @@ function StatItem({ label, value, suffix, index }: { label: string; value: numbe
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ delay: index * 0.15 }}
       className="text-center"
     >

@@ -39,7 +39,7 @@ export default function BlogResources() {
   return (
     <section className="section-padding bg-[#F5F5F5]" id="blog">
       <div className="max-w-7xl mx-auto">
-        <motion.div className="text-center mb-14" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+        <motion.div className="text-center mb-14" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-100px" }}>
           <span className="text-[#E6862A] text-sm tracking-[0.2em] uppercase font-semibold">Knowledge Hub</span>
           <h2 className="font-heading text-3xl sm:text-4xl md:text-5xl text-[#1F1F1F] mt-3 font-bold">Blog & Resources</h2>
           <p className="text-[#666666] mt-4 max-w-2xl mx-auto">Insights, guides, and resources to support your yoga journey.</p>
@@ -51,9 +51,9 @@ export default function BlogResources() {
               key={a.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: "-100px" }}
               transition={{ delay: i * 0.1 }}
-              className="group bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-card-hover hover:-translate-y-1 transition-all duration-300"
+              className="group bg-white rounded-3xl border border-gray-100 overflow-hidden hover:shadow-[0_20px_40px_rgb(230,134,42,0.08)] hover:-translate-y-2 transition-all duration-400"
             >
               {/* Thumbnail */}
               <div className={`h-40 bg-gradient-to-br ${a.gradient} flex items-center justify-center`}>
@@ -76,7 +76,7 @@ export default function BlogResources() {
           ))}
         </div>
 
-        <motion.div className="text-center mt-10" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}>
+        <motion.div className="text-center mt-10" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-100px" }}>
           <Link href="/about" className="outline-button text-sm">
             View All Articles <ArrowRight className="w-4 h-4" />
           </Link>

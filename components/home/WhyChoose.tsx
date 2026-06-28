@@ -33,7 +33,7 @@ export default function WhyChoose() {
           className="text-center mb-16"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           <motion.span variants={itemVariants} className="inline-block text-[#034047] text-sm tracking-[0.25em] uppercase font-bold mb-3">
@@ -51,7 +51,7 @@ export default function WhyChoose() {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
           initial="hidden"
           whileInView="show"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-100px" }}
           variants={containerVariants}
         >
           {features.map((f) => (
